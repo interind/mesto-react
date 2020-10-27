@@ -1,11 +1,12 @@
 import React from 'react';
 import '../styles/index.css';
+import headerLogo from '../images/header/logoFon.svg';
 
 function App() {
   return (
     <div className="page">
     <header className="header page__header">
-      <img className="logo header__logo" src="./images/header/logoFon.svg" alt="Логотип"/>
+      <img className="logo header__logo" src={headerLogo} alt="Логотип"/>
     </header>
     <section className="profile page__profile">
       <img className="profile__avatar" src="./images/profile/avatar/image_.jpg" alt="Аватарка"/>
