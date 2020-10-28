@@ -1,4 +1,5 @@
 import React from 'react';
+import AvatarImage from '../images/profile/avatar/image_.jpg';
 
 function Main() {
   return (
@@ -6,7 +7,7 @@ function Main() {
       <section className='profile page__profile'>
         <img
           className='profile__avatar'
-          src='./images/profile/avatar/image_.jpg'
+          src={AvatarImage}
           alt='Аватарка'
         />
         <div className='profile__info'>
