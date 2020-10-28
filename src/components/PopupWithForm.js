@@ -1,6 +1,11 @@
 import React from 'react';
+import '../styles/index.css';
 
-function Popups() {
+function PopupWithForm() {
+  const closePopupClick = () => {
+    document.querySelector('.popup_opened').classList.remove('popup_opened');
+  };
+
   return (
     <>
       <div className='popup popup_type_profile'>
@@ -47,6 +52,7 @@ function Popups() {
             className='popup__button-close'
             type='button'
             title='закрыть'
+            onClick={closePopupClick}
           ></button>
         </form>
       </div>
@@ -92,6 +98,7 @@ function Popups() {
             className='popup__button-close'
             type='button'
             title='закрыть'
+            onClick={closePopupClick}
           ></button>
         </form>
       </div>
@@ -124,6 +131,7 @@ function Popups() {
             className='popup__button-close'
             type='button'
             title='закрыть'
+            onClick={closePopupClick}
           ></button>
         </form>
       </div>
@@ -144,19 +152,8 @@ function Popups() {
           ></button>
         </form>
       </div>
-      <div className='popup popup_type_zoom'>
-        <div className='popup__zoom'>
-          <img className='popup__pic' src='#' alt='#' />
-          <span className='popup__place-pic'></span>
-          <button
-            className='popup__button-close'
-            type='button'
-            title='закрыть'
-          ></button>
-        </div>
-      </div>
     </>
   );
 }
 
-export default Popups;
+export default PopupWithForm;
