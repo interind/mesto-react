@@ -13,6 +13,7 @@ function Main() {
   };
 
   const handleAddPlaceClick = () => {
+    
     document.querySelector('.popup_type_card').classList.add('popup_opened');
   };
   return (
