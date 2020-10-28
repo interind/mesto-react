@@ -61,7 +61,7 @@ function Main() {
           </div>
         </div>
       </div>
-      <PopupWithForm/>
+      <PopupWithForm />
       <div className='popup popup_type_zoom'>
         <div className='popup__zoom'>
           <img className='popup__pic' src='#' alt='#' />
