@@ -1,6 +1,7 @@
-export const infoPopups = [
+export let infoPopups = [
   {
     id: 1,
+    isOpen: false,
     name: 'profile',
     typeName: 'profile',
     form: 'formProfile',
@@ -10,15 +11,15 @@ export const infoPopups = [
         id='input-name'
         type='text'
         name='name'
-        minlength='2'
-        maxlength='40'
+        minLength='2'
+        maxLength='40'
         placeholder='Имя'
         required
       />
     ),
     errorOne: (
       <div className='popup__error'>
-        <span class='popup__input-error' id='input-name-error'></span>
+        <span className='popup__input-error' id='input-name-error'></span>
       </div>
     ),
     inputTwo: (
@@ -27,15 +28,15 @@ export const infoPopups = [
         id='input-job'
         type='text'
         name='job'
-        minlength='2'
-        maxlength='200'
+        minLength='2'
+        maxLength='200'
         placeholder='Профессия'
         required
       />
     ),
     errorTwo: (
       <div className='popup__error'>
-        <span class='popup__input-error' id='input-job-error'></span>
+        <span className='popup__input-error' id='input-job-error'></span>
       </div>
     ),
     title: 'Редактировать форму',
@@ -43,6 +44,7 @@ export const infoPopups = [
   },
   {
     id: 2,
+    isOpen: false,
     name: 'card',
     typeName: 'card',
     form: 'formCard',
@@ -53,14 +55,14 @@ export const infoPopups = [
         placeholder='Название'
         id='input-place'
         name='place'
-        minlength='1'
-        maxlength='30'
+        minLength='1'
+        maxLength='30'
         required
       />
     ),
     errorOne: (
       <div className='popup__error'>
-        <span class='popup__input-error' id='input-name-error'></span>
+        <span className='popup__input-error' id='input-name-error'></span>
       </div>
     ),
     inputTwo: (
@@ -75,7 +77,7 @@ export const infoPopups = [
     ),
     errorTwo: (
       <div className='popup__error'>
-        <span class='popup__input-error' id='input-name-error'></span>
+        <span className='popup__input-error' id='input-name-error'></span>
       </div>
     ),
     title: 'Новое место',
@@ -83,6 +85,7 @@ export const infoPopups = [
   },
   {
     id: 3,
+    isOpen: false,
     name: 'avatar',
     typeName: 'avatar',
     inputOne: (
@@ -97,7 +100,7 @@ export const infoPopups = [
     ),
     errorOne: (
       <div className='popup__error'>
-        <span class='popup__input-error' id='input-name-error'></span>
+        <span className='popup__input-error' id='input-name-error'></span>
       </div>
     ),
     form: 'formAvatar',
@@ -108,6 +111,7 @@ export const infoPopups = [
   },
   {
     id: 4,
+    isOpen: false,
     name: 'trash',
     typeName: 'trash',
     form: 'formTrash',

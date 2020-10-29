@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ImagePopup() {
+function ImagePopup({ url, title, alt }) {
   return (
     <div className='popup popup_type_zoom'>
       <div className='popup__zoom'>
@@ -9,8 +9,7 @@ function ImagePopup() {
         <button
           className='popup__button-close'
           type='button'
-          title='закрыть'
-        ></button>
+          title='закрыть'></button>
       </div>
     </div>
   );

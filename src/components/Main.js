@@ -4,7 +4,7 @@ import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import Card from './Card.js';
 
-function Main(props, { onEditAvatar, onEditProfile, onAddPlace }) {
+function Main({ infoPopups, onEditAvatar, onEditProfile, onAddPlace }) {
   return (
     <>
       <section className='profile page__profile'>
@@ -19,7 +19,7 @@ function Main(props, { onEditAvatar, onEditProfile, onAddPlace }) {
             Александр
           </h1>
           <button
-            class='profile__edit-button'
+            className='profile__edit-button'
             type='button'
             title='изменить данные профиля'
             onClick={onEditProfile}></button>
@@ -34,7 +34,7 @@ function Main(props, { onEditAvatar, onEditProfile, onAddPlace }) {
           onClick={onAddPlace}></button>
       </section>
       <Card />
-      {props.infoPopups.map((infoPopup) => {
+      {infoPopups.map((infoPopup) => {
         return <PopupWithForm infoPopup={infoPopup} key={infoPopup.id} />;
       })}
       <ImagePopup />

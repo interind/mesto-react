@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Card() {
+function Card({ url, title, alt, arr }) {
   return (
     <div className='elements page__elements'>
       <div className='element'>

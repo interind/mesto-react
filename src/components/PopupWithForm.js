@@ -4,6 +4,7 @@ function PopupWithForm({ infoPopup }) {
   const closePopupClick = () => {
     document.querySelector('.popup_opened').classList.remove('popup_opened');
   };
+
   return (
     <>
       <div
@@ -13,7 +14,7 @@ function PopupWithForm({ infoPopup }) {
         <form
           className={`popup__container popup__container_type_${infoPopup.typeName}`}
           name={infoPopup.form}
-          novalidate>
+          noValidate>
           <h2 className='popup__title'>{infoPopup.title}</h2>
           {infoPopup.inputOne}
           {infoPopup.errorOne}
