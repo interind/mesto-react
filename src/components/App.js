@@ -5,24 +5,27 @@ import Footer from './Footer.js';
 import { infoPopups } from '../utils/infoPopups.js';
 
 function App() {
-  const [isOpen, setPopupOpen] = React.useState({
-    isEditProfilePopupOpen: false,
-    isAddPlacePopupOpen: false,
-    isEditAvatarPopupOpen: false,
-  });
+  const [isOpen, setPopupOpen] = React.useState([
+    {
+      isOpen: false,
+    },
+    { isOpen: false },
+    { isOpen: false },
+    { isOpen: false },
+  ]);
 
   const handleEditAvatarClick = () => {
-    setPopupOpen({ isEditAvatarPopupOpen: true });
+    setPopupOpen({ isOpen: true });
     document.querySelector('.popup_type_avatar').classList.add('popup_opened');
   };
 
   const handleEditProfileClick = () => {
-    setPopupOpen({ isEditProfilePopupOpen: true });
+    setPopupOpen({ isOpen: true });
     document.querySelector('.popup_type_profile').classList.add('popup_opened');
   };
 
   const handleAddPlaceClick = () => {
-    setPopupOpen({ isAddPlacePopupOpen: true });
+    setPopupOpen({ isOpen: true });
     document.querySelector('.popup_type_card').classList.add('popup_opened');
   };
 
