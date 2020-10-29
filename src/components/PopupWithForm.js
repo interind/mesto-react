@@ -1,148 +1,135 @@
 import React from 'react';
-import '../styles/index.css';
-import {item} from './Item.js';
 
-
-function PopupWithForm() {
-  const closePopupClick = (() => {
+function PopupWithForm({ infoPopup }) {
+  const closePopupClick = () => {
     document.querySelector('.popup_opened').classList.remove('popup_opened');
-  });
+  };
   return (
     <>
-      <div key={item[0].id} className={`popup popup_type_${item[0].name}`}>
+      <div key={infoPopup.id} className={`popup popup_type_${infoPopup.name}`}>
         <form
-          className={`popup__container popup__container_type_${item[0].name}`}
-          name={`${item[0].form}`}
-          novalidate
-        >
-          <h2 className='popup__title'>{`${item[0].title}`}</h2>
+          className={`popup__container popup__container_type_${infoPopup.typeName}`}
+          name='formProfile'
+          novalidate>
+          <h2 className='popup__title'>Редактировать форму</h2>
           <input
             className='popup__input'
-            id={`input-${item[0].inputOne}`}
+            id='input-name'
             type='text'
-            name={`${item[0].inputOne}`}
+            name='name'
             minlength='2'
             maxlength='40'
-            placeholder={`${item[0].placeholderOne}`}
+            placeholder='Имя'
             required
           />
           <div className='popup__error'>
-            <span class='popup__input-error' id={`input-${item[0].inputOne}-error`}></span>
+            <span class='popup__input-error' id='input-name-error'></span>
           </div>
           <input
             className='popup__input'
-            id={`input-${item[0].inputTwo}`}
+            id='input-job'
             type='text'
-            name={`${item[0].inputTwo}`}
+            name='job'
             minlength='2'
             maxlength='200'
-            placeholder={`${item[0].placeholderTwo}`}
+            placeholder='Профессия'
             required
           />
           <div className='popup__error'>
-            <span class='popup__input-error' id={`input-${item[0].inputTwo}-error`}></span>
+            <span class='popup__input-error' id='input-job-error'></span>
           </div>
           <button
             className='popup__button-submit'
             type='submit'
-            title='сохранить'
-          >
+            title='сохранить'>
             Сохранить
           </button>
           <button
             className='popup__button-close'
             type='button'
             title='закрыть'
-            onClick={closePopupClick}
-          ></button>
+            onClick={closePopupClick}></button>
         </form>
       </div>
-      <div key={item[1].id} className={`popup popup_type_${item[1].name}`}>
+      <div key={infoPopup.id} className={`popup popup_type_${infoPopup.name}`}>
         <form
-          className={`popup__container popup__container_type_${item[1].name}`}
-          name={`${item[1].form}`}
-          novalidate
-        >
-          <h2 className='popup__title'>{`${item[1].title}`}</h2>
+          className={`popup__container popup__container_type_${infoPopup.typeName}`}
+          name='formCard'
+          novalidate>
+          <h2 className='popup__title'>Новое место</h2>
           <input
             className='popup__input'
             type='text'
-            placeholder={`${item[1].placeholderOne}`}
-            id={`input-${item[1].inputOne}`}
-            name={`${item[1].inputOne}`}
+            placeholder='Название'
+            id='input-place'
+            name='place'
             minlength='1'
             maxlength='30'
             required
           />
           <div className='popup__error'>
-            <span class='popup__input-error' id={`input-${item[1].inputOne}-error`}></span>
+            <span class='popup__input-error' id='input-place-error'></span>
           </div>
           <input
             className='popup__input'
             type='url'
-            placeholder={`${item[1].placeholderTwo}`}
-            id={`input-${item[1].inputTwo}`}
-            name={`${item[1].inputTwo}`}
+            placeholder='Ссылка на картинку'
+            id='input-card'
+            name='card'
             required
           />
           <div className='popup__error'>
-            <span class='popup__input-error' id={`input-${item[1].inputTwo}-error`}></span>
+            <span class='popup__input-error' id='input-card-error'></span>
           </div>
           <button
             className='popup__button-submit'
             type='submit'
-            title='сохранить'
-          >
+            title='сохранить'>
             Сохранить
           </button>
           <button
             className='popup__button-close'
             type='button'
             title='закрыть'
-            onClick={closePopupClick}
-          ></button>
+            onClick={closePopupClick}></button>
         </form>
       </div>
-      <div key={item[2].id} className={`popup popup_type_${item[2].name}`}>
+      <div key={infoPopup.id} className={`popup popup_type_${infoPopup.name}`}>
         <form
-          className={`popup__container popup__container_type_${item[2].name}`}
-          name={`${item[2].form}`}
-          novalidate
-        >
-          <h2 className='popup__title'>{`${item[2].title}`}</h2>
+          className={`popup__container popup__container_type_${infoPopup.typeName}`}
+          name='formAvatar'
+          novalidate>
+          <h2 className='popup__title'>Обновить аватар</h2>
           <input
             className='popup__input'
             type='url'
-            placeholder={`${item[2].placeholderTwo}`}
-            id={`input-${item[2].inputTwo}`}
-            name={`${item[2].inputTwo}`}
+            placeholder='Ссылка на картинку'
+            id='input-avatar'
+            name='avatar'
             required
           />
           <div className='popup__error'>
-            <span class='popup__input-error' id={`input-${item[2].inputTwo}-error`}></span>
+            <span class='popup__input-error' id='input-avatar-error'></span>
           </div>
           <button
             className='popup__button-submit'
             type='submit'
-            title='сохранить'
-          >
+            title='сохранить'>
             Сохранить
           </button>
           <button
             className='popup__button-close'
             type='button'
             title='закрыть'
-            onClick={closePopupClick}
-          ></button>
+            onClick={closePopupClick}></button>
         </form>
       </div>
-      <div key={item[3].id} className={`popup popup_type_${item[3].name}`}>
+      <div key={infoPopup.id} className={`popup popup_type_${infoPopup.name}`}>
         <form
-          className={`popup__container popup__container_type_${item[3].name}`}
-          name={`${item[3].form}`}
-          novalidate
-        >
-          <h2 className='popup__title'>{`${item[3].title}`}</h2>
+          className={`popup__container popup__container_type_${infoPopup.typeName}`}
+          name='formTrash'
+          novalidate>
+          <h2 className='popup__title'>Вы уверены?</h2>
           <button className='popup__button-submit' type='submit' title='Да'>
             Да
           </button>
@@ -150,12 +137,11 @@ function PopupWithForm() {
             className='popup__button-close'
             type='button'
             title='закрыть'
-          ></button>
+            onClick={closePopupClick}></button>
         </form>
-    </div> 
-  </>
-  )
+      </div>
+    </>
+  );
 }
-
 
 export default PopupWithForm;
