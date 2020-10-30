@@ -1,16 +1,24 @@
 import React from 'react';
+import { infoPopups } from '../utils/infoPopups.js';
 
 function PopupWithForm({ infoPopup }) {
-  const closePopupClick = () => {
-    document.querySelector('.popup_opened').classList.remove('popup_opened');
-  };
+  const classes = [];
+
+  function closePopupClick(evt) {
+    const close = evt.target.closest('.popup');
+    close.classList.remove('popup_opened');
+    classes.length = 0;
+  }
+
+  if (infoPopup.isOpen) {
+    classes.push('popup_opened');
+    infoPopups.map((infoPopup) => (infoPopup.isOpen = false));
+  }
 
   return (
     <>
       <div
-        className={`popup popup_type_${infoPopup.name} ${
-          infoPopup.isOpen ? 'popup_opened' : ''
-        }`}>
+        className={`popup popup_type_${infoPopup.name} ${classes.join(' ')}`}>
         <form
           className={`popup__container popup__container_type_${infoPopup.typeName}`}
           name={infoPopup.form}

@@ -5,27 +5,23 @@ import Footer from './Footer.js';
 import { infoPopups } from '../utils/infoPopups.js';
 
 function App() {
-  const handleEditAvatarClick = () => {
-    console.log(123);
-  };
+  let [info, setInfo] = React.useState(infoPopups);
 
-  const handleEditProfileClick = () => {
-    console.log(124);
-  };
-
-  const handleAddPlaceClick = () => {
-    console.log(125);
-  };
+  function handleEditClick(evt) {
+    setInfo(
+      info.map((infoPopup) => {
+        if (evt.currentTarget.dataset.id === infoPopup.id) {
+          infoPopup.isOpen = true;
+        }
+        return infoPopup;
+      })
+    );
+  }
 
   return (
     <div className='page'>
       <Header />
-      <Main
-        infoPopups={infoPopups}
-        onEditAvatar={handleEditAvatarClick}
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
-      />
+      <Main infoPopups={info} onEditClick={handleEditClick} />
       <Footer />
     </div>
   );

@@ -1,6 +1,6 @@
 export let infoPopups = [
   {
-    id: 1,
+    id: '1',
     isOpen: false,
     name: 'profile',
     typeName: 'profile',
@@ -43,7 +43,7 @@ export let infoPopups = [
     button: 'Сохранить',
   },
   {
-    id: 2,
+    id: '2',
     isOpen: false,
     name: 'card',
     typeName: 'card',
@@ -84,7 +84,7 @@ export let infoPopups = [
     button: 'Сохранить',
   },
   {
-    id: 3,
+    id: '3',
     isOpen: false,
     name: 'avatar',
     typeName: 'avatar',
@@ -110,7 +110,7 @@ export let infoPopups = [
     button: 'Сохранить',
   },
   {
-    id: 4,
+    id: '4',
     isOpen: false,
     name: 'trash',
     typeName: 'trash',

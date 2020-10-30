@@ -1,11 +1,15 @@
 import React from 'react';
 
-function Card({ url, title, alt, arr }) {
+function Card({ onEditClick }) {
   return (
     <div className='elements page__elements'>
       <div className='element'>
         <img className='element__pic' alt='Карточка' />
-        <button className='element__button-trash' type='button'></button>
+        <button
+          className='element__button-trash'
+          type='button'
+          data-id='4'
+          onClick={onEditClick}></button>
         <div className='element__info'>
           <h2 className='element__title' title='#'>
             карточка

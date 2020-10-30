@@ -4,7 +4,7 @@ import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import Card from './Card.js';
 
-function Main({ infoPopups, onEditAvatar, onEditProfile, onAddPlace }) {
+function Main({ infoPopups, onEditClick }) {
   return (
     <>
       <section className='profile page__profile'>
@@ -12,7 +12,8 @@ function Main({ infoPopups, onEditAvatar, onEditProfile, onAddPlace }) {
           className='profile__avatar'
           src={AvatarImage}
           alt='Аватарка'
-          onClick={onEditAvatar}
+          data-id='3'
+          onClick={onEditClick}
         />
         <div className='profile__info'>
           <h1 className='profile__title' title='#'>
@@ -22,7 +23,8 @@ function Main({ infoPopups, onEditAvatar, onEditProfile, onAddPlace }) {
             className='profile__edit-button'
             type='button'
             title='изменить данные профиля'
-            onClick={onEditProfile}></button>
+            data-id='1'
+            onClick={onEditClick}></button>
           <p className='profile__subtitle' title='#'>
             студент
           </p>
@@ -31,9 +33,10 @@ function Main({ infoPopups, onEditAvatar, onEditProfile, onAddPlace }) {
           className='profile__add-button'
           type='button'
           title='добавить картинки'
-          onClick={onAddPlace}></button>
+          data-id='2'
+          onClick={onEditClick}></button>
       </section>
-      <Card />
+      <Card onEditClick={onEditClick} />
       {infoPopups.map((infoPopup) => {
         return <PopupWithForm infoPopup={infoPopup} key={infoPopup.id} />;
       })}
