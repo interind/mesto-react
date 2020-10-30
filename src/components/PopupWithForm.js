@@ -9,6 +9,7 @@ function PopupWithForm({ infoPopup }) {
     close.classList.remove('popup_opened');
     classes.length = 0;
   }
+  console.log(classes);
 
   if (infoPopup.isOpen) {
     classes.push('popup_opened');

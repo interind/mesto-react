@@ -1,4 +1,4 @@
-export let infoPopups = [
+export const infoPopups = [
   {
     id: '1',
     isOpen: false,

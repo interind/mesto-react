@@ -3,6 +3,7 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import { infoPopups } from '../utils/infoPopups.js';
+import api from '../utils/api.js';
 
 function App() {
   let [info, setInfo] = React.useState(infoPopups);
@@ -17,6 +18,15 @@ function App() {
       })
     );
   }
+
+  React.useEffect(() => {
+    api.getInfoUser().then((data) => {
+      console.log(data);
+    });
+    api.getInfoCards().then((data) => {
+      console.log(data);
+    });
+  }, [info]);
 
   return (
     <div className='page'>
