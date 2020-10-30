@@ -2,13 +2,23 @@ import React from 'react';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
-import { infoPopups } from '../utils/infoPopups.js';
+import { infoPopups } from '../utils/constants.js';
 import api from '../utils/api.js';
 
 function App() {
-  let [info, setInfo] = React.useState(infoPopups);
+  const [info, setInfo] = React.useState(infoPopups);
+  const [user, setUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
+  const [selectedCard, setSelectedCard] = React.useState(false);
 
-  function handleEditClick(evt) {
+  function closePopupClick(evt) {
+    const close = evt.target.closest('.popup');
+    close.classList.remove('popup_opened');
+    setInfo(info.map((infoPopup) => (infoPopup.isOpen = false)));
+    setSelectedCard(false);
+  }
+
+  const handleEditClick = (evt) => {
     setInfo(
       info.map((infoPopup) => {
         if (evt.currentTarget.dataset.id === infoPopup.id) {
@@ -17,21 +27,46 @@ function App() {
         return infoPopup;
       })
     );
+  };
+
+  function handleCardClick(evt) {
+    const imgTarget = evt.target;
+    if (imgTarget.classList.contains('element__pic')) {
+      setSelectedCard({ link: imgTarget.src, name: imgTarget.alt });
+    }
   }
 
-  React.useEffect(() => {
-    api.getInfoUser().then((data) => {
-      console.log(data);
-    });
-    api.getInfoCards().then((data) => {
-      console.log(data);
-    });
-  }, [info]);
+  React.useEffect(
+    () => {
+      setInfo(info);
+      api.getInfoUser().then((dataUser) => {
+        setUser(dataUser);
+      });
+      api.getInfoCards().then((data) => {
+        setCards(data[0]);
+      });
+      setSelectedCard({});
+    },
+    [info],
+    { selectedCard }
+  );
 
   return (
     <div className='page'>
       <Header />
-      <Main infoPopups={info} onEditClick={handleEditClick} />
+      <Main
+        infoPopups={info}
+        onEditClick={handleEditClick}
+        myId={user._id}
+        key={user._id}
+        name={user.name}
+        about={user.about}
+        avatar={user.avatar}
+        cards={cards}
+        closePopupClick={closePopupClick}
+        handleCardClick={handleCardClick}
+        selectedCard={selectedCard}
+      />
       <Footer />
     </div>
   );

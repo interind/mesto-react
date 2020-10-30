@@ -1,23 +1,34 @@
 import React from 'react';
-import AvatarImage from '../images/profile/avatar/image_.jpg';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import Card from './Card.js';
 
-function Main({ infoPopups, onEditClick }) {
+function Main({
+  infoPopups,
+  onEditClick,
+  myId,
+  name,
+  about,
+  avatar,
+  cards,
+  closePopupClick,
+  handleCardClick,
+  selectedCard,
+}) {
   return (
     <>
       <section className='profile page__profile'>
         <img
           className='profile__avatar'
-          src={AvatarImage}
+          src={avatar}
           alt='Аватарка'
           data-id='3'
+          id={myId}
           onClick={onEditClick}
         />
         <div className='profile__info'>
           <h1 className='profile__title' title='#'>
-            Александр
+            {name}
           </h1>
           <button
             className='profile__edit-button'
@@ -26,7 +37,7 @@ function Main({ infoPopups, onEditClick }) {
             data-id='1'
             onClick={onEditClick}></button>
           <p className='profile__subtitle' title='#'>
-            студент
+            {about}
           </p>
         </div>
         <button
@@ -36,11 +47,32 @@ function Main({ infoPopups, onEditClick }) {
           data-id='2'
           onClick={onEditClick}></button>
       </section>
-      <Card onEditClick={onEditClick} />
+      <div className='elements page__elements'>
+        {cards.map((infoCards) => {
+          return (
+            <Card
+              onEditClick={onEditClick}
+              infoCards={infoCards}
+              key={infoCards.createdAt}
+              myId={myId}
+              handleCardClick={handleCardClick}
+            />
+          );
+        })}
+      </div>
       {infoPopups.map((infoPopup) => {
-        return <PopupWithForm infoPopup={infoPopup} key={infoPopup.id} />;
+        return (
+          <PopupWithForm
+            infoPopup={infoPopup}
+            key={infoPopup.id}
+            closePopupClick={closePopupClick}
+          />
+        );
       })}
-      <ImagePopup />
+      <ImagePopup
+        selectedCard={selectedCard}
+        closePopupClick={closePopupClick}
+      />
     </>
   );
 }
