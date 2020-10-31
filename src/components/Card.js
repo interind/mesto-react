@@ -5,7 +5,7 @@ function Card({ onEditClick, infoCards, myId, handleCardClick }) {
   const classLikes = []; // массив для отображения поставленных мной лайков.
   if (infoCards.owner._id === myId) {
     classTrash.length = 0;
-    classTrash.push('element__button-trash_hidden');
+    classTrash.push('element__button-trash_visible');
   } else if (infoCards.likes.find((id) => id._id === myId)) {
     classLikes.length = 0;
     classLikes.push('element__button-like_color_black');
