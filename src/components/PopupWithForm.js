@@ -1,7 +1,7 @@
 import React from 'react';
 
-function PopupWithForm({ infoPopup, closePopupClick }) {
-  const classes = [];
+function PopupWithForm({ infoPopup, closeAllPopups }) {
+  const classes = []; // массив для открытия попапа
   classes.length = 0;
 
   if (infoPopup.isOpen) {
@@ -31,7 +31,7 @@ function PopupWithForm({ infoPopup, closePopupClick }) {
             className='popup__button-close'
             type='button'
             title='закрыть'
-            onClick={closePopupClick}></button>
+            onClick={closeAllPopups}></button>
         </form>
       </div>
     </React.Fragment>

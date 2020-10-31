@@ -1,7 +1,7 @@
 import React from 'react';
 
-function ImagePopup({ selectedCard, closePopupClick }) {
-  const classOpen = [];
+function ImagePopup({ selectedCard, closeAllPopups }) {
+  const classOpen = []; // массив для открытия попапа
   if (selectedCard.link) {
     classOpen.length = 0;
     classOpen.push('popup_opened');
@@ -19,7 +19,7 @@ function ImagePopup({ selectedCard, closePopupClick }) {
           className='popup__button-close'
           type='button'
           title='закрыть'
-          onClick={closePopupClick}></button>
+          onClick={closeAllPopups}></button>
       </div>
     </div>
   );

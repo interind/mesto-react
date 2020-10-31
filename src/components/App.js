@@ -6,19 +6,24 @@ import { infoPopups } from '../utils/constants.js';
 import api from '../utils/api.js';
 
 function App() {
-  const [info, setInfo] = React.useState(infoPopups);
-  const [user, setUser] = React.useState({});
-  const [cards, setCards] = React.useState([]);
-  const [selectedCard, setSelectedCard] = React.useState(false);
+  const [info, setInfo] = React.useState(infoPopups); // тут вся информация о попапах и их булевые значения
+  const [user, setUser] = React.useState({}); // тут информация обо мне с сервера
+  const [cards, setCards] = React.useState([]); // тут информация о карточках
+  const [selectedCard, setSelectedCard] = React.useState(false); // тут булевое значение для попапа с картинкой
 
-  function closePopupClick(evt) {
+  function closeAllPopups(evt) {
+    // функция закрытия всех попапов
     const close = evt.target.closest('.popup');
     close.classList.remove('popup_opened');
-    setInfo(infoPopups.map((infoPopup) => (infoPopup.isOpen = false)));
-    setSelectedCard(false);
+
+    setTimeout(() => {
+      setInfo(infoPopups.map((infoPopup) => (infoPopup.isOpen = false)));
+      setSelectedCard(false);
+    }, 100);
   }
 
-  const handleEditClick = (evt) => {
+  const handlePopupsClick = (evt) => {
+    // функция открытия попапов
     setInfo(
       info.map((infoPopup) => {
         if (evt.currentTarget.dataset.id === infoPopup.id) {
@@ -30,6 +35,7 @@ function App() {
   };
 
   function handleCardClick(evt) {
+    // для открытия попапа с картинкой
     const imgTarget = evt.target;
     if (imgTarget.classList.contains('element__pic')) {
       setSelectedCard({ link: imgTarget.src, name: imgTarget.alt });
@@ -56,14 +62,14 @@ function App() {
       <Header />
       <Main
         infoPopups={info}
-        onEditClick={handleEditClick}
+        onPopupsClick={handlePopupsClick}
         myId={user._id}
         key={user._id}
         name={user.name}
         about={user.about}
         avatar={user.avatar}
         cards={cards}
-        closePopupClick={closePopupClick}
+        closeAllPopups={closeAllPopups}
         handleCardClick={handleCardClick}
         selectedCard={selectedCard}
       />

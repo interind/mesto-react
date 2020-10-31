@@ -5,13 +5,13 @@ import Card from './Card.js';
 
 function Main({
   infoPopups,
-  onEditClick,
+  onPopupsClick,
   myId,
   name,
   about,
   avatar,
   cards,
-  closePopupClick,
+  closeAllPopups,
   handleCardClick,
   selectedCard,
 }) {
@@ -24,10 +24,10 @@ function Main({
           alt='Аватарка'
           data-id='3'
           id={myId}
-          onClick={onEditClick}
+          onClick={onPopupsClick}
         />
         <div className='profile__info'>
-          <h1 className='profile__title' title='#'>
+          <h1 className='profile__title' title={name}>
             {name}
           </h1>
           <button
@@ -35,8 +35,8 @@ function Main({
             type='button'
             title='изменить данные профиля'
             data-id='1'
-            onClick={onEditClick}></button>
-          <p className='profile__subtitle' title='#'>
+            onClick={onPopupsClick}></button>
+          <p className='profile__subtitle' title={about}>
             {about}
           </p>
         </div>
@@ -45,13 +45,13 @@ function Main({
           type='button'
           title='добавить картинки'
           data-id='2'
-          onClick={onEditClick}></button>
+          onClick={onPopupsClick}></button>
       </section>
       <div className='elements page__elements'>
         {cards.map((infoCards) => {
           return (
             <Card
-              onEditClick={onEditClick}
+              onEditClick={onPopupsClick}
               infoCards={infoCards}
               key={infoCards.createdAt}
               myId={myId}
@@ -64,15 +64,12 @@ function Main({
         return (
           <PopupWithForm
             infoPopup={infoPopup}
-            closePopupClick={closePopupClick}
+            closeAllPopups={closeAllPopups}
             key={index + 1}
           />
         );
       })}
-      <ImagePopup
-        selectedCard={selectedCard}
-        closePopupClick={closePopupClick}
-      />
+      <ImagePopup selectedCard={selectedCard} closeAllPopups={closeAllPopups} />
     </React.Fragment>
   );
 }
