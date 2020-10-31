@@ -14,7 +14,7 @@ function App() {
   function closePopupClick(evt) {
     const close = evt.target.closest('.popup');
     close.classList.remove('popup_opened');
-    setInfo(info.map((infoPopup) => (infoPopup.isOpen = false)));
+    setInfo(infoPopups.map((infoPopup) => (infoPopup.isOpen = false)));
     setSelectedCard(false);
   }
 
@@ -38,7 +38,7 @@ function App() {
 
   React.useEffect(
     () => {
-      setInfo(info);
+      setInfo(infoPopups);
       api.getInfoUser().then((dataUser) => {
         setUser(dataUser);
       });

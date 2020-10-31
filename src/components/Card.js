@@ -2,9 +2,13 @@ import React from 'react';
 
 function Card({ onEditClick, infoCards, myId, handleCardClick }) {
   const classTrash = [];
+  const classLikes = [];
   if (infoCards._id === myId) {
     classTrash.push('element__button-trash_hidden');
     classTrash.length = 0;
+  } else if (infoCards.likes.find((id) => id._id === myId)) {
+    classLikes.length = 0;
+    classLikes.push('element__button-like_color_black');
   }
 
   return (
@@ -26,7 +30,9 @@ function Card({ onEditClick, infoCards, myId, handleCardClick }) {
         </h2>
         <div className='element__like'>
           <button
-            className='element__button-like element__button-like_color_white'
+            className={`element__button-like element__button-like_color_white ${classLikes.join(
+              ' '
+            )}`}
             type='button'></button>
           <span className='element__counter-like'>
             {infoCards.likes.length}

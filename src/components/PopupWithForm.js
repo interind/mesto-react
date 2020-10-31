@@ -2,16 +2,15 @@ import React from 'react';
 
 function PopupWithForm({ infoPopup, closePopupClick }) {
   const classes = [];
+  classes.length = 0;
 
   if (infoPopup.isOpen) {
-    classes.length = 0;
     classes.push('popup_opened');
   }
 
   return (
-    <>
+    <React.Fragment>
       <div
-        key={infoPopup.id}
         className={`popup popup_type_${infoPopup.name} ${classes.join(' ')}`}>
         <form
           className={`popup__container popup__container_type_${infoPopup.typeName}`}
@@ -35,7 +34,7 @@ function PopupWithForm({ infoPopup, closePopupClick }) {
             onClick={closePopupClick}></button>
         </form>
       </div>
-    </>
+    </React.Fragment>
   );
 }
 

@@ -16,7 +16,7 @@ function Main({
   selectedCard,
 }) {
   return (
-    <>
+    <React.Fragment>
       <section className='profile page__profile'>
         <img
           className='profile__avatar'
@@ -60,12 +60,12 @@ function Main({
           );
         })}
       </div>
-      {infoPopups.map((infoPopup) => {
+      {infoPopups.map((infoPopup, index) => {
         return (
           <PopupWithForm
             infoPopup={infoPopup}
-            key={infoPopup.id}
             closePopupClick={closePopupClick}
+            key={index + 1}
           />
         );
       })}
@@ -73,7 +73,7 @@ function Main({
         selectedCard={selectedCard}
         closePopupClick={closePopupClick}
       />
-    </>
+    </React.Fragment>
   );
 }
 
