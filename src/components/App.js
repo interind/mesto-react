@@ -2,38 +2,48 @@ import React from 'react';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
-import { infoPopups } from '../utils/constants.js';
 import api from '../utils/api.js';
 
 function App() {
-  const [info, setInfo] = React.useState(infoPopups); // тут вся информация о попапах и их булевые значения
+  const avatar = { id: 1, name: 'avatar', title: 'Обновить аватар' };
+  const profile = { id: 2, name: 'profile', title: 'Редактировать форму' };
+  const place = { id: 3, name: 'place', title: 'Новое место' };
+  const trash = { id: 4, name: 'trash', title: 'Вы уверены?' };
+
+  let [isEditAvatarPopupOpen, setAvatarPopup] = React.useState(false);
+  let [isEditProfilePopupOpen, setProfilePopup] = React.useState(false);
+  let [isAddPlacePopupOpen, setPlacePopup] = React.useState(false);
+  let [isConfirmTrashPopupOpen, setTrashPopup] = React.useState(false);
   const [user, setUser] = React.useState({}); // тут информация обо мне с сервера
   const [cards, setCards] = React.useState([]); // тут информация о карточках
   const [selectedCard, setSelectedCard] = React.useState(false); // тут булевое значение для попапа с картинкой
 
-  function closeAllPopups(evt) {
-    // функция закрытия всех попапов
-    const close = evt.target.closest('.popup');
-    close.classList.remove('popup_opened');
-
+  function closeAllPopups() {
     setTimeout(() => {
-      setInfo(infoPopups.map((infoPopup) => (infoPopup.isOpen = false)));
+      setAvatarPopup(false);
+
+      setProfilePopup(false);
+
+      setPlacePopup(false);
+
+      setTrashPopup(false);
+
       setSelectedCard(false);
     }, 100);
   }
 
-  const handlePopupsClick = (evt) => {
-    // функция открытия попапов
-    setInfo(
-      info.map((infoPopup) => {
-        if (evt.currentTarget.dataset.id === infoPopup.id) {
-          infoPopup.isOpen = true;
-        }
-        return infoPopup;
-      })
-    );
-  };
-
+  function handleEditAvatarClick() {
+    setAvatarPopup(true);
+  }
+  function handleEditProfileClick() {
+    setProfilePopup(true);
+  }
+  function handleAddPlaceClick() {
+    setPlacePopup(true);
+  }
+  function handleConfirmTrashClick() {
+    setTrashPopup(true);
+  }
   function handleCardClick(evt) {
     // для открытия попапа с картинкой
     const imgTarget = evt.target;
@@ -44,16 +54,27 @@ function App() {
 
   React.useEffect(
     () => {
-      setInfo(infoPopups);
-      api.getInfoUser().then((dataUser) => {
-        setUser(dataUser);
-      });
-      api.getInfoCards().then((data) => {
-        setCards(data[0]);
-      });
+      setAvatarPopup(false);
+      setProfilePopup(false);
+      setPlacePopup(false);
+      setTrashPopup(false);
+      api
+        .getInfoUser()
+        .then((dataUser) => {
+          setUser(dataUser);
+        })
+        .catch((err) => console.log('Информация пользователя с ошибкой', err));
+
+      api
+        .getInfoCards()
+        .then((data) => {
+          setCards(data[0]);
+        })
+        .catch((err) => console.log('Информация по карточкам с ошибкой', err));
+
       setSelectedCard({});
     },
-    [info],
+    [],
     { selectedCard }
   );
 
@@ -61,13 +82,19 @@ function App() {
     <div className='page'>
       <Header />
       <Main
-        infoPopups={info}
-        onPopupsClick={handlePopupsClick}
-        myId={user._id}
-        key={user._id}
-        name={user.name}
-        about={user.about}
-        avatar={user.avatar}
+        avatar={avatar}
+        profile={profile}
+        place={place}
+        trash={trash}
+        isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+        isEditProfilePopupOpen={isEditProfilePopupOpen}
+        isAddPlacePopupOpen={isAddPlacePopupOpen}
+        isConfirmTrashPopupOpen={isConfirmTrashPopupOpen}
+        onEditAvatar={handleEditAvatarClick}
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onConfirmTrash={handleConfirmTrashClick}
+        user={user}
         cards={cards}
         closeAllPopups={closeAllPopups}
         handleCardClick={handleCardClick}

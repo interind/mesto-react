@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Card({ onEditClick, infoCards, myId, handleCardClick }) {
+function Card({ onConfirmTrash, infoCards, myId, handleCardClick }) {
   const classTrash = []; // массив для отображения корзины удаления на своих карточках
   const classLikes = []; // массив для отображения поставленных мной лайков.
   if (infoCards.owner._id === myId) {
@@ -23,7 +23,7 @@ function Card({ onEditClick, infoCards, myId, handleCardClick }) {
         className={`element__button-trash ${classTrash.join(' ')}`}
         type='button'
         data-id='4'
-        onClick={onEditClick}></button>
+        onClick={onConfirmTrash}></button>
       <div className='element__info'>
         <h2 className='element__title' title={infoCards.name}>
           {infoCards.name}
