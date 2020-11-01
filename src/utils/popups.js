@@ -12,9 +12,6 @@ export let popups = {
       <div className='popup__error'>
         <span className='popup__input-error' id='input-avatar-error'></span>
       </div>
-      <button className='popup__button-submit' type='submit' title='сохранить'>
-        Сохранить
-      </button>
     </>
   ),
   profile: (
@@ -45,9 +42,6 @@ export let popups = {
       <div className='popup__error'>
         <span className='popup__input-error' id='input-job-error'></span>
       </div>
-      <button className='popup__button-submit' type='submit' title='сохранить'>
-        Сохранить
-      </button>
     </>
   ),
   place: (
@@ -76,17 +70,6 @@ export let popups = {
       <div className='popup__error'>
         <span className='popup__input-error' id='input-card-error'></span>
       </div>
-      <button className='popup__button-submit' type='submit' title='сохранить'>
-        Сохранить
-      </button>
-    </>
-  ),
-
-  trash: (
-    <>
-      <button className='popup__button-submit' type='submit' title='Да'>
-        Да
-      </button>
     </>
   ),
 };

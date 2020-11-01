@@ -73,6 +73,7 @@ function Main({
         key={avatar.id}
         name={avatar.name}
         title={avatar.title}
+        buttonTitle={avatar.buttonTitle}
         isOpen={isEditAvatarPopupOpen}
         closeAllPopups={closeAllPopups}>
         {popups.avatar}
@@ -81,6 +82,7 @@ function Main({
         key={profile.id}
         name={profile.name}
         title={profile.title}
+        buttonTitle={profile.buttonTitle}
         isOpen={isEditProfilePopupOpen}
         closeAllPopups={closeAllPopups}>
         {popups.profile}
@@ -89,6 +91,7 @@ function Main({
         key={place.id}
         name={place.name}
         title={place.title}
+        buttonTitle={place.buttonTitle}
         isOpen={isAddPlacePopupOpen}
         closeAllPopups={closeAllPopups}>
         {popups.place}
@@ -97,10 +100,10 @@ function Main({
         key={trash.id}
         name={trash.name}
         title={trash.title}
+        buttonTitle={trash.buttonTitle}
         isOpen={isConfirmTrashPopupOpen}
-        closeAllPopups={closeAllPopups}>
-        {popups.trash}
-      </PopupWithForm>
+        closeAllPopups={closeAllPopups}
+      />
 
       <ImagePopup selectedCard={selectedCard} closeAllPopups={closeAllPopups} />
     </React.Fragment>

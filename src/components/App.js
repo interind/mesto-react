@@ -3,12 +3,33 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import api from '../utils/api.js';
+import ErrorBoundary from './Error/ErrorBoundary.js';
 
 function App() {
-  const avatar = { id: 1, name: 'avatar', title: 'Обновить аватар' };
-  const profile = { id: 2, name: 'profile', title: 'Редактировать форму' };
-  const place = { id: 3, name: 'place', title: 'Новое место' };
-  const trash = { id: 4, name: 'trash', title: 'Вы уверены?' };
+  const avatar = {
+    id: 1,
+    name: 'avatar',
+    title: 'Обновить аватар',
+    buttonTitle: 'Сохранить',
+  };
+  const profile = {
+    id: 2,
+    name: 'profile',
+    title: 'Редактировать форму',
+    buttonTitle: 'Сохранить',
+  };
+  const place = {
+    id: 3,
+    name: 'place',
+    title: 'Новое место',
+    buttonTitle: 'Сохранить',
+  };
+  const trash = {
+    id: 4,
+    name: 'trash',
+    title: 'Вы уверены?',
+    buttonTitle: 'Да',
+  };
 
   let [isEditAvatarPopupOpen, setAvatarPopup] = React.useState(false);
   let [isEditProfilePopupOpen, setProfilePopup] = React.useState(false);
@@ -81,25 +102,27 @@ function App() {
   return (
     <div className='page'>
       <Header />
-      <Main
-        avatar={avatar}
-        profile={profile}
-        place={place}
-        trash={trash}
-        isEditAvatarPopupOpen={isEditAvatarPopupOpen}
-        isEditProfilePopupOpen={isEditProfilePopupOpen}
-        isAddPlacePopupOpen={isAddPlacePopupOpen}
-        isConfirmTrashPopupOpen={isConfirmTrashPopupOpen}
-        onEditAvatar={handleEditAvatarClick}
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
-        onConfirmTrash={handleConfirmTrashClick}
-        user={user}
-        cards={cards}
-        closeAllPopups={closeAllPopups}
-        handleCardClick={handleCardClick}
-        selectedCard={selectedCard}
-      />
+      <ErrorBoundary>
+        <Main
+          avatar={avatar}
+          profile={profile}
+          place={place}
+          trash={trash}
+          isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+          isEditProfilePopupOpen={isEditProfilePopupOpen}
+          isAddPlacePopupOpen={isAddPlacePopupOpen}
+          isConfirmTrashPopupOpen={isConfirmTrashPopupOpen}
+          onEditAvatar={handleEditAvatarClick}
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onConfirmTrash={handleConfirmTrashClick}
+          user={user}
+          cards={cards}
+          closeAllPopups={closeAllPopups}
+          handleCardClick={handleCardClick}
+          selectedCard={selectedCard}
+        />
+      </ErrorBoundary>
       <Footer />
     </div>
   );
