@@ -3,69 +3,94 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import api from '../utils/api.js';
-import ErrorBoundary from './Error/ErrorBoundary.js';
+import ErrorBoundary from './Error/ErrorBoundary.js'; // предохранитель, вроде рабочий ((()))
 
 function App() {
-  const avatar = {
+  // const avatar = {
+  //   id: 1,
+  //   name: 'avatar',
+  //   title: 'Обновить аватар',
+  //   buttonTitle: 'Сохранить',
+  //   isEditAvatarPopupOpen: false
+  // };
+  // const profile = {
+  //   id: 2,
+  //   name: 'profile',
+  //   title: 'Редактировать форму',
+  //   buttonTitle: 'Сохранить',
+  //   isEditProfilePopupOpen: false
+  // };
+  // const place = {
+  //   id: 3,
+  //   name: 'place',
+  //   title: 'Новое место',
+  //   buttonTitle: 'Сохранить',
+  //   isAddPlacePopupOpen: false
+  // };
+  // const trash = {
+  //   id: 4,
+  //   name: 'trash',
+  //   title: 'Вы уверены?',
+  //   buttonTitle: 'Да',
+  //   isConfirmTrashPopupOpen: false
+  // };
+
+  let [avatar, setAvatarPopup] = React.useState({
     id: 1,
     name: 'avatar',
     title: 'Обновить аватар',
     buttonTitle: 'Сохранить',
-  };
-  const profile = {
+    isEditAvatarPopupOpen: false,
+  });
+  let [profile, setProfilePopup] = React.useState({
     id: 2,
     name: 'profile',
     title: 'Редактировать форму',
     buttonTitle: 'Сохранить',
-  };
-  const place = {
+    isEditProfilePopupOpen: false,
+  });
+  let [place, setPlacePopup] = React.useState({
     id: 3,
     name: 'place',
     title: 'Новое место',
     buttonTitle: 'Сохранить',
-  };
-  const trash = {
+    isAddPlacePopupOpen: false,
+  });
+  let [trash, setTrashPopup] = React.useState({
     id: 4,
     name: 'trash',
     title: 'Вы уверены?',
     buttonTitle: 'Да',
-  };
-
-  let [isEditAvatarPopupOpen, setAvatarPopup] = React.useState(false);
-  let [isEditProfilePopupOpen, setProfilePopup] = React.useState(false);
-  let [isAddPlacePopupOpen, setPlacePopup] = React.useState(false);
-  let [isConfirmTrashPopupOpen, setTrashPopup] = React.useState(false);
+    isConfirmTrashPopupOpen: false,
+  });
   const [user, setUser] = React.useState({}); // тут информация обо мне с сервера
   const [cards, setCards] = React.useState([]); // тут информация о карточках
   const [selectedCard, setSelectedCard] = React.useState({});
   const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
 
   function closeAllPopups() {
-    setAvatarPopup(false);
-
-    setProfilePopup(false);
-
-    setPlacePopup(false);
-
-    setTrashPopup(false);
-
+    setAvatarPopup({ ...avatar, isEditAvatarPopupOpen: false });
+    setProfilePopup({ ...profile, isEditProfilePopupOpen: false });
+    setPlacePopup({ ...place, isAddPlacePopupOpen: false });
+    setTrashPopup({ ...trash, isConfirmTrashPopupOpen: false });
     setOpenCard(false);
+
     setTimeout(() => {
       setSelectedCard({});
-    }, 100);
+    }, 1000);
   }
 
   function handleEditAvatarClick() {
-    setAvatarPopup(true);
+    setAvatarPopup({ ...avatar, isEditAvatarPopupOpen: true });
   }
   function handleEditProfileClick() {
-    setProfilePopup(true);
+    setProfilePopup({ ...profile, isEditProfilePopupOpen: true });
   }
   function handleAddPlaceClick() {
-    setPlacePopup(true);
+    setPlacePopup({ ...place, isAddPlacePopupOpen: true });
   }
   function handleConfirmTrashClick() {
-    setTrashPopup(true);
+    setTrashPopup({ ...trash, isConfirmTrashPopupOpen: true });
   }
   function handleCardClick({ src, name }) {
     // для открытия попапа с картинкой
@@ -74,15 +99,11 @@ function App() {
   }
 
   React.useEffect(() => {
-    setAvatarPopup(false);
-    setProfilePopup(false);
-    setPlacePopup(false);
-    setTrashPopup(false);
-    setOpenCard(false);
     api
       .getInfoUser()
       .then((dataUser) => {
         setUser(dataUser);
+        console.log(dataUser);
       })
       .catch((err) => console.log('Информация пользователя с ошибкой', err));
 
@@ -103,10 +124,6 @@ function App() {
           profile={profile}
           place={place}
           trash={trash}
-          isEditAvatarPopupOpen={isEditAvatarPopupOpen}
-          isEditProfilePopupOpen={isEditProfilePopupOpen}
-          isAddPlacePopupOpen={isAddPlacePopupOpen}
-          isConfirmTrashPopupOpen={isConfirmTrashPopupOpen}
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}

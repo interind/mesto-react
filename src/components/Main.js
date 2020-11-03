@@ -9,10 +9,6 @@ function Main({
   profile,
   place,
   trash,
-  isEditAvatarPopupOpen,
-  isEditProfilePopupOpen,
-  isAddPlacePopupOpen,
-  isConfirmTrashPopupOpen,
   onEditAvatar,
   onEditProfile,
   onAddPlace,
@@ -75,7 +71,7 @@ function Main({
         name={avatar.name}
         title={avatar.title}
         buttonTitle={avatar.buttonTitle}
-        isOpen={isEditAvatarPopupOpen}
+        isOpen={avatar.isEditAvatarPopupOpen}
         closeAllPopups={closeAllPopups}>
         {popups.avatar}
       </PopupWithForm>
@@ -84,7 +80,7 @@ function Main({
         name={profile.name}
         title={profile.title}
         buttonTitle={profile.buttonTitle}
-        isOpen={isEditProfilePopupOpen}
+        isOpen={profile.isEditProfilePopupOpen}
         closeAllPopups={closeAllPopups}>
         {popups.profile}
       </PopupWithForm>
@@ -93,7 +89,7 @@ function Main({
         name={place.name}
         title={place.title}
         buttonTitle={place.buttonTitle}
-        isOpen={isAddPlacePopupOpen}
+        isOpen={place.isAddPlacePopupOpen}
         closeAllPopups={closeAllPopups}>
         {popups.place}
       </PopupWithForm>
@@ -102,7 +98,7 @@ function Main({
         name={trash.name}
         title={trash.title}
         buttonTitle={trash.buttonTitle}
-        isOpen={isConfirmTrashPopupOpen}
+        isOpen={trash.isConfirmTrashPopupOpen}
         closeAllPopups={closeAllPopups}
       />
 
