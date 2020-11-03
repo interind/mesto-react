@@ -1,4 +1,4 @@
-export class Api {
+class Api {
   constructor({ url, token, user, cards }) {
     this._url = url;
     this._token = token;
