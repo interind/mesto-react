@@ -37,8 +37,8 @@ function App() {
   let [isConfirmTrashPopupOpen, setTrashPopup] = React.useState(false);
   const [user, setUser] = React.useState({}); // тут информация обо мне с сервера
   const [cards, setCards] = React.useState([]); // тут информация о карточках
-  const [selectedCard, setSelectedCard] = React.useState({}); // тут булевое значение для попапа с картинкой
-  const [isOpenCard, setOpenCard] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
+  const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
 
   function closeAllPopups() {
     setAvatarPopup(false);
@@ -67,13 +67,10 @@ function App() {
   function handleConfirmTrashClick() {
     setTrashPopup(true);
   }
-  function handleCardClick(evt) {
+  function handleCardClick({ src, name }) {
     // для открытия попапа с картинкой
-    const imgTarget = evt.target;
-    if (imgTarget.classList.contains('element__pic')) {
-      setSelectedCard({ link: imgTarget.src, name: imgTarget.alt });
-      setOpenCard(true);
-    }
+    setSelectedCard({ link: src, name: name });
+    setOpenCard(true);
   }
 
   React.useEffect(() => {

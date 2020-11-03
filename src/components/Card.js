@@ -17,7 +17,9 @@ function Card({ onConfirmTrash, infoCards, myId, handleCardClick }) {
         className='element__pic'
         src={infoCards.link}
         alt={infoCards.name}
-        onClick={handleCardClick}
+        onClick={() =>
+          handleCardClick({ src: infoCards.link, title: infoCards.name })
+        }
       />
       <button
         className={`element__button-trash ${classTrash.join(' ')}`}
