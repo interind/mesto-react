@@ -22,6 +22,7 @@ function Main({
   closeAllPopups,
   handleCardClick,
   selectedCard,
+  isOpenCard,
 }) {
   return (
     <React.Fragment>
@@ -105,7 +106,11 @@ function Main({
         closeAllPopups={closeAllPopups}
       />
 
-      <ImagePopup selectedCard={selectedCard} closeAllPopups={closeAllPopups} />
+      <ImagePopup
+        selectedCard={selectedCard}
+        closeAllPopups={closeAllPopups}
+        isOpen={isOpenCard}
+      />
     </React.Fragment>
   );
 }

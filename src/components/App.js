@@ -37,19 +37,21 @@ function App() {
   let [isConfirmTrashPopupOpen, setTrashPopup] = React.useState(false);
   const [user, setUser] = React.useState({}); // тут информация обо мне с сервера
   const [cards, setCards] = React.useState([]); // тут информация о карточках
-  const [selectedCard, setSelectedCard] = React.useState(false); // тут булевое значение для попапа с картинкой
+  const [selectedCard, setSelectedCard] = React.useState({}); // тут булевое значение для попапа с картинкой
+  const [isOpenCard, setOpenCard] = React.useState(false);
 
   function closeAllPopups() {
+    setAvatarPopup(false);
+
+    setProfilePopup(false);
+
+    setPlacePopup(false);
+
+    setTrashPopup(false);
+
+    setOpenCard(false);
     setTimeout(() => {
-      setAvatarPopup(false);
-
-      setProfilePopup(false);
-
-      setPlacePopup(false);
-
-      setTrashPopup(false);
-
-      setSelectedCard(false);
+      setSelectedCard({});
     }, 100);
   }
 
@@ -70,34 +72,30 @@ function App() {
     const imgTarget = evt.target;
     if (imgTarget.classList.contains('element__pic')) {
       setSelectedCard({ link: imgTarget.src, name: imgTarget.alt });
+      setOpenCard(true);
     }
   }
 
-  React.useEffect(
-    () => {
-      setAvatarPopup(false);
-      setProfilePopup(false);
-      setPlacePopup(false);
-      setTrashPopup(false);
-      api
-        .getInfoUser()
-        .then((dataUser) => {
-          setUser(dataUser);
-        })
-        .catch((err) => console.log('Информация пользователя с ошибкой', err));
+  React.useEffect(() => {
+    setAvatarPopup(false);
+    setProfilePopup(false);
+    setPlacePopup(false);
+    setTrashPopup(false);
+    setOpenCard(false);
+    api
+      .getInfoUser()
+      .then((dataUser) => {
+        setUser(dataUser);
+      })
+      .catch((err) => console.log('Информация пользователя с ошибкой', err));
 
-      api
-        .getInfoCards()
-        .then((data) => {
-          setCards(data[0]);
-        })
-        .catch((err) => console.log('Информация по карточкам с ошибкой', err));
-
-      setSelectedCard({});
-    },
-    [],
-    { selectedCard }
-  );
+    api
+      .getInfoCards()
+      .then((data) => {
+        setCards(data[0]);
+      })
+      .catch((err) => console.log('Информация по карточкам с ошибкой', err));
+  }, []);
 
   return (
     <div className='page'>
@@ -121,6 +119,7 @@ function App() {
           closeAllPopups={closeAllPopups}
           handleCardClick={handleCardClick}
           selectedCard={selectedCard}
+          isOpenCard={isOpenCard}
         />
       </ErrorBoundary>
       <Footer />

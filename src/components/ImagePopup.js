@@ -1,8 +1,8 @@
 import React from 'react';
 
-function ImagePopup({ selectedCard, closeAllPopups }) {
-  const classOpen = []; // массив для открытия попапа
-  if (selectedCard.link) {
+function ImagePopup({ selectedCard, closeAllPopups, isOpen }) {
+  const classOpen = []; // массив для открытия попапа и закрытия
+  if (isOpen) {
     classOpen.length = 0;
     classOpen.push('popup_opened');
   }
