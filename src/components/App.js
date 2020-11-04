@@ -74,10 +74,9 @@ function App() {
     setPlacePopup({ ...place, isAddPlacePopupOpen: false });
     setTrashPopup({ ...trash, isConfirmTrashPopupOpen: false });
     setOpenCard(false);
-
     setTimeout(() => {
       setSelectedCard({});
-    }, 1000);
+    }, 500);
   }
 
   function handleEditAvatarClick() {

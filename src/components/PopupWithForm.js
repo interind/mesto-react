@@ -2,9 +2,7 @@ import React from 'react';
 
 function PopupWithForm(props) {
   const classes = []; // массив для открытия попапа
-  classes.length = 0;
-
-  props.isOpen ? classes.push('popup_opened') : classes.push(' ');
+  props.isOpen ? classes.push('popup_opened') : (classes.length = 0);
 
   return (
     <React.Fragment>
