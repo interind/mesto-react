@@ -65,7 +65,7 @@ function App() {
   });
   const [user, setUser] = React.useState({}); // тут информация обо мне с сервера
   const [cards, setCards] = React.useState([]); // тут информация о карточках
-  const [selectedCard, setSelectedCard] = React.useState({});
+  const [selectedCard, setSelectedCard] = React.useState({}); // объект для попапа с картинкой
   const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
 
   function closeAllPopups() {
@@ -91,9 +91,9 @@ function App() {
   function handleConfirmTrashClick() {
     setTrashPopup({ ...trash, isConfirmTrashPopupOpen: true });
   }
-  function handleCardClick({ src, name }) {
+  function handleCardClick({ link, name }) {
     // для открытия попапа с картинкой
-    setSelectedCard({ link: src, name: name });
+    setSelectedCard({ link: link, name: name });
     setOpenCard(true);
   }
 
@@ -102,7 +102,6 @@ function App() {
       .getInfoUser()
       .then((dataUser) => {
         setUser(dataUser);
-        console.log(dataUser);
       })
       .catch((err) => console.log('Информация пользователя с ошибкой', err));
 

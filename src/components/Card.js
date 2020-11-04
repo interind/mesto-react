@@ -18,7 +18,7 @@ function Card({ onConfirmTrash, infoCards, myId, handleCardClick }) {
         src={infoCards.link}
         alt={infoCards.name}
         onClick={() =>
-          handleCardClick({ src: infoCards.link, name: infoCards.name })
+          handleCardClick({ link: infoCards.link, name: infoCards.name })
         }
       />
       <button
