@@ -3,12 +3,13 @@ import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import Card from './Card.js';
 import { popups } from '../utils/popups';
+import Avatar from './Avatar.js';
 
 function Main({
-  avatar,
-  profile,
-  place,
-  trash,
+  avatarPopup,
+  profilePopup,
+  placePopup,
+  trashPopup,
   onEditAvatar,
   onEditProfile,
   onAddPlace,
@@ -23,14 +24,7 @@ function Main({
   return (
     <React.Fragment>
       <section className='profile page__profile'>
-        <img
-          className='profile__avatar'
-          src={user.avatar}
-          alt='Аватарка'
-          data-id='3'
-          id={user._id}
-          onClick={onEditAvatar}
-        />
+        <Avatar src={user.avatar} id={user._id} onEditAvatar={onEditAvatar} />
         <div className='profile__info'>
           <h1 className='profile__title' title={user.name}>
             {user.name}
@@ -58,7 +52,7 @@ function Main({
             <Card
               onConfirmTrash={onConfirmTrash}
               infoCards={infoCards}
-              key={infoCards.createdAt}
+              key={infoCards._id}
               myId={user._id}
               handleCardClick={handleCardClick}
             />
@@ -67,38 +61,38 @@ function Main({
       </div>
 
       <PopupWithForm
-        key={avatar.id}
-        name={avatar.name}
-        title={avatar.title}
-        buttonTitle={avatar.buttonTitle}
-        isOpen={avatar.isEditAvatarPopupOpen}
+        key={avatarPopup.id}
+        name={avatarPopup.name}
+        title={avatarPopup.title}
+        buttonTitle={avatarPopup.buttonTitle}
+        isOpen={avatarPopup.isEditAvatarPopupOpen}
         closeAllPopups={closeAllPopups}>
         {popups.avatar}
       </PopupWithForm>
       <PopupWithForm
-        key={profile.id}
-        name={profile.name}
-        title={profile.title}
-        buttonTitle={profile.buttonTitle}
-        isOpen={profile.isEditProfilePopupOpen}
+        key={profilePopup.id}
+        name={profilePopup.name}
+        title={profilePopup.title}
+        buttonTitle={profilePopup.buttonTitle}
+        isOpen={profilePopup.isEditProfilePopupOpen}
         closeAllPopups={closeAllPopups}>
         {popups.profile}
       </PopupWithForm>
       <PopupWithForm
-        key={place.id}
-        name={place.name}
-        title={place.title}
-        buttonTitle={place.buttonTitle}
-        isOpen={place.isAddPlacePopupOpen}
+        key={placePopup.id}
+        name={placePopup.name}
+        title={placePopup.title}
+        buttonTitle={placePopup.buttonTitle}
+        isOpen={placePopup.isAddPlacePopupOpen}
         closeAllPopups={closeAllPopups}>
         {popups.place}
       </PopupWithForm>
       <PopupWithForm
-        key={trash.id}
-        name={trash.name}
-        title={trash.title}
-        buttonTitle={trash.buttonTitle}
-        isOpen={trash.isConfirmTrashPopupOpen}
+        key={trashPopup.id}
+        name={trashPopup.name}
+        title={trashPopup.title}
+        buttonTitle={trashPopup.buttonTitle}
+        isOpen={trashPopup.isConfirmTrashPopupOpen}
         closeAllPopups={closeAllPopups}
       />
 

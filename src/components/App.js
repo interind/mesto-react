@@ -35,28 +35,28 @@ function App() {
   //   isConfirmTrashPopupOpen: false
   // };
 
-  let [avatar, setAvatarPopup] = React.useState({
+  let [avatarPopup, setAvatarPopup] = React.useState({
     id: 1,
     name: 'avatar',
     title: 'Обновить аватар',
     buttonTitle: 'Сохранить',
     isEditAvatarPopupOpen: false,
   });
-  let [profile, setProfilePopup] = React.useState({
+  let [profilePopup, setProfilePopup] = React.useState({
     id: 2,
     name: 'profile',
     title: 'Редактировать форму',
     buttonTitle: 'Сохранить',
     isEditProfilePopupOpen: false,
   });
-  let [place, setPlacePopup] = React.useState({
+  let [placePopup, setPlacePopup] = React.useState({
     id: 3,
     name: 'place',
     title: 'Новое место',
     buttonTitle: 'Сохранить',
     isAddPlacePopupOpen: false,
   });
-  let [trash, setTrashPopup] = React.useState({
+  let [trashPopup, setTrashPopup] = React.useState({
     id: 4,
     name: 'trash',
     title: 'Вы уверены?',
@@ -69,10 +69,10 @@ function App() {
   const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
 
   function closeAllPopups() {
-    setAvatarPopup({ ...avatar, isEditAvatarPopupOpen: false });
-    setProfilePopup({ ...profile, isEditProfilePopupOpen: false });
-    setPlacePopup({ ...place, isAddPlacePopupOpen: false });
-    setTrashPopup({ ...trash, isConfirmTrashPopupOpen: false });
+    setAvatarPopup({ ...avatarPopup, isEditAvatarPopupOpen: false });
+    setProfilePopup({ ...profilePopup, isEditProfilePopupOpen: false });
+    setPlacePopup({ ...placePopup, isAddPlacePopupOpen: false });
+    setTrashPopup({ ...trashPopup, isConfirmTrashPopupOpen: false });
     setOpenCard(false);
     setTimeout(() => {
       setSelectedCard({});
@@ -80,22 +80,26 @@ function App() {
   }
 
   function handleEditAvatarClick() {
-    setAvatarPopup({ ...avatar, isEditAvatarPopupOpen: true });
+    setAvatarPopup({ ...avatarPopup, isEditAvatarPopupOpen: true });
   }
   function handleEditProfileClick() {
-    setProfilePopup({ ...profile, isEditProfilePopupOpen: true });
+    setProfilePopup({ ...profilePopup, isEditProfilePopupOpen: true });
   }
   function handleAddPlaceClick() {
-    setPlacePopup({ ...place, isAddPlacePopupOpen: true });
+    setPlacePopup({ ...placePopup, isAddPlacePopupOpen: true });
   }
   function handleConfirmTrashClick() {
-    setTrashPopup({ ...trash, isConfirmTrashPopupOpen: true });
+    setTrashPopup({ ...trashPopup, isConfirmTrashPopupOpen: true });
   }
   function handleCardClick({ link, name }) {
     // для открытия попапа с картинкой
     setSelectedCard({ link: link, name: name });
     setOpenCard(true);
   }
+
+  // function handleSubmitAvatar() {
+
+  // }
 
   React.useEffect(() => {
     api
@@ -109,6 +113,7 @@ function App() {
       .getInfoCards()
       .then((data) => {
         setCards(data[0]);
+        console.log(data[0]);
       })
       .catch((err) => console.log('Информация по карточкам с ошибкой', err));
   }, []);
@@ -118,10 +123,10 @@ function App() {
       <Header />
       <ErrorBoundary>
         <Main
-          avatar={avatar}
-          profile={profile}
-          place={place}
-          trash={trash}
+          avatarPopup={avatarPopup}
+          profilePopup={profilePopup}
+          placePopup={placePopup}
+          trashPopup={trashPopup}
           onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}

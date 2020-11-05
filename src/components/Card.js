@@ -10,38 +10,46 @@ function Card({ onConfirmTrash, infoCards, myId, handleCardClick }) {
     classLikes.length = 0;
     classLikes.push('element__button-like_color_black');
   }
+  let [correct, setCorrect] = React.useState(true);
 
   return (
-    <div className='element'>
-      <img
-        className='element__pic'
-        src={infoCards.link}
-        alt={infoCards.name}
-        onClick={() =>
-          handleCardClick({ link: infoCards.link, name: infoCards.name })
-        }
-      />
-      <button
-        className={`element__button-trash ${classTrash.join(' ')}`}
-        type='button'
-        data-id='4'
-        onClick={onConfirmTrash}></button>
-      <div className='element__info'>
-        <h2 className='element__title' title={infoCards.name}>
-          {infoCards.name}
-        </h2>
-        <div className='element__like'>
+    <>
+      {correct && (
+        <div className='element'>
+          <img
+            className='element__pic'
+            src={infoCards.link}
+            alt={infoCards.name}
+            onError={() => {
+              setCorrect(false);
+            }}
+            onClick={() =>
+              handleCardClick({ link: infoCards.link, name: infoCards.name })
+            }
+          />
           <button
-            className={`element__button-like element__button-like_color_white ${classLikes.join(
-              ' '
-            )}`}
-            type='button'></button>
-          <span className='element__counter-like'>
-            {infoCards.likes.length}
-          </span>
+            className={`element__button-trash ${classTrash.join(' ')}`}
+            type='button'
+            data-id='4'
+            onClick={onConfirmTrash}></button>
+          <div className='element__info'>
+            <h2 className='element__title' title={infoCards.name}>
+              {infoCards.name}
+            </h2>
+            <div className='element__like'>
+              <button
+                className={`element__button-like element__button-like_color_white ${classLikes.join(
+                  ' '
+                )}`}
+                type='button'></button>
+              <span className='element__counter-like'>
+                {infoCards.likes.length}
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
