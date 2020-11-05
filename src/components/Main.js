@@ -4,6 +4,7 @@ import ImagePopup from './ImagePopup.js';
 import Card from './Card.js';
 import { popups } from '../utils/popups';
 import Avatar from './Avatar.js';
+import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
 function Main({
   avatarPopup,
@@ -14,20 +15,20 @@ function Main({
   onEditProfile,
   onAddPlace,
   onConfirmTrash,
-  user,
   cards,
   closeAllPopups,
   handleCardClick,
   selectedCard,
   isOpenCard,
 }) {
+  const { name, avatar, _id, about } = React.useContext(CurrentUserContext);
   return (
     <React.Fragment>
       <section className='profile page__profile'>
-        <Avatar src={user.avatar} id={user._id} onEditAvatar={onEditAvatar} />
+        <Avatar src={avatar} id={_id} onEditAvatar={onEditAvatar} />
         <div className='profile__info'>
-          <h1 className='profile__title' title={user.name}>
-            {user.name}
+          <h1 className='profile__title' title={name}>
+            {name}
           </h1>
           <button
             className='profile__edit-button'
@@ -35,8 +36,8 @@ function Main({
             title='изменить данные профиля'
             data-id='1'
             onClick={onEditProfile}></button>
-          <p className='profile__subtitle' title={user.about}>
-            {user.about}
+          <p className='profile__subtitle' title={about}>
+            {about}
           </p>
         </div>
         <button
@@ -53,7 +54,7 @@ function Main({
               onConfirmTrash={onConfirmTrash}
               infoCards={infoCards}
               key={infoCards._id}
-              myId={user._id}
+              myId={_id}
               handleCardClick={handleCardClick}
             />
           );

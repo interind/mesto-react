@@ -4,37 +4,9 @@ import Main from './Main.js';
 import Footer from './Footer.js';
 import api from '../utils/api.js';
 import ErrorBoundary from './Error/ErrorBoundary.js'; // предохранитель, вроде рабочий ((()))
+import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
 function App() {
-  // const avatar = {
-  //   id: 1,
-  //   name: 'avatar',
-  //   title: 'Обновить аватар',
-  //   buttonTitle: 'Сохранить',
-  //   isEditAvatarPopupOpen: false
-  // };
-  // const profile = {
-  //   id: 2,
-  //   name: 'profile',
-  //   title: 'Редактировать форму',
-  //   buttonTitle: 'Сохранить',
-  //   isEditProfilePopupOpen: false
-  // };
-  // const place = {
-  //   id: 3,
-  //   name: 'place',
-  //   title: 'Новое место',
-  //   buttonTitle: 'Сохранить',
-  //   isAddPlacePopupOpen: false
-  // };
-  // const trash = {
-  //   id: 4,
-  //   name: 'trash',
-  //   title: 'Вы уверены?',
-  //   buttonTitle: 'Да',
-  //   isConfirmTrashPopupOpen: false
-  // };
-
   let [avatarPopup, setAvatarPopup] = React.useState({
     id: 1,
     name: 'avatar',
@@ -63,7 +35,7 @@ function App() {
     buttonTitle: 'Да',
     isConfirmTrashPopupOpen: false,
   });
-  const [user, setUser] = React.useState({}); // тут информация обо мне с сервера
+  const [currentUser, setCurrentUser] = React.useState({}); // тут информация обо мне с сервера
   const [cards, setCards] = React.useState([]); // тут информация о карточках
   const [selectedCard, setSelectedCard] = React.useState({}); // объект для попапа с картинкой
   const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
@@ -97,15 +69,11 @@ function App() {
     setOpenCard(true);
   }
 
-  // function handleSubmitAvatar() {
-
-  // }
-
   React.useEffect(() => {
     api
       .getInfoUser()
       .then((dataUser) => {
-        setUser(dataUser);
+        setCurrentUser(dataUser);
       })
       .catch((err) => console.log('Информация пользователя с ошибкой', err));
 
@@ -119,28 +87,29 @@ function App() {
   }, []);
 
   return (
-    <div className='page'>
-      <Header />
-      <ErrorBoundary>
-        <Main
-          avatarPopup={avatarPopup}
-          profilePopup={profilePopup}
-          placePopup={placePopup}
-          trashPopup={trashPopup}
-          onEditAvatar={handleEditAvatarClick}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onConfirmTrash={handleConfirmTrashClick}
-          user={user}
-          cards={cards}
-          closeAllPopups={closeAllPopups}
-          handleCardClick={handleCardClick}
-          selectedCard={selectedCard}
-          isOpenCard={isOpenCard}
-        />
-      </ErrorBoundary>
-      <Footer />
-    </div>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className='page'>
+        <Header />
+        <ErrorBoundary>
+          <Main
+            avatarPopup={avatarPopup}
+            profilePopup={profilePopup}
+            placePopup={placePopup}
+            trashPopup={trashPopup}
+            onEditAvatar={handleEditAvatarClick}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onConfirmTrash={handleConfirmTrashClick}
+            cards={cards}
+            closeAllPopups={closeAllPopups}
+            handleCardClick={handleCardClick}
+            selectedCard={selectedCard}
+            isOpenCard={isOpenCard}
+          />
+        </ErrorBoundary>
+        <Footer />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
