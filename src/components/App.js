@@ -84,27 +84,29 @@ function App() {
   }, []);
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
+    <React.Fragment>
       <div className='page'>
         <Header />
-        <Main
-          avatarPopup={avatarPopup}
-          profilePopup={profilePopup}
-          placePopup={placePopup}
-          trashPopup={trashPopup}
-          onEditAvatar={handleEditAvatarClick}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onConfirmTrash={handleConfirmTrashClick}
-          closeAllPopups={closeAllPopups}
-          handleCardClick={handleCardClick}
-          selectedCard={selectedCard}
-          isOpenCard={isOpenCard}
-          cards={cards}
-        />
+        <CurrentUserContext.Provider value={currentUser}>
+          <Main
+            avatarPopup={avatarPopup}
+            profilePopup={profilePopup}
+            placePopup={placePopup}
+            trashPopup={trashPopup}
+            onEditAvatar={handleEditAvatarClick}
+            onEditProfile={handleEditProfileClick}
+            onAddPlace={handleAddPlaceClick}
+            onConfirmTrash={handleConfirmTrashClick}
+            closeAllPopups={closeAllPopups}
+            handleCardClick={handleCardClick}
+            selectedCard={selectedCard}
+            isOpenCard={isOpenCard}
+            cards={cards}
+          />
+        </CurrentUserContext.Provider>
         <Footer />
       </div>
-    </CurrentUserContext.Provider>
+    </React.Fragment>
   );
 }
 

@@ -1,4 +1,4 @@
-# mesto-react
+# mesto-react https://interind.github.io/mesto-react/
 
 студент: Банных Александр.
 
