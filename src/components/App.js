@@ -3,7 +3,6 @@ import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import api from '../utils/api.js';
-import ErrorBoundary from './Error/ErrorBoundary.js'; // предохранитель, вроде рабочий ((()))
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
 function App() {
@@ -46,9 +45,6 @@ function App() {
     setPlacePopup({ ...placePopup, isAddPlacePopupOpen: false });
     setTrashPopup({ ...trashPopup, isConfirmTrashPopupOpen: false });
     setOpenCard(false);
-    setTimeout(() => {
-      setSelectedCard({});
-    }, 500);
   }
 
   function handleEditAvatarClick() {
@@ -76,12 +72,13 @@ function App() {
         setCurrentUser(dataUser);
       })
       .catch((err) => console.log('Информация пользователя с ошибкой', err));
+  }, []);
 
+  React.useEffect(() => {
     api
       .getInfoCards()
       .then((dataCards) => {
-        setCards(dataCards[0]);
-        console.log(dataCards[0]);
+        setCards(...dataCards);
       })
       .catch((err) => console.log('Информация по карточкам с ошибкой', err));
   }, []);
@@ -90,23 +87,21 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
         <Header />
-        <ErrorBoundary>
-          <Main
-            avatarPopup={avatarPopup}
-            profilePopup={profilePopup}
-            placePopup={placePopup}
-            trashPopup={trashPopup}
-            onEditAvatar={handleEditAvatarClick}
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onConfirmTrash={handleConfirmTrashClick}
-            cards={cards}
-            closeAllPopups={closeAllPopups}
-            handleCardClick={handleCardClick}
-            selectedCard={selectedCard}
-            isOpenCard={isOpenCard}
-          />
-        </ErrorBoundary>
+        <Main
+          avatarPopup={avatarPopup}
+          profilePopup={profilePopup}
+          placePopup={placePopup}
+          trashPopup={trashPopup}
+          onEditAvatar={handleEditAvatarClick}
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onConfirmTrash={handleConfirmTrashClick}
+          closeAllPopups={closeAllPopups}
+          handleCardClick={handleCardClick}
+          selectedCard={selectedCard}
+          isOpenCard={isOpenCard}
+          cards={cards}
+        />
         <Footer />
       </div>
     </CurrentUserContext.Provider>

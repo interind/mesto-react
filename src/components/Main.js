@@ -15,17 +15,17 @@ function Main({
   onEditProfile,
   onAddPlace,
   onConfirmTrash,
-  cards,
   closeAllPopups,
   handleCardClick,
   selectedCard,
   isOpenCard,
+  cards,
 }) {
   const { name, avatar, _id, about } = React.useContext(CurrentUserContext);
   return (
     <React.Fragment>
       <section className='profile page__profile'>
-        <Avatar src={avatar} id={_id} onEditAvatar={onEditAvatar} />
+        <Avatar src={avatar} id={_id} key={_id} onEditAvatar={onEditAvatar} />
         <div className='profile__info'>
           <h1 className='profile__title' title={name}>
             {name}
@@ -60,7 +60,6 @@ function Main({
           );
         })}
       </div>
-
       <PopupWithForm
         key={avatarPopup.id}
         name={avatarPopup.name}

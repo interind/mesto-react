@@ -7,7 +7,7 @@ class Api {
   }
 
   getResponse(res) {
-    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+    return res.ok ? res.json() : Promise.reject(`Ошибка api: ${res.status}`);
   }
 
   getInfoUser() {

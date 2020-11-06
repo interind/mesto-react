@@ -1,10 +1,8 @@
 import React from 'react';
 
 function ImagePopup({ selectedCard, closeAllPopups, isOpen }) {
-  const classOpen = []; // массив для открытия попапа и закрытия
-  isOpen ? classOpen.push('popup_opened') : (classOpen.length = 0);
   return (
-    <div className={`popup popup_type_zoom ${classOpen.join(' ')}`}>
+    <div className={`popup popup_type_zoom ${isOpen && 'popup_opened'}`}>
       <div className='popup__zoom'>
         <img
           className='popup__pic'

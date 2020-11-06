@@ -1,12 +1,14 @@
 import React from 'react';
 
 function PopupWithForm(props) {
-  const classes = []; // массив для открытия попапа
-  props.isOpen ? classes.push('popup_opened') : (classes.length = 0);
+  let isOpen = props.isOpen;
 
   return (
     <React.Fragment>
-      <div className={`popup popup_type_${props.name} ${classes.join(' ')}`}>
+      <div
+        className={`popup popup_type_${props.name} ${
+          isOpen && 'popup_opened'
+        }`}>
         <form
           className={`popup__container popup__container_type_${props.name}`}
           name={props.name}
