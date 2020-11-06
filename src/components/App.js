@@ -79,9 +79,9 @@ function App() {
 
     api
       .getInfoCards()
-      .then((data) => {
-        setCards(data[0]);
-        console.log(data[0]);
+      .then((dataCards) => {
+        setCards(dataCards[0]);
+        console.log(dataCards[0]);
       })
       .catch((err) => console.log('Информация по карточкам с ошибкой', err));
   }, []);
