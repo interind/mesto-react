@@ -34,7 +34,6 @@ function Main({
             className='profile__edit-button'
             type='button'
             title='изменить данные профиля'
-            data-id='1'
             onClick={onEditProfile}></button>
           <p className='profile__subtitle' title={about}>
             {about}
@@ -44,7 +43,6 @@ function Main({
           className='profile__add-button'
           type='button'
           title='добавить картинки'
-          data-id='2'
           onClick={onAddPlace}></button>
       </section>
       <div className='elements page__elements'>

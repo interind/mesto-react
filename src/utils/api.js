@@ -23,9 +23,7 @@ class Api {
       headers: {
         authorization: `${this._token}`,
       },
-    })
-      .then(this.getResponse)
-      .then((res) => JSON.parse(JSON.stringify([res])));
+    }).then(this.getResponse);
   }
 
   updateUserInfo(userInfo) {

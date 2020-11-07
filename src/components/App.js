@@ -78,8 +78,10 @@ function App() {
     api
       .getInfoCards()
       .then((dataCards) => {
-        setCards(...dataCards);
+        setCards(dataCards);
+        console.log(dataCards);
       })
+
       .catch((err) => console.log('Информация по карточкам с ошибкой', err));
   }, []);
 

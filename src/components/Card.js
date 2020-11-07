@@ -1,19 +1,10 @@
 import React from 'react';
 
 function Card({ onConfirmTrash, infoCards, myId, handleCardClick }) {
-  const classTrash = []; // массив для отображения корзины удаления на своих карточках
-  const classLikes = []; // массив для отображения поставленных мной лайков.
-  if (infoCards.owner._id === myId) {
-    classTrash.length = 0;
-    classTrash.push('element__button-trash_visible');
-  } else if (infoCards.likes.find((id) => id._id === myId)) {
-    classLikes.length = 0;
-    classLikes.push('element__button-like_color_black');
-  }
   let [correct, setCorrect] = React.useState(true);
 
   return (
-    <>
+    <React.Fragment>
       {correct && (
         <div className='element'>
           <img
@@ -28,9 +19,12 @@ function Card({ onConfirmTrash, infoCards, myId, handleCardClick }) {
             }
           />
           <button
-            className={`element__button-trash ${classTrash.join(' ')}`}
+            className={`element__button-trash ${
+              infoCards.owner._id === myId
+                ? 'element__button-trash_visible'
+                : ''
+            }`}
             type='button'
-            data-id='4'
             onClick={onConfirmTrash}></button>
           <div className='element__info'>
             <h2 className='element__title' title={infoCards.name}>
@@ -38,9 +32,11 @@ function Card({ onConfirmTrash, infoCards, myId, handleCardClick }) {
             </h2>
             <div className='element__like'>
               <button
-                className={`element__button-like element__button-like_color_white ${classLikes.join(
-                  ' '
-                )}`}
+                className={`element__button-like element__button-like_color_white ${
+                  infoCards.likes.find((id) => id._id === myId)
+                    ? 'element__button-like_color_black'
+                    : ''
+                }`}
                 type='button'></button>
               <span className='element__counter-like'>
                 {infoCards.likes.length}
@@ -49,7 +45,7 @@ function Card({ onConfirmTrash, infoCards, myId, handleCardClick }) {
           </div>
         </div>
       )}
-    </>
+    </React.Fragment>
   );
 }
 
