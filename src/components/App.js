@@ -79,10 +79,11 @@ function App() {
       .getInfoCards()
       .then((dataCards) => {
         setCards(dataCards);
-        console.log(dataCards);
       })
 
-      .catch((err) => console.log('Информация по карточкам с ошибкой', err));
+      .catch((err) =>
+        console.log('Информация по карточкам с ошибкой', err.message)
+      );
   }, []);
 
   return (

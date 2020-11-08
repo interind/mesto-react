@@ -6,24 +6,28 @@ class Api {
     this._cards = cards;
   }
 
-  getResponse(res) {
-    return res.ok ? res.json() : Promise.reject(`Ошибка api: ${res.status}`);
+  _getResponse(res) {
+    return res.ok
+      ? res.json()
+      : Promise.reject(new Error(`Ошибка api: ${res.status}`));
   }
 
   getInfoUser() {
     return fetch(`${this._url}${this._user}`, {
       headers: {
         authorization: `${this._token}`,
+        'Content-type': 'application/json; charset=UTF-8',
       },
-    }).then(this.getResponse);
+    }).then(this._getResponse);
   }
 
   getInfoCards() {
     return fetch(`${this._url}${this._cards}`, {
       headers: {
         authorization: `${this._token}`,
+        'Content-type': 'application/json; charset=UTF-8',
       },
-    }).then(this.getResponse);
+    }).then(this._getResponse);
   }
 
   updateUserInfo(userInfo) {
@@ -31,13 +35,13 @@ class Api {
       method: 'PATCH',
       headers: {
         authorization: `${this._token}`,
-        'Content-Type': 'application/json',
+        'Content-type': 'application/json; charset=UTF-8',
       },
       body: JSON.stringify({
         name: userInfo.name,
         about: userInfo.job,
       }),
-    }).then(this.getResponse);
+    }).then(this._getResponse);
   }
 
   updateUserAvatar(userInfo) {
@@ -45,12 +49,12 @@ class Api {
       method: 'PATCH',
       headers: {
         authorization: `${this._token}`,
-        'Content-Type': 'application/json',
+        'Content-type': 'application/json; charset=UTF-8',
       },
       body: JSON.stringify({
         avatar: userInfo.avatar,
       }),
-    }).then(this.getResponse);
+    }).then(this._getResponse);
   }
 
   addCard(cardInfo) {
@@ -58,13 +62,13 @@ class Api {
       method: 'POST',
       headers: {
         authorization: `${this._token}`,
-        'Content-Type': 'application/json',
+        'Content-type': 'application/json; charset=UTF-8',
       },
       body: JSON.stringify({
         name: cardInfo.place,
         link: cardInfo.card,
       }),
-    }).then(this.getResponse);
+    }).then(this._getResponse);
   }
 
   addLike(infoId) {
@@ -72,9 +76,9 @@ class Api {
       method: 'PUT',
       headers: {
         authorization: `${this._token}`,
-        'Content-Type': 'application/json',
+        'Content-type': 'application/json; charset=UTF-8',
       },
-    }).then(this.getResponse);
+    }).then(this._getResponse);
   }
 
   deleteLike(infoId) {
@@ -82,9 +86,9 @@ class Api {
       method: 'DELETE',
       headers: {
         authorization: `${this._token}`,
-        'Content-Type': 'application/json',
+        'Content-type': 'application/json; charset=UTF-8',
       },
-    }).then(this.getResponse);
+    }).then(this._getResponse);
   }
 
   deleteCard(id) {
@@ -94,7 +98,7 @@ class Api {
         authorization: `${this._token}`,
         'Content-type': 'application/json; charset=UTF-8',
       },
-    }).then(this.getResponse);
+    }).then(this._getResponse);
   }
 }
 
