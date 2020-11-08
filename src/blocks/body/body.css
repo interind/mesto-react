@@ -14,11 +14,12 @@
 .body::-webkit-scrollbar-thumb {
   -webkit-border-radius: 0px;
   border-radius: 0px;
-  background-color: #fff;
+  background: linear-gradient(#fff, #00f, #f00);
+  background-repeat: no-repeat;
 }
 
 .body::-webkit-scrollbar-thumb:hover {
-  background-color: #c40d0d;
+  background: linear-gradient(#fff, #f00, #fff);
 }
 
 .body::-webkit-resizer {
