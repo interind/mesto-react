@@ -1,18 +1,18 @@
 import React from 'react';
 
 function Card(props) {
-  let [correct, setCorrect] = React.useState(true);
+  let [visible, setVisible] = React.useState(true);
 
   return (
     <React.Fragment>
-      {correct && (
+      {visible && (
         <div className='element'>
           <img
             className='element__pic'
             src={props.card.link}
             alt={props.card.name}
             onError={() => {
-              setCorrect(false);
+              setVisible(false);
             }}
             onClick={() => props.oneCardClick(props.card)}
           />
