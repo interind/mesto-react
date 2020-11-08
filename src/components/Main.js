@@ -5,6 +5,7 @@ import Card from './Card.js';
 import { popups } from '../utils/popups';
 import Avatar from './Avatar.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
+import { CardsContext } from '../context/CardsContext.js';
 
 function Main({
   avatarPopup,
@@ -19,13 +20,13 @@ function Main({
   handleCardClick,
   selectedCard,
   isOpenCard,
-  cards,
 }) {
-  const { name, avatar, _id, about } = React.useContext(CurrentUserContext);
+  const { name, _id, about } = React.useContext(CurrentUserContext);
+  const { cards } = React.useContext(CardsContext);
   return (
     <React.Fragment>
       <section className='profile page__profile'>
-        <Avatar src={avatar} id={_id} key={_id} onEditAvatar={onEditAvatar} />
+        <Avatar onEditAvatar={onEditAvatar} />
         <div className='profile__info'>
           <h1 className='profile__title' title={name}>
             {name}
@@ -46,14 +47,14 @@ function Main({
           onClick={onAddPlace}></button>
       </section>
       <div className='elements page__elements'>
-        {cards.map((infoCards) => {
+        {cards.map((card) => {
           return (
             <Card
               onConfirmTrash={onConfirmTrash}
-              infoCards={infoCards}
-              key={infoCards._id}
+              card={card}
+              key={card._id}
               myId={_id}
-              handleCardClick={handleCardClick}
+              oneCardClick={handleCardClick}
             />
           );
         })}

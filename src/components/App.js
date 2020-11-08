@@ -4,6 +4,7 @@ import Main from './Main.js';
 import Footer from './Footer.js';
 import api from '../utils/api.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
+import { CardsContext } from '../context/CardsContext.js';
 
 function App() {
   let [avatarPopup, setAvatarPopup] = React.useState({
@@ -59,9 +60,9 @@ function App() {
   function handleConfirmTrashClick() {
     setTrashPopup({ ...trashPopup, isConfirmTrashPopupOpen: true });
   }
-  function handleCardClick({ link, name }) {
+  function handleCardClick(props) {
     // для открытия попапа с картинкой
-    setSelectedCard({ link: link, name: name });
+    setSelectedCard({ link: props.link, name: props.name });
     setOpenCard(true);
   }
 
@@ -90,23 +91,24 @@ function App() {
     <React.Fragment>
       <div className='page'>
         <Header />
-        <CurrentUserContext.Provider value={currentUser}>
-          <Main
-            avatarPopup={avatarPopup}
-            profilePopup={profilePopup}
-            placePopup={placePopup}
-            trashPopup={trashPopup}
-            onEditAvatar={handleEditAvatarClick}
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onConfirmTrash={handleConfirmTrashClick}
-            closeAllPopups={closeAllPopups}
-            handleCardClick={handleCardClick}
-            selectedCard={selectedCard}
-            isOpenCard={isOpenCard}
-            cards={cards}
-          />
-        </CurrentUserContext.Provider>
+        <CardsContext.Provider value={{ cards }}>
+          <CurrentUserContext.Provider value={currentUser}>
+            <Main
+              avatarPopup={avatarPopup}
+              profilePopup={profilePopup}
+              placePopup={placePopup}
+              trashPopup={trashPopup}
+              onEditAvatar={handleEditAvatarClick}
+              onEditProfile={handleEditProfileClick}
+              onAddPlace={handleAddPlaceClick}
+              onConfirmTrash={handleConfirmTrashClick}
+              closeAllPopups={closeAllPopups}
+              handleCardClick={handleCardClick}
+              selectedCard={selectedCard}
+              isOpenCard={isOpenCard}
+            />
+          </CurrentUserContext.Provider>
+        </CardsContext.Provider>
         <Footer />
       </div>
     </React.Fragment>

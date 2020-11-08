@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Card({ onConfirmTrash, infoCards, myId, handleCardClick }) {
+function Card(props) {
   let [correct, setCorrect] = React.useState(true);
 
   return (
@@ -9,37 +9,39 @@ function Card({ onConfirmTrash, infoCards, myId, handleCardClick }) {
         <div className='element'>
           <img
             className='element__pic'
-            src={infoCards.link}
-            alt={infoCards.name}
+            src={props.card.link}
+            alt={props.card.name}
             onError={() => {
               setCorrect(false);
             }}
-            onClick={() =>
-              handleCardClick({ link: infoCards.link, name: infoCards.name })
-            }
+            onClick={() => props.oneCardClick(props.card)}
           />
           <button
             className={`element__button-trash ${
-              infoCards.owner._id === myId
+              props.card.owner._id === props.myId
                 ? 'element__button-trash_visible'
                 : ''
             }`}
             type='button'
-            onClick={onConfirmTrash}></button>
+            onClick={props.onConfirmTrash}></button>
           <div className='element__info'>
-            <h2 className='element__title' title={infoCards.name}>
-              {infoCards.name}
+            <h2 className='element__title' title={props.card.name}>
+              {props.card.name}
             </h2>
             <div className='element__like'>
               <button
                 className={`element__button-like element__button-like_color_white ${
-                  infoCards.likes.find((id) => id._id === myId)
+                  props.card.likes.find((id) => id._id === props.myId)
                     ? 'element__button-like_color_black'
                     : ''
                 }`}
                 type='button'></button>
-              <span className='element__counter-like'>
-                {infoCards.likes.length}
+              <span
+                className='element__counter-like'
+                title={props.card.likes.map(
+                  (like, index) => index + 1 + '🖤' + like.name
+                )}>
+                {props.card.likes.length}
               </span>
             </div>
           </div>
