@@ -2,7 +2,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background-color: #000;
   font-family: 'Inter', Arial, sans-serif;
   max-width: 882px;
   width: 100%;
@@ -24,6 +23,6 @@
 
 @media screen and (max-width: 320px) {
   .profile {
-   width: 88.12%;
+    width: 88.12%;
   }
 }
