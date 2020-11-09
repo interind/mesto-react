@@ -52,7 +52,7 @@ function Main({
             <Card
               onConfirmTrash={onConfirmTrash}
               card={card}
-              key={card._id}
+              key={card.createdAt}
               myId={_id}
               oneCardClick={handleCardClick}
             />
