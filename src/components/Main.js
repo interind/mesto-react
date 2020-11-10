@@ -4,6 +4,7 @@ import ImagePopup from './ImagePopup.js';
 import Card from './Card.js';
 import { Popups } from './Popups.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
+import api from '../utils/api.js';
 
 function Main({
   placePopup,
@@ -16,9 +17,35 @@ function Main({
   handleCardClick,
   selectedCard,
   isOpenCard,
-  cards,
 }) {
   const { name, about, avatar, _id } = React.useContext(CurrentUserContext);
+  const currentUser = React.useContext(CurrentUserContext);
+  const [cards, setCards] = React.useState([]); // тут информация о карточках
+  React.useEffect(() => {
+    api
+      .getInfoCards()
+      .then((dataCards) => {
+        setCards(dataCards);
+      })
+
+      .catch((err) =>
+        console.log('Информация по карточкам с ошибкой', err.message)
+      );
+  }, []);
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        setCards(newCards);
+      })
+      .catch((err) =>
+        console.log('Информация по карточкам с ошибкой', err.message)
+      );
+  }
   return (
     <React.Fragment>
       <section className='profile page__profile'>
@@ -56,6 +83,7 @@ function Main({
               card={card}
               key={card.createdAt}
               oneCardClick={handleCardClick}
+              onCardLike={handleCardLike}
             />
           );
         })}

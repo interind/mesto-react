@@ -30,7 +30,7 @@ function App() {
     _id: '',
     avatar: '',
   }); // тут информация обо мне с сервера
-  const [cards, setCards] = React.useState([]); // тут информация о карточках
+
   const [selectedCard, setSelectedCard] = React.useState({}); // объект для попапа с картинкой
   const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
 
@@ -101,18 +101,6 @@ function App() {
       .catch((err) => console.log('Информация пользователя с ошибкой', err));
   }, []);
 
-  React.useEffect(() => {
-    api
-      .getInfoCards()
-      .then((dataCards) => {
-        setCards(dataCards);
-      })
-
-      .catch((err) =>
-        console.log('Информация по карточкам с ошибкой', err.message)
-      );
-  }, []);
-
   return (
     <React.Fragment>
       <div className='page'>
@@ -129,7 +117,6 @@ function App() {
             handleCardClick={handleCardClick}
             selectedCard={selectedCard}
             isOpenCard={isOpenCard}
-            cards={cards}
           />
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}

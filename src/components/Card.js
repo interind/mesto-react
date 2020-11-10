@@ -16,7 +16,7 @@ function Card(props) {
             onError={() => {
               setVisible(false);
             }}
-            onClick={() => props.oneCardClick(props.card)}
+            onClick={() => props.onCardClick(props.card)}
           />
           <button
             className={`element__button-trash ${
@@ -37,7 +37,8 @@ function Card(props) {
                     ? 'element__button-like_color_black'
                     : ''
                 }`}
-                type='button'></button>
+                type='button'
+                onClick={() => props.onCardLike(props.card)}></button>
               <span
                 className='element__counter-like'
                 title={props.card.likes.map(

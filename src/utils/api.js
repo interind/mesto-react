@@ -72,7 +72,7 @@ class Api {
     }).then(this._getResponse);
   }
 
-  addLike(infoId) {
+  changeLikeCardStatus(infoId) {
     return fetch(`${this._url}${this._cards}/likes/${infoId}`, {
       method: 'PUT',
       headers: {
