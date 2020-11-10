@@ -30,7 +30,8 @@ class Api {
     }).then(this._getResponse);
   }
 
-  updateUserInfo(userInfo) {
+  updateUserInfo({ name, about }) {
+    console.log(name, about);
     return fetch(`${this._url}${this._user}`, {
       method: 'PATCH',
       headers: {
@@ -38,8 +39,8 @@ class Api {
         'Content-type': 'application/json; charset=UTF-8',
       },
       body: JSON.stringify({
-        name: userInfo.name,
-        about: userInfo.job,
+        name: name,
+        about: about,
       }),
     }).then(this._getResponse);
   }

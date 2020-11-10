@@ -12,6 +12,7 @@ function PopupWithForm(props) {
         <form
           className={`popup__container popup__container_type_${props.name}`}
           name={props.name}
+          onSubmit={props.onSubmit}
           noValidate>
           <h2 className='popup__title'>{props.title}</h2>
           {props.children}
@@ -22,7 +23,7 @@ function PopupWithForm(props) {
             className='popup__button-close'
             type='button'
             title='закрыть'
-            onClick={props.closeAllPopups}></button>
+            onClick={props.onClose}></button>
         </form>
       </div>
     </React.Fragment>

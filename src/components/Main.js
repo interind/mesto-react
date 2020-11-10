@@ -2,14 +2,13 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import Card from './Card.js';
-import { popups } from '../utils/popups';
+import { Popups } from './Popups';
 import Avatar from './Avatar.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 import { CardsContext } from '../context/CardsContext.js';
 
 function Main({
   avatarPopup,
-  profilePopup,
   placePopup,
   trashPopup,
   onEditAvatar,
@@ -65,26 +64,18 @@ function Main({
         title={avatarPopup.title}
         buttonTitle={avatarPopup.buttonTitle}
         isOpen={avatarPopup.isEditAvatarPopupOpen}
-        closeAllPopups={closeAllPopups}>
-        {popups.avatar}
+        onClose={closeAllPopups}>
+        <Popups.Avatar />
       </PopupWithForm>
-      <PopupWithForm
-        key={profilePopup.id}
-        name={profilePopup.name}
-        title={profilePopup.title}
-        buttonTitle={profilePopup.buttonTitle}
-        isOpen={profilePopup.isEditProfilePopupOpen}
-        closeAllPopups={closeAllPopups}>
-        {popups.profile}
-      </PopupWithForm>
+
       <PopupWithForm
         key={placePopup.id}
         name={placePopup.name}
         title={placePopup.title}
         buttonTitle={placePopup.buttonTitle}
         isOpen={placePopup.isAddPlacePopupOpen}
-        closeAllPopups={closeAllPopups}>
-        {popups.place}
+        onClose={closeAllPopups}>
+        <Popups.Place />
       </PopupWithForm>
       <PopupWithForm
         key={trashPopup.id}
@@ -92,12 +83,12 @@ function Main({
         title={trashPopup.title}
         buttonTitle={trashPopup.buttonTitle}
         isOpen={trashPopup.isConfirmTrashPopupOpen}
-        closeAllPopups={closeAllPopups}
+        onClose={closeAllPopups}
       />
 
       <ImagePopup
         selectedCard={selectedCard}
-        closeAllPopups={closeAllPopups}
+        onClose={closeAllPopups}
         isOpen={isOpenCard}
       />
     </React.Fragment>

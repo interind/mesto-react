@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ImagePopup({ selectedCard, closeAllPopups, isOpen }) {
+function ImagePopup({ selectedCard, onClose, isOpen }) {
   return (
     <div className={`popup popup_type_zoom ${isOpen && 'popup_opened'}`}>
       <div className='popup__zoom'>
@@ -14,7 +14,7 @@ function ImagePopup({ selectedCard, closeAllPopups, isOpen }) {
           className='popup__button-close'
           type='button'
           title='закрыть'
-          onClick={closeAllPopups}></button>
+          onClick={onClose}></button>
       </div>
     </div>
   );

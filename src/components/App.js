@@ -5,6 +5,7 @@ import Footer from './Footer.js';
 import api from '../utils/api.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 import { CardsContext } from '../context/CardsContext.js';
+import EditProfilePopup from './EditProfilePopup.js';
 
 function App() {
   let [avatarPopup, setAvatarPopup] = React.useState({
@@ -14,13 +15,7 @@ function App() {
     buttonTitle: 'Сохранить',
     isEditAvatarPopupOpen: false,
   });
-  let [profilePopup, setProfilePopup] = React.useState({
-    id: 2,
-    name: 'profile',
-    title: 'Редактировать форму',
-    buttonTitle: 'Сохранить',
-    isEditProfilePopupOpen: false,
-  });
+  let [isEditProfilePopupOpen, setEditProfilePopup] = React.useState(false);
   let [placePopup, setPlacePopup] = React.useState({
     id: 3,
     name: 'place',
@@ -35,14 +30,29 @@ function App() {
     buttonTitle: 'Да',
     isConfirmTrashPopupOpen: false,
   });
-  const [currentUser, setCurrentUser] = React.useState({}); // тут информация обо мне с сервера
+  const [currentUser, setCurrentUser] = React.useState({
+    name: '',
+    about: '',
+  }); // тут информация обо мне с сервера
   const [cards, setCards] = React.useState([]); // тут информация о карточках
   const [selectedCard, setSelectedCard] = React.useState({}); // объект для попапа с картинкой
   const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
 
+  function handleUpdateUser(props) {
+    api
+      .updateUserInfo({ name: props.nameProfile, about: props.description })
+      .then((infoUser) => {
+        setCurrentUser(infoUser);
+        closeAllPopups();
+      })
+      .catch((err) =>
+        console.log('Информация обновления пользователя с ошибкой', err)
+      );
+  }
+
   function closeAllPopups() {
     setAvatarPopup({ ...avatarPopup, isEditAvatarPopupOpen: false });
-    setProfilePopup({ ...profilePopup, isEditProfilePopupOpen: false });
+    setEditProfilePopup(false);
     setPlacePopup({ ...placePopup, isAddPlacePopupOpen: false });
     setTrashPopup({ ...trashPopup, isConfirmTrashPopupOpen: false });
     setOpenCard(false);
@@ -52,7 +62,7 @@ function App() {
     setAvatarPopup({ ...avatarPopup, isEditAvatarPopupOpen: true });
   }
   function handleEditProfileClick() {
-    setProfilePopup({ ...profilePopup, isEditProfilePopupOpen: true });
+    setEditProfilePopup(true);
   }
   function handleAddPlaceClick() {
     setPlacePopup({ ...placePopup, isAddPlacePopupOpen: true });
@@ -70,7 +80,12 @@ function App() {
     api
       .getInfoUser()
       .then((dataUser) => {
-        setCurrentUser(dataUser);
+        setCurrentUser({
+          name: dataUser.name,
+          about: dataUser.about,
+          _id: dataUser._id,
+          avatar: dataUser.avatar,
+        });
       })
       .catch((err) => console.log('Информация пользователя с ошибкой', err));
   }, []);
@@ -95,17 +110,21 @@ function App() {
           <CurrentUserContext.Provider value={currentUser}>
             <Main
               avatarPopup={avatarPopup}
-              profilePopup={profilePopup}
               placePopup={placePopup}
+              onEditProfile={handleEditProfileClick}
               trashPopup={trashPopup}
               onEditAvatar={handleEditAvatarClick}
-              onEditProfile={handleEditProfileClick}
               onAddPlace={handleAddPlaceClick}
               onConfirmTrash={handleConfirmTrashClick}
               closeAllPopups={closeAllPopups}
               handleCardClick={handleCardClick}
               selectedCard={selectedCard}
               isOpenCard={isOpenCard}
+            />
+            <EditProfilePopup
+              isOpen={isEditProfilePopupOpen}
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
             />
           </CurrentUserContext.Provider>
         </CardsContext.Provider>
