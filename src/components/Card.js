@@ -25,7 +25,7 @@ function Card(props) {
                 : ''
             }`}
             type='button'
-            onClick={props.onConfirmTrash}></button>
+            onClick={() => props.onCardDelete(props.card)}></button>
           <div className='element__info'>
             <h2 className='element__title' title={props.card.name}>
               {props.card.name}

@@ -109,7 +109,7 @@ function App() {
           <Main
             placePopup={placePopup}
             onEditProfile={handleEditProfileClick}
-            trashPopup={trashPopup}
+            // trashPopup={trashPopup}
             onEditAvatar={handleEditAvatarClick}
             onAddPlace={handleAddPlaceClick}
             onConfirmTrash={handleConfirmTrashClick}

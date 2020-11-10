@@ -46,6 +46,19 @@ function Main({
         console.log('Информация по карточкам с ошибкой', err.message)
       );
   }
+
+  function handleCardDelete(card) {
+    const idCard = card._id;
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards(cards.filter((card) => card._id !== idCard));
+      })
+      .catch((err) =>
+        console.log('Информация по карточкам с ошибкой', err.message)
+      );
+  }
+
   return (
     <React.Fragment>
       <section className='profile page__profile'>
@@ -79,7 +92,7 @@ function Main({
         {cards.map((card) => {
           return (
             <Card
-              onConfirmTrash={onConfirmTrash}
+              onCardDelete={handleCardDelete}
               card={card}
               key={card.createdAt}
               oneCardClick={handleCardClick}
@@ -97,14 +110,14 @@ function Main({
         onClose={closeAllPopups}>
         <Popups.Place />
       </PopupWithForm>
-      <PopupWithForm
+      {/* <PopupWithForm
         key={trashPopup.id}
         name={trashPopup.name}
         title={trashPopup.title}
         buttonTitle={trashPopup.buttonTitle}
         isOpen={trashPopup.isConfirmTrashPopupOpen}
         onClose={closeAllPopups}
-      />
+      /> */}
 
       <ImagePopup
         selectedCard={selectedCard}
