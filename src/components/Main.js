@@ -2,10 +2,9 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import Card from './Card.js';
-import { Popups } from './Popups';
+import { Popups } from './Popups.js';
 import Avatar from './Avatar.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
-import { CardsContext } from '../context/CardsContext.js';
 
 function Main({
   avatarPopup,
@@ -19,9 +18,9 @@ function Main({
   handleCardClick,
   selectedCard,
   isOpenCard,
+  cards,
 }) {
-  const { name, _id, about } = React.useContext(CurrentUserContext);
-  const { cards } = React.useContext(CardsContext);
+  const { name, about } = React.useContext(CurrentUserContext);
   return (
     <React.Fragment>
       <section className='profile page__profile'>
@@ -52,7 +51,6 @@ function Main({
               onConfirmTrash={onConfirmTrash}
               card={card}
               key={card.createdAt}
-              myId={_id}
               oneCardClick={handleCardClick}
             />
           );

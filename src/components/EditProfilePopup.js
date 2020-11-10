@@ -10,11 +10,9 @@ function EditProfilePopup(props) {
     title: 'Редактировать форму',
     buttonTitle: 'Сохранить',
   };
-  let currentUser = React.useContext(CurrentUserContext);
-  let [nameProfile, setName] = React.useState({ name: '' });
-  let [description, setDescription] = React.useState({
-    about: '',
-  });
+  const currentUser = React.useContext(CurrentUserContext);
+  const [nameProfile, setName] = React.useState({ name: '' });
+  const [description, setDescription] = React.useState({ about: '' });
 
   React.useEffect(() => {
     setName(currentUser.name);
@@ -29,12 +27,10 @@ function EditProfilePopup(props) {
   }
   function handleSubmit(evt) {
     evt.preventDefault();
-    setName({ name: '' });
-    setDescription({ about: '' });
 
     props.onUpdateUser({
-      nameProfile,
-      description,
+      name: nameProfile,
+      about: description,
     });
   }
 

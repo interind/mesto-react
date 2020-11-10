@@ -1,6 +1,8 @@
 import React from 'react';
+import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
 function Card(props) {
+  const { _id } = React.useContext(CurrentUserContext);
   let [visible, setVisible] = React.useState(true);
 
   return (
@@ -18,7 +20,7 @@ function Card(props) {
           />
           <button
             className={`element__button-trash ${
-              props.card.owner._id === props.myId
+              props.card.owner._id === _id
                 ? 'element__button-trash_visible'
                 : ''
             }`}
@@ -31,7 +33,7 @@ function Card(props) {
             <div className='element__like'>
               <button
                 className={`element__button-like element__button-like_color_white ${
-                  props.card.likes.find((id) => id._id === props.myId)
+                  props.card.likes.find((id) => id._id === _id)
                     ? 'element__button-like_color_black'
                     : ''
                 }`}

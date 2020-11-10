@@ -4,7 +4,6 @@ import Main from './Main.js';
 import Footer from './Footer.js';
 import api from '../utils/api.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
-import { CardsContext } from '../context/CardsContext.js';
 import EditProfilePopup from './EditProfilePopup.js';
 
 function App() {
@@ -33,6 +32,8 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({
     name: '',
     about: '',
+    _id: '',
+    avatar: '',
   }); // тут информация обо мне с сервера
   const [cards, setCards] = React.useState([]); // тут информация о карточках
   const [selectedCard, setSelectedCard] = React.useState({}); // объект для попапа с картинкой
@@ -40,14 +41,16 @@ function App() {
 
   function handleUpdateUser(props) {
     api
-      .updateUserInfo({ name: props.nameProfile, about: props.description })
+      .updateUserInfo({ name: props.name, about: props.about })
       .then((infoUser) => {
-        setCurrentUser(infoUser);
-        closeAllPopups();
+        setCurrentUser(Object.assign(currentUser, infoUser));
       })
       .catch((err) =>
         console.log('Информация обновления пользователя с ошибкой', err)
-      );
+      )
+      .finally(() => {
+        closeAllPopups();
+      });
   }
 
   function closeAllPopups() {
@@ -80,12 +83,7 @@ function App() {
     api
       .getInfoUser()
       .then((dataUser) => {
-        setCurrentUser({
-          name: dataUser.name,
-          about: dataUser.about,
-          _id: dataUser._id,
-          avatar: dataUser.avatar,
-        });
+        setCurrentUser(dataUser);
       })
       .catch((err) => console.log('Информация пользователя с ошибкой', err));
   }, []);
@@ -105,30 +103,29 @@ function App() {
   return (
     <React.Fragment>
       <div className='page'>
-        <Header />
-        <CardsContext.Provider value={{ cards }}>
-          <CurrentUserContext.Provider value={currentUser}>
-            <Main
-              avatarPopup={avatarPopup}
-              placePopup={placePopup}
-              onEditProfile={handleEditProfileClick}
-              trashPopup={trashPopup}
-              onEditAvatar={handleEditAvatarClick}
-              onAddPlace={handleAddPlaceClick}
-              onConfirmTrash={handleConfirmTrashClick}
-              closeAllPopups={closeAllPopups}
-              handleCardClick={handleCardClick}
-              selectedCard={selectedCard}
-              isOpenCard={isOpenCard}
-            />
-            <EditProfilePopup
-              isOpen={isEditProfilePopupOpen}
-              onClose={closeAllPopups}
-              onUpdateUser={handleUpdateUser}
-            />
-          </CurrentUserContext.Provider>
-        </CardsContext.Provider>
-        <Footer />
+        <CurrentUserContext.Provider value={currentUser}>
+          <Header />
+          <Main
+            avatarPopup={avatarPopup}
+            placePopup={placePopup}
+            onEditProfile={handleEditProfileClick}
+            trashPopup={trashPopup}
+            onEditAvatar={handleEditAvatarClick}
+            onAddPlace={handleAddPlaceClick}
+            onConfirmTrash={handleConfirmTrashClick}
+            closeAllPopups={closeAllPopups}
+            handleCardClick={handleCardClick}
+            selectedCard={selectedCard}
+            isOpenCard={isOpenCard}
+            cards={cards}
+          />
+          <EditProfilePopup
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+            onUpdateUser={handleUpdateUser}
+          />
+          <Footer />
+        </CurrentUserContext.Provider>
       </div>
     </React.Fragment>
   );
