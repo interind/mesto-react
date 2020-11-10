@@ -6,24 +6,18 @@ import api from '../utils/api.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
+import AddPlacePopup from './AddPlacePopup.js';
 
 function App() {
   let [isEditAvatarPopupOpen, setEditAvatarPopup] = React.useState(false);
   let [isEditProfilePopupOpen, setEditProfilePopup] = React.useState(false);
-  let [placePopup, setPlacePopup] = React.useState({
-    id: 3,
-    name: 'place',
-    title: 'Новое место',
-    buttonTitle: 'Сохранить',
-    isAddPlacePopupOpen: false,
-  });
-  let [trashPopup, setTrashPopup] = React.useState({
-    id: 4,
-    name: 'trash',
-    title: 'Вы уверены?',
-    buttonTitle: 'Да',
-    isConfirmTrashPopupOpen: false,
-  });
+  let [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false);
+  // let [trashPopup, setTrashPopup] = React.useState({
+  //   id: 4,
+  //   name: 'trash',
+  //   title: 'Вы уверены?',
+  //   buttonTitle: 'Да',
+  // });
   const [currentUser, setCurrentUser] = React.useState({
     name: '',
     about: '',
@@ -66,11 +60,26 @@ function App() {
       });
   }
 
+  function handleAddPlace(props) {
+    api
+      .addCard({ name: props.name, link: props.link })
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        console.log(newCard);
+      })
+      .catch((err) =>
+        console.log('Информация обновления карточки с ошибкой', err)
+      )
+      .finally(() => {
+        closeAllPopups();
+      });
+  }
+
   function closeAllPopups() {
     setEditAvatarPopup(false);
     setEditProfilePopup(false);
-    setPlacePopup({ ...placePopup, isAddPlacePopupOpen: false });
-    setTrashPopup({ ...trashPopup, isConfirmTrashPopupOpen: false });
+    setAddPlacePopup(false);
+    // setTrashPopup({ ...trashPopup, isConfirmTrashPopupOpen: false });
     setOpenCard(false);
   }
 
@@ -81,15 +90,54 @@ function App() {
     setEditProfilePopup(true);
   }
   function handleAddPlaceClick() {
-    setPlacePopup({ ...placePopup, isAddPlacePopupOpen: true });
+    setAddPlacePopup(true);
   }
-  function handleConfirmTrashClick() {
-    setTrashPopup({ ...trashPopup, isConfirmTrashPopupOpen: true });
-  }
+  // function handleConfirmTrashClick() {
+  //   setTrashPopup({ ...trashPopup, isConfirmTrashPopupOpen: true });
+  // }
   function handleCardClick(props) {
     // для открытия попапа с картинкой
     setSelectedCard({ link: props.link, name: props.name });
     setOpenCard(true);
+  }
+
+  const [cards, setCards] = React.useState([]); // тут информация о карточках
+  React.useEffect(() => {
+    api
+      .getInfoCards()
+      .then((dataCards) => {
+        setCards(dataCards);
+      })
+
+      .catch((err) =>
+        console.log('Информация по карточкам с ошибкой', err.message)
+      );
+  }, []);
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        setCards(newCards);
+      })
+      .catch((err) =>
+        console.log('Информация по карточкам с ошибкой', err.message)
+      );
+  }
+
+  function handleCardDelete(card) {
+    const idCard = card._id;
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards(cards.filter((card) => card._id !== idCard));
+      })
+      .catch((err) =>
+        console.log('Информация по карточкам с ошибкой', err.message)
+      );
   }
 
   React.useEffect(() => {
@@ -107,16 +155,22 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}>
           <Header />
           <Main
-            placePopup={placePopup}
             onEditProfile={handleEditProfileClick}
-            // trashPopup={trashPopup}
             onEditAvatar={handleEditAvatarClick}
             onAddPlace={handleAddPlaceClick}
-            onConfirmTrash={handleConfirmTrashClick}
+            // onConfirmTrash={handleConfirmTrashClick}
+            handleCardDelete={handleCardDelete}
             closeAllPopups={closeAllPopups}
             handleCardClick={handleCardClick}
             selectedCard={selectedCard}
             isOpenCard={isOpenCard}
+            handleCardLike={handleCardLike}
+            cards={cards}
+          />
+          <AddPlacePopup
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            onAddPlace={handleAddPlace}
           />
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}

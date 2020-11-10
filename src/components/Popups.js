@@ -68,6 +68,7 @@ export const Popups = {
           name='place'
           minLength='1'
           maxLength='30'
+          onChange={props.editPlace}
           required
         />
         <div className='popup__error'>
@@ -79,6 +80,7 @@ export const Popups = {
           placeholder='Ссылка на картинку'
           id='input-card'
           name='card'
+          onChange={props.editLink}
           required
         />
         <div className='popup__error'>
