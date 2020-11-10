@@ -38,7 +38,11 @@ function App() {
     api
       .updateUserInfo({ name: props.name, about: props.about })
       .then((infoUser) => {
-        setCurrentUser(Object.assign(currentUser, infoUser));
+        setCurrentUser({
+          ...currentUser,
+          name: infoUser.name,
+          about: infoUser.about,
+        });
       })
       .catch((err) =>
         console.log('Информация обновления пользователя с ошибкой', err)
@@ -52,7 +56,7 @@ function App() {
     api
       .updateUserAvatar({ avatar: props.avatar })
       .then((infoAvatar) => {
-        setCurrentUser(Object.assign(currentUser, infoAvatar));
+        setCurrentUser({ ...currentUser, avatar: infoAvatar.avatar });
       })
       .catch((err) =>
         console.log('Информация обновления пользователя с ошибкой', err)
