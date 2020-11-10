@@ -10,6 +10,8 @@ export const Popups = {
           placeholder='Ссылка на картинку'
           id='input-avatar'
           name='avatar'
+          ref={props.inputRef}
+          onChange={props.editAvatar}
           required
         />
         <div className='popup__error'>

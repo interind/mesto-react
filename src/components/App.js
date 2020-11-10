@@ -5,15 +5,10 @@ import Footer from './Footer.js';
 import api from '../utils/api.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 import EditProfilePopup from './EditProfilePopup.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
 
 function App() {
-  let [avatarPopup, setAvatarPopup] = React.useState({
-    id: 1,
-    name: 'avatar',
-    title: 'Обновить аватар',
-    buttonTitle: 'Сохранить',
-    isEditAvatarPopupOpen: false,
-  });
+  let [isEditAvatarPopupOpen, setEditAvatarPopup] = React.useState(false);
   let [isEditProfilePopupOpen, setEditProfilePopup] = React.useState(false);
   let [placePopup, setPlacePopup] = React.useState({
     id: 3,
@@ -53,8 +48,22 @@ function App() {
       });
   }
 
+  function handleUpdateAvatar(props) {
+    api
+      .updateUserAvatar({ avatar: props.avatar })
+      .then((infoAvatar) => {
+        setCurrentUser(Object.assign(currentUser, infoAvatar));
+      })
+      .catch((err) =>
+        console.log('Информация обновления пользователя с ошибкой', err)
+      )
+      .finally(() => {
+        closeAllPopups();
+      });
+  }
+
   function closeAllPopups() {
-    setAvatarPopup({ ...avatarPopup, isEditAvatarPopupOpen: false });
+    setEditAvatarPopup(false);
     setEditProfilePopup(false);
     setPlacePopup({ ...placePopup, isAddPlacePopupOpen: false });
     setTrashPopup({ ...trashPopup, isConfirmTrashPopupOpen: false });
@@ -62,7 +71,7 @@ function App() {
   }
 
   function handleEditAvatarClick() {
-    setAvatarPopup({ ...avatarPopup, isEditAvatarPopupOpen: true });
+    setEditAvatarPopup(true);
   }
   function handleEditProfileClick() {
     setEditProfilePopup(true);
@@ -106,7 +115,6 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}>
           <Header />
           <Main
-            avatarPopup={avatarPopup}
             placePopup={placePopup}
             onEditProfile={handleEditProfileClick}
             trashPopup={trashPopup}
@@ -118,6 +126,11 @@ function App() {
             selectedCard={selectedCard}
             isOpenCard={isOpenCard}
             cards={cards}
+          />
+          <EditAvatarPopup
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            onUpdateAvatar={handleUpdateAvatar}
           />
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}

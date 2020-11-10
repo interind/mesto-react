@@ -3,11 +3,9 @@ import PopupWithForm from './PopupWithForm.js';
 import ImagePopup from './ImagePopup.js';
 import Card from './Card.js';
 import { Popups } from './Popups.js';
-import Avatar from './Avatar.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
 function Main({
-  avatarPopup,
   placePopup,
   trashPopup,
   onEditAvatar,
@@ -20,11 +18,17 @@ function Main({
   isOpenCard,
   cards,
 }) {
-  const { name, about } = React.useContext(CurrentUserContext);
+  const { name, about, avatar, _id } = React.useContext(CurrentUserContext);
   return (
     <React.Fragment>
       <section className='profile page__profile'>
-        <Avatar onEditAvatar={onEditAvatar} />
+        <img
+          className='profile__avatar'
+          src={avatar}
+          alt='Аватарка'
+          id={_id}
+          onClick={onEditAvatar}
+        />
         <div className='profile__info'>
           <h1 className='profile__title' title={name}>
             {name}
@@ -56,16 +60,6 @@ function Main({
           );
         })}
       </div>
-      <PopupWithForm
-        key={avatarPopup.id}
-        name={avatarPopup.name}
-        title={avatarPopup.title}
-        buttonTitle={avatarPopup.buttonTitle}
-        isOpen={avatarPopup.isEditAvatarPopupOpen}
-        onClose={closeAllPopups}>
-        <Popups.Avatar />
-      </PopupWithForm>
-
       <PopupWithForm
         key={placePopup.id}
         name={placePopup.name}
