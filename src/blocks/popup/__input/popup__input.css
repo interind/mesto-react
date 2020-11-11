@@ -6,17 +6,21 @@
   font-family: inherit;
   font-size: inherit;
   padding: 10px 5px;
-  margin-top: 13.11%;/*48*/
+  margin-top: 13.11%; /*48*/
   margin-bottom: 5px;
-  border-bottom: 1px solid rgba( 0, 0, 0, .2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .popup__input:focus {
   outline: 1px groove rgba(106, 151, 235, 0.657);
 }
 
+.popup__input:invalid {
+  border-bottom: 1px solid #f00;
+}
+
 .popup__input:valid {
-  border-bottom: 1px solid rgba( 0, 0, 0, .2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 @media screen and (max-height: 414px) {
@@ -27,6 +31,6 @@
 
 @media screen and (max-width: 320px) {
   .popup__input {
-   margin-top: 10%;/*20*/
+    margin-top: 10%; /*20*/
   }
 }

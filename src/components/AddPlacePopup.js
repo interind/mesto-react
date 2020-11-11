@@ -3,21 +3,25 @@ import PopupWithForm from './PopupWithForm.js';
 import { MarkupForPopups } from './MarkupForPopups.js';
 
 function AddPlacePopup(props) {
+  const textButton = props.isLoadingButton ? 'Сохранить...' : 'Сохранить';
   const placePopup = {
     id: 3,
     name: 'place',
     title: 'Новое место',
-    buttonTitle: 'Сохранить',
+    buttonTitle: `${textButton}`,
   };
 
   const [namePlace, setPlace] = React.useState('');
   const [link, setLink] = React.useState('');
+  let [activeButton, setActiveButton] = React.useState(true);
 
   function setPlaceName(evt) {
     setPlace(evt.target.value);
+    evt.target.value === '' ? setActiveButton(true) : setActiveButton(false);
   }
   function setLinkPlace(evt) {
     setLink(evt.target.value);
+    evt.target.value === '' ? setActiveButton(true) : setActiveButton(false);
   }
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -36,6 +40,7 @@ function AddPlacePopup(props) {
       buttonTitle={placePopup.buttonTitle}
       isOpen={props.isOpen}
       onClose={props.onClose}
+      active={activeButton}
       onSubmit={handleSubmit}>
       <MarkupForPopups.Place
         place={namePlace}

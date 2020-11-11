@@ -2,11 +2,12 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
 function DeleteCardPopup(props) {
+  const textButton = props.isLoadingButton ? 'Удаляем...' : 'Да';
   const deletePopup = {
     id: 4,
     name: 'trash',
     title: 'Вы уверены?',
-    buttonTitle: 'Да',
+    buttonTitle: `${textButton}`,
   };
 
   function handleSubmit(evt) {
