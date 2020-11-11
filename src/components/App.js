@@ -36,6 +36,14 @@ function App() {
   }
 
   React.useEffect(() => {
+    window.addEventListener('keydown', closeAllPopupsEsc);
+
+    return () => {
+      window.removeEventListener('keydown', closeAllPopupsEsc);
+    };
+  });
+
+  React.useEffect(() => {
     // получаем карточки с сервера
     api
       .getInfoCards()
@@ -53,7 +61,6 @@ function App() {
 
   React.useEffect(() => {
     // получаем информацию пользователя с сервера
-    window.addEventListener('keydown', closeAllPopupsEsc);
     api
       .getInfoUser()
       .then((dataUser) => {
@@ -121,7 +128,6 @@ function App() {
     setConfirmTrashPopup(false);
     setOpenCard(false);
     setButtonLoading(false);
-    window.removeEventListener('keydown', closeAllPopupsEsc);
   }
 
   function handleEditAvatarClick() {
