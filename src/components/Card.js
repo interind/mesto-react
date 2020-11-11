@@ -3,7 +3,7 @@ import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
 function Card(props) {
   const { _id } = React.useContext(CurrentUserContext);
-  let [visible, setVisible] = React.useState(true);
+  const [visible, setVisible] = React.useState(true);
 
   return (
     <React.Fragment>
