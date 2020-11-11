@@ -11,7 +11,7 @@ function AddPlacePopup(props) {
   };
 
   const [namePlace, setPlace] = React.useState('');
-  const [link, setLink] = React.useState(' ');
+  const [link, setLink] = React.useState('');
 
   function setPlaceName(evt) {
     setPlace(evt.target.value);
@@ -21,7 +21,8 @@ function AddPlacePopup(props) {
   }
   function handleSubmit(evt) {
     evt.preventDefault();
-
+    setPlace('');
+    setLink('');
     props.onAddPlace({
       name: namePlace,
       link: link,
@@ -36,7 +37,12 @@ function AddPlacePopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}>
-      <Popups.Place editPlace={setPlaceName} editLink={setLinkPlace} />
+      <Popups.Place
+        place={namePlace}
+        link={link}
+        editPlace={setPlaceName}
+        editLink={setLinkPlace}
+      />
     </PopupWithForm>
   );
 }

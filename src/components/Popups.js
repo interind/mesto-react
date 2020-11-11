@@ -10,6 +10,7 @@ export const Popups = {
           placeholder='Ссылка на картинку'
           id='input-avatar'
           name='avatar'
+          value={props.avatarUser}
           ref={props.inputRef}
           onChange={props.editAvatar}
           required
@@ -67,6 +68,7 @@ export const Popups = {
           id='input-place'
           name='place'
           minLength='1'
+          value={props.place}
           maxLength='30'
           onChange={props.editPlace}
           required
@@ -79,6 +81,7 @@ export const Popups = {
           type='url'
           placeholder='Ссылка на картинку'
           id='input-card'
+          value={props.link}
           name='card'
           onChange={props.editLink}
           required

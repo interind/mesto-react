@@ -1,5 +1,4 @@
 import React from 'react';
-import { CurrentUserContext } from '../context/CurrentUserContext.js';
 import PopupWithForm from './PopupWithForm';
 import { Popups } from './Popups.js';
 
@@ -12,13 +11,7 @@ function EditAvatarPopup(props) {
   };
 
   const inputRef = React.useRef();
-
-  const currentUser = React.useContext(CurrentUserContext);
-  const [avatarUser, setAvatar] = React.useState({ avatar: '' });
-
-  React.useEffect(() => {
-    setAvatar(currentUser.avatar);
-  }, [currentUser]);
+  const [avatarUser, setAvatar] = React.useState('');
 
   function setAvatarUser() {
     setAvatar(inputRef.current.value);
@@ -26,7 +19,7 @@ function EditAvatarPopup(props) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-
+    setAvatar('');
     props.onUpdateAvatar({
       avatar: avatarUser,
     });
@@ -41,7 +34,11 @@ function EditAvatarPopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}>
-      <Popups.Avatar inputRef={inputRef} editAvatar={setAvatarUser} />
+      <Popups.Avatar
+        avatarUser={avatarUser}
+        inputRef={inputRef}
+        editAvatar={setAvatarUser}
+      />
     </PopupWithForm>
   );
 }

@@ -59,15 +59,6 @@ function Main({
           );
         })}
       </div>
-      {/* <PopupWithForm
-        key={trashPopup.id}
-        name={trashPopup.name}
-        title={trashPopup.title}
-        buttonTitle={trashPopup.buttonTitle}
-        isOpen={trashPopup.isConfirmTrashPopupOpen}
-        onClose={closeAllPopups}
-      /> */}
-
       <ImagePopup
         selectedCard={selectedCard}
         onClose={closeAllPopups}

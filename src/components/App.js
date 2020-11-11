@@ -7,17 +7,14 @@ import { CurrentUserContext } from '../context/CurrentUserContext.js';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
+import DeleteCardPopup from './DeleteCardPopup.js';
 
 function App() {
   let [isEditAvatarPopupOpen, setEditAvatarPopup] = React.useState(false);
   let [isEditProfilePopupOpen, setEditProfilePopup] = React.useState(false);
   let [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false);
-  // let [trashPopup, setTrashPopup] = React.useState({
-  //   id: 4,
-  //   name: 'trash',
-  //   title: 'Вы уверены?',
-  //   buttonTitle: 'Да',
-  // });
+  let [isConfirmTrashPopupOpen, setConfirmTrashPopup] = React.useState(false);
+  const [isCard, setIsCard] = React.useState('');
   const [currentUser, setCurrentUser] = React.useState({
     name: '',
     about: '',
@@ -65,7 +62,6 @@ function App() {
       .addCard({ name: props.name, link: props.link })
       .then((newCard) => {
         setCards([newCard, ...cards]);
-        console.log(newCard);
       })
       .catch((err) =>
         console.log('Информация обновления карточки с ошибкой', err)
@@ -79,7 +75,7 @@ function App() {
     setEditAvatarPopup(false);
     setEditProfilePopup(false);
     setAddPlacePopup(false);
-    // setTrashPopup({ ...trashPopup, isConfirmTrashPopupOpen: false });
+    setConfirmTrashPopup(false);
     setOpenCard(false);
   }
 
@@ -92,9 +88,10 @@ function App() {
   function handleAddPlaceClick() {
     setAddPlacePopup(true);
   }
-  // function handleConfirmTrashClick() {
-  //   setTrashPopup({ ...trashPopup, isConfirmTrashPopupOpen: true });
-  // }
+  function handleConfirmTrashClick(card) {
+    setConfirmTrashPopup(true);
+    setIsCard(card);
+  }
   function handleCardClick(props) {
     // для открытия попапа с картинкой
     setSelectedCard({ link: props.link, name: props.name });
@@ -137,7 +134,10 @@ function App() {
       })
       .catch((err) =>
         console.log('Информация по карточкам с ошибкой', err.message)
-      );
+      )
+      .finally(() => {
+        closeAllPopups();
+      });
   }
 
   React.useEffect(() => {
@@ -158,8 +158,7 @@ function App() {
             onEditProfile={handleEditProfileClick}
             onEditAvatar={handleEditAvatarClick}
             onAddPlace={handleAddPlaceClick}
-            // onConfirmTrash={handleConfirmTrashClick}
-            handleCardDelete={handleCardDelete}
+            handleCardDelete={handleConfirmTrashClick}
             closeAllPopups={closeAllPopups}
             handleCardClick={handleCardClick}
             selectedCard={selectedCard}
@@ -181,6 +180,12 @@ function App() {
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
             onUpdateUser={handleUpdateUser}
+          />
+          <DeleteCardPopup
+            isOpen={isConfirmTrashPopupOpen}
+            onClose={closeAllPopups}
+            onDeleteCard={handleCardDelete}
+            isCard={isCard}
           />
           <Footer />
         </CurrentUserContext.Provider>
