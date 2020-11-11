@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm';
 import { MarkupForPopups } from './MarkupForPopups.js';
 
 function EditAvatarPopup(props) {
-  const textButton = props.isLoadingButton ? 'Сохранить...' : 'Сохранить';
+  const textButton = props.isLoadingButton ? 'Сохранение...' : 'Сохранить';
   const avatarPopup = {
     id: 1,
     name: 'avatar',

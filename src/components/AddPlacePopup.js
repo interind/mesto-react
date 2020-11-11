@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm.js';
 import { MarkupForPopups } from './MarkupForPopups.js';
 
 function AddPlacePopup(props) {
-  const textButton = props.isLoadingButton ? 'Сохранить...' : 'Сохранить';
+  const textButton = props.isLoadingButton ? 'Сохранение...' : 'Сохранить';
   const placePopup = {
     id: 3,
     name: 'place',

@@ -4,7 +4,7 @@ import { MarkupForPopups } from './MarkupForPopups.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
 function EditProfilePopup(props) {
-  const textButton = props.isLoadingButton ? 'Сохранить...' : 'Сохранить';
+  const textButton = props.isLoadingButton ? 'Сохранение...' : 'Сохранить';
   const profile = {
     id: 2,
     name: 'profile',
