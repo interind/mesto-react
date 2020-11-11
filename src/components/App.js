@@ -26,10 +26,17 @@ function App() {
   const [cards, setCards] = React.useState([]); // тут информация о карточках
   const [selectedCard, setSelectedCard] = React.useState({}); // объект для попапа с картинкой
   const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
-  const [loading, setLoading] = React.useState(true);
-  const [buttonLoading, setButtonLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true); // лоадер при загрузке страницы
+  const [buttonLoading, setButtonLoading] = React.useState(false); // лоадер для кнопки сохранить.
+
+  function closeAllPopupsEsc(evt) {
+    if (evt.key === 'Escape') {
+      closeAllPopups();
+    }
+  }
 
   React.useEffect(() => {
+    // получаем карточки с сервера
     api
       .getInfoCards()
       .then((dataCards) => {
@@ -45,6 +52,8 @@ function App() {
   }, []);
 
   React.useEffect(() => {
+    // получаем информацию пользователя с сервера
+    window.addEventListener('keydown', closeAllPopupsEsc);
     api
       .getInfoUser()
       .then((dataUser) => {
@@ -54,6 +63,7 @@ function App() {
   }, []);
 
   function handleUpdateUser(props) {
+    // получаем новую информацию пользователя  с сервера
     setButtonLoading(true);
     api
       .updateUserInfo({ name: props.name, about: props.about })
@@ -73,7 +83,7 @@ function App() {
   }
 
   function handleUpdateAvatar(props) {
-    setButtonLoading(true);
+    setButtonLoading(true); // получаем обновленый аватар с сервера
     api
       .updateUserAvatar({ avatar: props.avatar })
       .then((infoAvatar) => {
@@ -88,6 +98,7 @@ function App() {
   }
 
   function handleAddPlace(props) {
+    // получаем новую карточку с сервера и вставляем в начало
     setButtonLoading(true);
     api
       .addCard({ name: props.name, link: props.link })
@@ -103,12 +114,14 @@ function App() {
   }
 
   function closeAllPopups() {
+    // закрытие всех попапов
     setEditAvatarPopup(false);
     setEditProfilePopup(false);
     setAddPlacePopup(false);
     setConfirmTrashPopup(false);
     setOpenCard(false);
     setButtonLoading(false);
+    window.removeEventListener('keydown', closeAllPopupsEsc);
   }
 
   function handleEditAvatarClick() {
@@ -131,6 +144,7 @@ function App() {
   }
 
   function handleCardLike(card) {
+    // получаем лайки с сервера
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
     api
@@ -145,6 +159,7 @@ function App() {
   }
 
   function handleCardDelete(card) {
+    // удаляем карточку
     const idCard = card._id;
     setButtonLoading(true);
     api
