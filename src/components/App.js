@@ -8,6 +8,7 @@ import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import DeleteCardPopup from './DeleteCardPopup.js';
+import ErrorBoundary from './Error/ErrorBoundary.js';
 
 function App() {
   let [isEditAvatarPopupOpen, setEditAvatarPopup] = React.useState(false);
@@ -21,9 +22,30 @@ function App() {
     _id: '',
     avatar: '',
   }); // тут информация обо мне с сервера
-
+  const [cards, setCards] = React.useState([]); // тут информация о карточках
   const [selectedCard, setSelectedCard] = React.useState({}); // объект для попапа с картинкой
   const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
+
+  React.useEffect(() => {
+    api
+      .getInfoCards()
+      .then((dataCards) => {
+        setCards(dataCards);
+      })
+
+      .catch((err) =>
+        console.log('Информация по карточкам с ошибкой', err.message)
+      );
+  }, []);
+
+  React.useEffect(() => {
+    api
+      .getInfoUser()
+      .then((dataUser) => {
+        setCurrentUser(dataUser);
+      })
+      .catch((err) => console.log('Информация пользователя с ошибкой', err));
+  }, []);
 
   function handleUpdateUser(props) {
     api
@@ -98,19 +120,6 @@ function App() {
     setOpenCard(true);
   }
 
-  const [cards, setCards] = React.useState([]); // тут информация о карточках
-  React.useEffect(() => {
-    api
-      .getInfoCards()
-      .then((dataCards) => {
-        setCards(dataCards);
-      })
-
-      .catch((err) =>
-        console.log('Информация по карточкам с ошибкой', err.message)
-      );
-  }, []);
-
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
@@ -140,54 +149,47 @@ function App() {
       });
   }
 
-  React.useEffect(() => {
-    api
-      .getInfoUser()
-      .then((dataUser) => {
-        setCurrentUser(dataUser);
-      })
-      .catch((err) => console.log('Информация пользователя с ошибкой', err));
-  }, []);
-
   return (
     <React.Fragment>
       <div className='page'>
         <CurrentUserContext.Provider value={currentUser}>
-          <Header />
-          <Main
-            onEditProfile={handleEditProfileClick}
-            onEditAvatar={handleEditAvatarClick}
-            onAddPlace={handleAddPlaceClick}
-            handleCardDelete={handleConfirmTrashClick}
-            closeAllPopups={closeAllPopups}
-            handleCardClick={handleCardClick}
-            selectedCard={selectedCard}
-            isOpenCard={isOpenCard}
-            handleCardLike={handleCardLike}
-            cards={cards}
-          />
-          <AddPlacePopup
-            isOpen={isAddPlacePopupOpen}
-            onClose={closeAllPopups}
-            onAddPlace={handleAddPlace}
-          />
-          <EditAvatarPopup
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar}
-          />
-          <EditProfilePopup
-            isOpen={isEditProfilePopupOpen}
-            onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}
-          />
-          <DeleteCardPopup
-            isOpen={isConfirmTrashPopupOpen}
-            onClose={closeAllPopups}
-            onDeleteCard={handleCardDelete}
-            isCard={isCard}
-          />
-          <Footer />
+          <ErrorBoundary>
+            <Header />
+            <Main
+              onEditProfile={handleEditProfileClick}
+              onEditAvatar={handleEditAvatarClick}
+              onAddPlace={handleAddPlaceClick}
+              handleCardDelete={handleConfirmTrashClick}
+              closeAllPopups={closeAllPopups}
+              handleCardClick={handleCardClick}
+              selectedCard={selectedCard}
+              isOpenCard={isOpenCard}
+              handleCardLike={handleCardLike}
+              cards={cards}
+            />
+            <AddPlacePopup
+              isOpen={isAddPlacePopupOpen}
+              onClose={closeAllPopups}
+              onAddPlace={handleAddPlace}
+            />
+            <EditAvatarPopup
+              isOpen={isEditAvatarPopupOpen}
+              onClose={closeAllPopups}
+              onUpdateAvatar={handleUpdateAvatar}
+            />
+            <EditProfilePopup
+              isOpen={isEditProfilePopupOpen}
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
+            />
+            <DeleteCardPopup
+              isOpen={isConfirmTrashPopupOpen}
+              onClose={closeAllPopups}
+              onDeleteCard={handleCardDelete}
+              isCard={isCard}
+            />
+            <Footer />
+          </ErrorBoundary>
         </CurrentUserContext.Provider>
       </div>
     </React.Fragment>

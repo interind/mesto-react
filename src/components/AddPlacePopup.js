@@ -1,6 +1,6 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
-import { Popups } from './Popups';
+import { MarkupForPopups } from './MarkupForPopups.js';
 
 function AddPlacePopup(props) {
   const placePopup = {
@@ -37,7 +37,7 @@ function AddPlacePopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}>
-      <Popups.Place
+      <MarkupForPopups.Place
         place={namePlace}
         link={link}
         editPlace={setPlaceName}

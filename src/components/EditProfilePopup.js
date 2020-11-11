@@ -1,7 +1,7 @@
 import React from 'react';
-import PopupWithForm from './PopupWithForm';
-import { Popups } from './Popups';
-import { CurrentUserContext } from '../context/CurrentUserContext';
+import PopupWithForm from './PopupWithForm.js';
+import { MarkupForPopups } from './MarkupForPopups.js';
+import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
 function EditProfilePopup(props) {
   const profile = {
@@ -43,7 +43,7 @@ function EditProfilePopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}>
-      <Popups.Profile
+      <MarkupForPopups.Profile
         editName={setNameProfile}
         editAbout={setDescriptionProfile}
         nameProfile={nameProfile}

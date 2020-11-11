@@ -1,6 +1,6 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
-import { Popups } from './Popups.js';
+import { MarkupForPopups } from './MarkupForPopups.js';
 
 function EditAvatarPopup(props) {
   const avatarPopup = {
@@ -34,7 +34,7 @@ function EditAvatarPopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}>
-      <Popups.Avatar
+      <MarkupForPopups.Avatar
         avatarUser={avatarUser}
         inputRef={inputRef}
         editAvatar={setAvatarUser}

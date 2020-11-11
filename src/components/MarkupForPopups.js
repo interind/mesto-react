@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Popups = {
+export const MarkupForPopups = {
   Avatar: function Avatar(props) {
     return (
       <React.Fragment>
