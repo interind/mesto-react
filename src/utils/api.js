@@ -71,19 +71,11 @@ class Api {
     }).then(this._getResponse);
   }
 
-  changeLikeCardStatus(infoId) {
+  changeLikeCardStatus(infoId, isLike) {
+    const toggleMethod = isLike ? 'PUT' : 'DELETE';
     return fetch(`${this._url}${this._cards}/likes/${infoId}`, {
-      method: 'PUT',
-      headers: {
-        authorization: `${this._token}`,
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    }).then(this._getResponse);
-  }
+      method: toggleMethod,
 
-  deleteLike(infoId) {
-    return fetch(`${this._url}${this._cards}/likes/${infoId}`, {
-      method: 'DELETE',
       headers: {
         authorization: `${this._token}`,
         'Content-type': 'application/json; charset=UTF-8',
