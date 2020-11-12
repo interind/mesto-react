@@ -14,19 +14,20 @@ function AddPlacePopup(props) {
   const [namePlace, setPlace] = React.useState('');
   const [link, setLink] = React.useState('');
   let [activeButton, setActiveButton] = React.useState(true);
-  const [validPlace, setValidPlace] = React.useState('');
-  const [validLink, setValidLink] = React.useState('');
+
+  const [validPlace, setValidPlace] = React.useState({
+    place: '',
+    link: '',
+  });
 
   function validationPlace(evt) {
     !evt.target.validity.valid
-      ? setValidPlace(evt.target.validationMessage)
-      : setValidPlace('');
-  }
-
-  function validationLink(evt) {
-    !evt.target.validity.valid
-      ? setValidLink(evt.target.validationMessage)
-      : setValidLink('');
+      ? setValidPlace({
+          [evt.target.name]: evt.target.validationMessage,
+        })
+      : setValidPlace({
+          [evt.target.name]: '',
+        });
   }
 
   function setPlaceName(evt) {
@@ -63,8 +64,6 @@ function AddPlacePopup(props) {
         editLink={setLinkPlace}
         placeMessage={validPlace}
         validationPlace={validationPlace}
-        linkMessage={validLink}
-        validationLink={validationLink}
       />
     </PopupWithForm>
   );

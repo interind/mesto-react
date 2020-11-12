@@ -42,7 +42,7 @@ export const MarkupForPopups = {
           placeholder='Имя'
           value={props.nameProfile}
           onChange={props.editName}
-          onInput={props.validationName}
+          onInput={props.validationProfile}
           required
         />
         {props.nameProfile === '' && (
@@ -50,29 +50,29 @@ export const MarkupForPopups = {
             <span
               className='popup__input-error popup__input-error_active'
               id='input-name-error'>
-              {props.nameMessage}
+              {props.profileMessage.name}
             </span>
           </div>
         )}
         <input
           className='popup__input'
-          id='input-job'
+          id='input-about'
           type='text'
-          name='job'
+          name='about'
           minLength='2'
           maxLength='200'
           placeholder='Профессия'
           value={props.about}
           onChange={props.editAbout}
-          onInput={props.validationAbout}
+          onInput={props.validationProfile}
           required
         />
         {props.about === '' && (
           <div className='popup__error'>
             <span
               className='popup__input-error popup__input-error_active'
-              id='input-job-error'>
-              {props.aboutMessage}
+              id='input-about-error'>
+              {props.profileMessage.about}
             </span>
           </div>
         )}
@@ -100,7 +100,7 @@ export const MarkupForPopups = {
             <span
               className='popup__input-error popup__input-error_active'
               id='input-place-error'>
-              {props.placeMessage}
+              {props.placeMessage.place}
             </span>
           </div>
         )}
@@ -108,19 +108,19 @@ export const MarkupForPopups = {
           className='popup__input'
           type='url'
           placeholder='Ссылка на картинку'
-          id='input-card'
+          id='input-link'
           value={props.link}
-          name='card'
+          name='link'
           onChange={props.editLink}
-          onInput={props.validationLink}
+          onInput={props.validationPlace}
           required
         />
         {props.link !== '' && (
           <div className='popup__error'>
             <span
               className='popup__input-error popup__input-error_active'
-              id='input-card-error'>
-              {props.linkMessage}
+              id='input-link-error'>
+              {props.placeMessage.link}
             </span>
           </div>
         )}

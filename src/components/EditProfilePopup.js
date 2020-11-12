@@ -15,19 +15,19 @@ function EditProfilePopup(props) {
   const [nameProfile, setName] = React.useState({ name: '' });
   const [description, setDescription] = React.useState({ about: '' });
   let [activeButton, setActiveButton] = React.useState(true);
-  const [validName, setValidName] = React.useState('');
-  const [validAbout, setValidAbout] = React.useState('');
+  const [validProfile, setValidProfile] = React.useState({
+    name: '',
+    about: '',
+  });
 
-  function validationName(evt) {
+  function validationProfile(evt) {
     !evt.target.validity.valid
-      ? setValidName(evt.target.validationMessage)
-      : setValidName('');
-  }
-
-  function validationAbout(evt) {
-    !evt.target.validity.valid
-      ? setValidAbout(evt.target.validationMessage)
-      : setValidAbout('');
+      ? setValidProfile({
+          [evt.target.name]: evt.target.validationMessage,
+        })
+      : setValidProfile({
+          [evt.target.name]: '',
+        });
   }
 
   React.useEffect(() => {
@@ -67,10 +67,8 @@ function EditProfilePopup(props) {
         editAbout={setDescriptionProfile}
         nameProfile={nameProfile}
         about={description}
-        nameMessage={validName}
-        validationName={validationName}
-        aboutMessage={validAbout}
-        validationAbout={validationAbout}
+        profileMessage={validProfile}
+        validationProfile={validationProfile}
       />
     </PopupWithForm>
   );
