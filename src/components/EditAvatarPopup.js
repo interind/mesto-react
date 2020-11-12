@@ -14,6 +14,13 @@ function EditAvatarPopup(props) {
   const inputRef = React.useRef();
   const [avatarUser, setAvatar] = React.useState('');
   let [activeButton, setActiveButton] = React.useState(true);
+  const [validAvatar, setValidAvatar] = React.useState('');
+
+  function validationAvatar(evt) {
+    !evt.target.validity.valid
+      ? setValidAvatar(evt.target.validationMessage)
+      : setValidAvatar('');
+  }
 
   function setAvatarUser() {
     setAvatar(inputRef.current.value);
@@ -44,6 +51,8 @@ function EditAvatarPopup(props) {
         avatarUser={avatarUser}
         inputRef={inputRef}
         editAvatar={setAvatarUser}
+        avatarMessage={validAvatar}
+        validationAvatar={validationAvatar}
       />
     </PopupWithForm>
   );

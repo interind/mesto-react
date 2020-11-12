@@ -13,11 +13,18 @@ export const MarkupForPopups = {
           value={props.avatarUser}
           ref={props.inputRef}
           onChange={props.editAvatar}
+          onInput={props.validationAvatar}
           required
         />
-        <div className='popup__error'>
-          <span className='popup__input-error' id='input-avatar-error'></span>
-        </div>
+        {props.avatar !== '' && (
+          <div className='popup__error'>
+            <span
+              className='popup__input-error popup__input-error_active'
+              id='input-avatar-error '>
+              {props.avatarMessage}
+            </span>
+          </div>
+        )}
       </React.Fragment>
     );
   },
@@ -35,11 +42,18 @@ export const MarkupForPopups = {
           placeholder='Имя'
           value={props.nameProfile}
           onChange={props.editName}
+          onInput={props.validationName}
           required
         />
-        <div className='popup__error'>
-          <span className='popup__input-error' id='input-name-error'></span>
-        </div>
+        {props.nameProfile === '' && (
+          <div className='popup__error'>
+            <span
+              className='popup__input-error popup__input-error_active'
+              id='input-name-error'>
+              {props.nameMessage}
+            </span>
+          </div>
+        )}
         <input
           className='popup__input'
           id='input-job'
@@ -48,13 +62,20 @@ export const MarkupForPopups = {
           minLength='2'
           maxLength='200'
           placeholder='Профессия'
-          value={props.description}
+          value={props.about}
           onChange={props.editAbout}
+          onInput={props.validationAbout}
           required
         />
-        <div className='popup__error'>
-          <span className='popup__input-error' id='input-job-error'></span>
-        </div>
+        {props.about === '' && (
+          <div className='popup__error'>
+            <span
+              className='popup__input-error popup__input-error_active'
+              id='input-job-error'>
+              {props.aboutMessage}
+            </span>
+          </div>
+        )}
       </React.Fragment>
     );
   },
@@ -71,11 +92,18 @@ export const MarkupForPopups = {
           value={props.place}
           maxLength='30'
           onChange={props.editPlace}
+          onInput={props.validationPlace}
           required
         />
-        <div className='popup__error'>
-          <span className='popup__input-error' id='input-place-error'></span>
-        </div>
+        {props.place === '' && (
+          <div className='popup__error'>
+            <span
+              className='popup__input-error popup__input-error_active'
+              id='input-place-error'>
+              {props.placeMessage}
+            </span>
+          </div>
+        )}
         <input
           className='popup__input'
           type='url'
@@ -84,11 +112,18 @@ export const MarkupForPopups = {
           value={props.link}
           name='card'
           onChange={props.editLink}
+          onInput={props.validationLink}
           required
         />
-        <div className='popup__error'>
-          <span className='popup__input-error' id='input-card-error'></span>
-        </div>
+        {props.link !== '' && (
+          <div className='popup__error'>
+            <span
+              className='popup__input-error popup__input-error_active'
+              id='input-card-error'>
+              {props.linkMessage}
+            </span>
+          </div>
+        )}
       </React.Fragment>
     );
   },
