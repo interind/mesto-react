@@ -1,8 +1,15 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
+import PropTypes from 'prop-types';
 
-function DeleteCardPopup(props) {
-  const textButton = props.isLoadingButton ? 'Удаляем...' : 'Да';
+function DeleteCardPopup({
+  isLoadingButton,
+  isOpen,
+  onClose,
+  onDeleteCard,
+  isCard,
+}) {
+  const textButton = isLoadingButton ? 'Удаляем...' : 'Да';
   const deletePopup = {
     id: 4,
     name: 'trash',
@@ -13,7 +20,7 @@ function DeleteCardPopup(props) {
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    props.onDeleteCard(props.isCard);
+    onDeleteCard(isCard);
   }
   return (
     <PopupWithForm
@@ -21,11 +28,19 @@ function DeleteCardPopup(props) {
       name={deletePopup.name}
       title={deletePopup.title}
       buttonTitle={deletePopup.buttonTitle}
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit}
     />
   );
 }
+
+DeleteCardPopup.propTypes = {
+  isLoadingButton: PropTypes.bool,
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onDeleteCard: PropTypes.func,
+  isCard: PropTypes.string,
+};
 
 export default DeleteCardPopup;

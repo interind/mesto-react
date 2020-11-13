@@ -1,5 +1,6 @@
 import React from 'react';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
+import PropTypes from 'prop-types';
 
 function Card(props) {
   const { _id } = React.useContext(CurrentUserContext);
@@ -53,5 +54,14 @@ function Card(props) {
     </React.Fragment>
   );
 }
+
+Card.propTypes = {
+  name: PropTypes.string,
+  link: PropTypes.string,
+  card: PropTypes.object,
+  onCardClick: PropTypes.func,
+  onCardDelete: PropTypes.func,
+  onCardLike: PropTypes.func,
+};
 
 export default Card;

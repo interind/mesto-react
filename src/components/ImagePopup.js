@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function ImagePopup({ selectedCard, onClose, isOpen }) {
   return (
@@ -19,5 +20,11 @@ function ImagePopup({ selectedCard, onClose, isOpen }) {
     </div>
   );
 }
+
+ImagePopup.propTypes = {
+  selectedCard: PropTypes.object,
+  onClose: PropTypes.func,
+  isOpen: PropTypes.bool,
+};
 
 export default ImagePopup;

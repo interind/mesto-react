@@ -2,6 +2,7 @@ import React from 'react';
 import ImagePopup from './ImagePopup.js';
 import Card from './Card.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
+import PropTypes from 'prop-types';
 
 function Main({
   onEditAvatar,
@@ -67,5 +68,18 @@ function Main({
     </React.Fragment>
   );
 }
+
+Main.propTypes = {
+  onEditAvatar: PropTypes.func,
+  onEditProfile: PropTypes.func,
+  onAddPlace: PropTypes.func,
+  handleCardDelete: PropTypes.func,
+  closeAllPopups: PropTypes.func,
+  handleCardClick: PropTypes.func,
+  selectedCard: PropTypes.object,
+  isOpenCard: PropTypes.bool,
+  cards: PropTypes.array,
+  handleCardLike: PropTypes.func,
+};
 
 export default Main;

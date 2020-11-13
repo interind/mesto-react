@@ -1,9 +1,10 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 import { MarkupForPopups } from './MarkupForPopups.js';
+import PropTypes from 'prop-types';
 
-function EditAvatarPopup(props) {
-  const textButton = props.isLoadingButton ? 'Сохранение...' : 'Сохранить';
+function EditAvatarPopup({ isLoadingButton, isOpen, onClose, onUpdateAvatar }) {
+  const textButton = isLoadingButton ? 'Сохранение...' : 'Сохранить';
   const avatarPopup = {
     id: 1,
     name: 'avatar',
@@ -29,8 +30,10 @@ function EditAvatarPopup(props) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
+
     setAvatar('');
-    props.onUpdateAvatar({
+
+    onUpdateAvatar({
       avatar: avatarUser,
     });
   }
@@ -41,8 +44,8 @@ function EditAvatarPopup(props) {
       name={avatarPopup.name}
       title={avatarPopup.title}
       buttonTitle={avatarPopup.buttonTitle}
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit}
       active={activeButton}>
       <MarkupForPopups.Avatar
@@ -55,5 +58,12 @@ function EditAvatarPopup(props) {
     </PopupWithForm>
   );
 }
+
+EditAvatarPopup.propTypes = {
+  isLoadingButton: PropTypes.bool,
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onUpdateUser: PropTypes.func,
+};
 
 export default EditAvatarPopup;

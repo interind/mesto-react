@@ -2,9 +2,10 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 import { MarkupForPopups } from './MarkupForPopups.js';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
+import PropTypes from 'prop-types';
 
-function EditProfilePopup(props) {
-  const textButton = props.isLoadingButton ? 'Сохранение...' : 'Сохранить';
+function EditProfilePopup({ isLoadingButton, isOpen, onClose, onUpdateUser }) {
+  const textButton = isLoadingButton ? 'Сохранение...' : 'Сохранить';
   const profile = {
     id: 2,
     name: 'profile',
@@ -46,7 +47,7 @@ function EditProfilePopup(props) {
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    props.onUpdateUser({
+    onUpdateUser({
       name: nameProfile,
       about: description,
     });
@@ -58,8 +59,8 @@ function EditProfilePopup(props) {
       name={profile.name}
       title={profile.title}
       buttonTitle={profile.buttonTitle}
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit}
       active={activeButton}>
       <MarkupForPopups.Profile
@@ -73,5 +74,12 @@ function EditProfilePopup(props) {
     </PopupWithForm>
   );
 }
+
+EditProfilePopup.propTypes = {
+  isLoadingButton: PropTypes.bool,
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
+  onUpdateUser: PropTypes.func,
+};
 
 export default EditProfilePopup;

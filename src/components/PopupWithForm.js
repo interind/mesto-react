@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function PopupWithForm({
   active,
@@ -39,5 +40,16 @@ function PopupWithForm({
     </React.Fragment>
   );
 }
+
+PopupWithForm.propTypes = {
+  active: PropTypes.bool,
+  isOpen: PropTypes.bool,
+  name: PropTypes.string,
+  title: PropTypes.string,
+  buttonTitle: PropTypes.string,
+  onSubmit: PropTypes.func,
+  onClose: PropTypes.func,
+  children: PropTypes.object,
+};
 
 export default PopupWithForm;
