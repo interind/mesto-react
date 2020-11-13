@@ -32,11 +32,11 @@ function AddPlacePopup(props) {
 
   function setPlaceName(evt) {
     setPlace(evt.target.value);
-    evt.target.value === '' ? setActiveButton(true) : setActiveButton(false);
+    setActiveButton(!evt.target.value);
   }
   function setLinkPlace(evt) {
     setLink(evt.target.value);
-    evt.target.value === '' ? setActiveButton(true) : setActiveButton(false);
+    setActiveButton(!evt.target.value);
   }
   function handleSubmit(evt) {
     evt.preventDefault();

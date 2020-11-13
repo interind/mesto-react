@@ -24,9 +24,7 @@ function EditAvatarPopup(props) {
 
   function setAvatarUser() {
     setAvatar(inputRef.current.value);
-    inputRef.current.value === ''
-      ? setActiveButton(true)
-      : setActiveButton(false);
+    setActiveButton(!inputRef.current.value);
   }
 
   function handleSubmit(evt) {

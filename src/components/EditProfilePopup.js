@@ -37,11 +37,11 @@ function EditProfilePopup(props) {
 
   function setNameProfile(evt) {
     setName(evt.target.value);
-    evt.target.value === '' ? setActiveButton(true) : setActiveButton(false);
+    setActiveButton(!evt.target.value);
   }
   function setDescriptionProfile(evt) {
     setDescription(evt.target.value);
-    evt.target.value === '' ? setActiveButton(true) : setActiveButton(false);
+    setActiveButton(!evt.target.value);
   }
   function handleSubmit(evt) {
     evt.preventDefault();
