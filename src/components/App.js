@@ -27,7 +27,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({}); // объект для попапа с картинкой
   const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
   const [loading, setLoading] = React.useState(true); // лоадер при загрузке страницы
-  const [buttonLoading, setButtonLoading] = React.useState(false); // лоадер для кнопки сохранить.
+  const [buttonLoading, setButtonLoading] = React.useState(false); // Лоадер для кнопки сохранить.
 
   function closeAllPopupsEsc(evt) {
     if (evt.key === 'Escape') {
@@ -50,7 +50,6 @@ function App() {
       .then((dataCards) => {
         setCards(dataCards);
       })
-
       .catch((err) =>
         console.log('Информация по карточкам с ошибкой', err.message)
       )
@@ -72,6 +71,7 @@ function App() {
   function handleUpdateUser(props) {
     // получаем новую информацию пользователя  с сервера
     setButtonLoading(true);
+
     api
       .updateUserInfo({ name: props.name, about: props.about })
       .then((infoUser) => {
@@ -90,7 +90,8 @@ function App() {
   }
 
   function handleUpdateAvatar(props) {
-    setButtonLoading(true); // получаем обновленый аватар с сервера
+    setButtonLoading(true);
+    // получаем обновленный аватар с сервера
     api
       .updateUserAvatar({ avatar: props.avatar })
       .then((infoAvatar) => {
@@ -105,8 +106,8 @@ function App() {
   }
 
   function handleAddPlace(props) {
-    // получаем новую карточку с сервера и вставляем в начало
     setButtonLoading(true);
+    // получаем новую карточку с сервера и вставляем в начало
     api
       .addCard({ name: props.name, link: props.link })
       .then((newCard) => {
@@ -167,7 +168,9 @@ function App() {
   function handleCardDelete(card) {
     // удаляем карточку
     const idCard = card._id;
+
     setButtonLoading(true);
+
     api
       .deleteCard(card._id)
       .then(() => {
