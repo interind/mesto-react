@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 function ImagePopup({ selectedCard, onClose, isOpen }) {
   return (
-    <div className={`popup popup_type_zoom ${isOpen && 'popup_opened'}`}>
+    <div
+      className={`popup popup_type_zoom ${isOpen && 'popup_opened'}`}
+      onMouseDown={(evt) => evt.currentTarget === evt.target && onClose()}>
       <div className='popup__zoom'>
         <img
           className='popup__pic'

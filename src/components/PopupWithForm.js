@@ -16,7 +16,9 @@ function PopupWithForm({
 
   return (
     <React.Fragment>
-      <div className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}>
+      <div
+        className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}
+        onMouseDown={(evt) => evt.currentTarget === evt.target && onClose()}>
         <form
           className={`popup__container popup__container_type_${name}`}
           name={name}
