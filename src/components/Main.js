@@ -54,7 +54,7 @@ function Main({
       ) : (
         <h1
           style={{ color: '#0cf', display: 'flex', justifyContent: 'center' }}>
-          /400/Error/ Сервер не отвечает 💤.
+          /Сервер не отвечает 💤/.
         </h1>
       )}
       <div className='elements page__elements'>
