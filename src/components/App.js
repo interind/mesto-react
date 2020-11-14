@@ -44,28 +44,16 @@ function App() {
   });
 
   React.useEffect(() => {
-    // получаем карточки с сервера
-    api
-      .getInfoCards()
-      .then((dataCards) => {
+    // получаем данные с сервера
+    Promise.all([api.getInfoUser(), api.getInfoCards()])
+      .then(([dataUser, dataCards]) => {
+        setCurrentUser(dataUser);
         setCards(dataCards);
       })
-      .catch((err) =>
-        console.log('Информация по карточкам с ошибкой', err.message)
-      )
+      .catch((err) => console.log('Информация сервера с ошибкой', err.message))
       .finally(() => {
         setLoading(false);
       });
-  }, []);
-
-  React.useEffect(() => {
-    // получаем информацию пользователя с сервера
-    api
-      .getInfoUser()
-      .then((dataUser) => {
-        setCurrentUser(dataUser);
-      })
-      .catch((err) => console.log('Информация пользователя с ошибкой', err));
   }, []);
 
   function handleUpdateUser(props) {
