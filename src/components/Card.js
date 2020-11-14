@@ -21,9 +21,10 @@ function Card(props) {
           />
           <button
             className={`element__button-trash ${
-              props.card.owner._id === _id
+              props.card.owner &&
+              (props.card.owner._id === _id
                 ? 'element__button-trash_visible'
-                : ''
+                : '')
             }`}
             type='button'
             onClick={() => props.onCardDelete(props.card)}></button>
@@ -31,23 +32,25 @@ function Card(props) {
             <h2 className='element__title' title={props.card.name}>
               {props.card.name}
             </h2>
-            <div className='element__like'>
-              <button
-                className={`element__button-like element__button-like_color_white ${
-                  props.card.likes.find((id) => id._id === _id)
-                    ? 'element__button-like_color_black'
-                    : ''
-                }`}
-                type='button'
-                onClick={() => props.onCardLike(props.card)}></button>
-              <span
-                className='element__counter-like'
-                title={props.card.likes.map(
-                  (like, index) => index + 1 + '🖤' + like.name
-                )}>
-                {props.card.likes.length}
-              </span>
-            </div>
+            {props.card.likes && (
+              <div className='element__like'>
+                <button
+                  className={`element__button-like element__button-like_color_white ${
+                    props.card.likes.find((id) => id._id === _id)
+                      ? 'element__button-like_color_black'
+                      : ''
+                  }`}
+                  type='button'
+                  onClick={() => props.onCardLike(props.card)}></button>
+                <span
+                  className='element__counter-like'
+                  title={props.card.likes.map(
+                    (like, index) => index + 1 + '🖤' + like.name
+                  )}>
+                  {props.card.likes.length}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       )}

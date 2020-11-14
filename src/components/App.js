@@ -10,6 +10,7 @@ import AddPlacePopup from './AddPlacePopup.js';
 import DeleteCardPopup from './DeleteCardPopup.js';
 import ErrorBoundary from './Error/ErrorBoundary.js';
 import Loader from './Loader/Loader.js';
+import { initialCards } from '../utils/array.js';
 
 function App() {
   const [isEditAvatarPopupOpen, setEditAvatarPopup] = React.useState(false);
@@ -28,6 +29,7 @@ function App() {
   const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
   const [loading, setLoading] = React.useState(true); // лоадер при загрузке страницы
   const [buttonLoading, setButtonLoading] = React.useState(false); // Лоадер для кнопки сохранить.
+  const [isOk, setIsOk] = React.useState(true);
 
   function closeAllPopupsEsc(evt) {
     if (evt.key === 'Escape') {
@@ -50,7 +52,12 @@ function App() {
         setCurrentUser(dataUser);
         setCards(dataCards);
       })
-      .catch((err) => console.log('Информация сервера с ошибкой', err.message))
+      .catch((err) => {
+        console.log('Информация сервера с ошибкой', err.message);
+        setIsOk(false);
+        setCurrentUser({});
+        setCards(initialCards);
+      })
       .finally(() => {
         setLoading(false);
       });
@@ -189,6 +196,7 @@ function App() {
               isOpenCard={isOpenCard}
               handleCardLike={handleCardLike}
               cards={cards}
+              isOk={isOk}
             />
             {loading && <Loader />}
             <AddPlacePopup
