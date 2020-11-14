@@ -1,4 +1,4 @@
-export function visualSubmit(button) {
+function visualSubmit(button) {
   if (button.textContent === 'Сохранить') {
     button.textContent = 'Сохранение...';
   } else {
