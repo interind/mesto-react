@@ -40,7 +40,7 @@ DeleteCardPopup.propTypes = {
   isOpen: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   onDeleteCard: PropTypes.func.isRequired,
-  isCard: PropTypes.string,
+  isCard: PropTypes.object,
 };
 
 export default DeleteCardPopup;

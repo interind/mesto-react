@@ -17,7 +17,7 @@ function App() {
   const [isEditProfilePopupOpen, setEditProfilePopup] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false);
   const [isConfirmTrashPopupOpen, setConfirmTrashPopup] = React.useState(false);
-  const [isCard, setIsCard] = React.useState('');
+  const [isCard, setIsCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({
     name: '',
     about: '',
