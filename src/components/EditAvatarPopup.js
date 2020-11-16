@@ -62,8 +62,8 @@ function EditAvatarPopup({ isLoadingButton, isOpen, onClose, onUpdateAvatar }) {
 EditAvatarPopup.propTypes = {
   isLoadingButton: PropTypes.bool,
   isOpen: PropTypes.bool,
-  onClose: PropTypes.func,
-  onUpdateUser: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
+  onUpdateAvatar: PropTypes.func.isRequired,
 };
 
 export default EditAvatarPopup;

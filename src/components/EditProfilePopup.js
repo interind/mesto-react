@@ -78,8 +78,8 @@ function EditProfilePopup({ isLoadingButton, isOpen, onClose, onUpdateUser }) {
 EditProfilePopup.propTypes = {
   isLoadingButton: PropTypes.bool,
   isOpen: PropTypes.bool,
-  onClose: PropTypes.func,
-  onUpdateUser: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
+  onUpdateUser: PropTypes.func.isRequired,
 };
 
 export default EditProfilePopup;

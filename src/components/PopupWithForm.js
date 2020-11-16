@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classes from 'classnames';
 
 function PopupWithForm({
   active,
@@ -11,13 +12,14 @@ function PopupWithForm({
   isOpen,
   children,
 }) {
-  let disabledButton = active ? 'disabled' : '';
-  let classDisActive = active ? 'popup__button-submit_disabled' : '';
+  const disabledButton = active ? 'disabled' : '';
+  const classDisActive = active ? 'popup__button-submit_disabled' : '';
+  const popup = classes(`popup popup_type_${name}`, { popup_opened: isOpen });
 
   return (
     <React.Fragment>
       <div
-        className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}
+        className={popup}
         onMouseDown={(evt) => evt.currentTarget === evt.target && onClose()}>
         <form
           className={`popup__container popup__container_type_${name}`}
@@ -49,8 +51,8 @@ PopupWithForm.propTypes = {
   name: PropTypes.string,
   title: PropTypes.string,
   buttonTitle: PropTypes.string,
-  onSubmit: PropTypes.func,
-  onClose: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
   children: PropTypes.object,
 };
 

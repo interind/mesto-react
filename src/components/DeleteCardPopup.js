@@ -38,8 +38,8 @@ function DeleteCardPopup({
 DeleteCardPopup.propTypes = {
   isLoadingButton: PropTypes.bool,
   isOpen: PropTypes.bool,
-  onClose: PropTypes.func,
-  onDeleteCard: PropTypes.func,
+  onClose: PropTypes.func.isRequired,
+  onDeleteCard: PropTypes.func.isRequired,
   isCard: PropTypes.string,
 };
 

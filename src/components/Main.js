@@ -80,16 +80,16 @@ function Main({
 }
 
 Main.propTypes = {
-  onEditAvatar: PropTypes.func,
-  onEditProfile: PropTypes.func,
-  onAddPlace: PropTypes.func,
-  handleCardDelete: PropTypes.func,
-  closeAllPopups: PropTypes.func,
-  handleCardClick: PropTypes.func,
+  onEditAvatar: PropTypes.func.isRequired,
+  onEditProfile: PropTypes.func.isRequired,
+  onAddPlace: PropTypes.func.isRequired,
+  handleCardDelete: PropTypes.func.isRequired,
+  closeAllPopups: PropTypes.func.isRequired,
+  handleCardClick: PropTypes.func.isRequired,
   selectedCard: PropTypes.object,
   isOpenCard: PropTypes.bool,
   cards: PropTypes.array,
-  handleCardLike: PropTypes.func,
+  handleCardLike: PropTypes.func.isRequired,
 };
 
 export default Main;

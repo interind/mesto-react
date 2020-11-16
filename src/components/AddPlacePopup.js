@@ -1,9 +1,10 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm.js';
 import { MarkupForPopups } from './MarkupForPopups.js';
+import PropTypes from 'prop-types';
 
-function AddPlacePopup(props) {
-  const textButton = props.isLoadingButton ? 'Сохранение...' : 'Сохранить';
+function AddPlacePopup({ isLoadingButton, isOpen, onClose, onAddPlace }) {
+  const textButton = isLoadingButton ? 'Сохранение...' : 'Сохранить';
   const placePopup = {
     id: 3,
     name: 'place',
@@ -42,7 +43,7 @@ function AddPlacePopup(props) {
     evt.preventDefault();
     setPlace('');
     setLink('');
-    props.onAddPlace({
+    onAddPlace({
       name: namePlace,
       link: link,
     });
@@ -53,8 +54,8 @@ function AddPlacePopup(props) {
       name={placePopup.name}
       title={placePopup.title}
       buttonTitle={placePopup.buttonTitle}
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
       active={activeButton}
       onSubmit={handleSubmit}>
       <MarkupForPopups.Place
@@ -68,5 +69,12 @@ function AddPlacePopup(props) {
     </PopupWithForm>
   );
 }
+
+AddPlacePopup.propTypes = {
+  isLoadingButton: PropTypes.bool,
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
+  onAddPlace: PropTypes.func.isRequired,
+};
 
 export default AddPlacePopup;
