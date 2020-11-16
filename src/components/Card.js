@@ -2,7 +2,7 @@ import React from 'react';
 import { CurrentUserContext } from '../context/CurrentUserContext.js';
 import PropTypes from 'prop-types';
 
-function Card(props) {
+function Card({ card, onCardClick, onCardDelete, onCardLike }) {
   const { _id } = React.useContext(CurrentUserContext);
   const [visible, setVisible] = React.useState(true);
 
@@ -12,42 +12,40 @@ function Card(props) {
         <div className='element'>
           <img
             className='element__pic'
-            src={props.card.link}
-            alt={props.card.name}
+            src={card.link}
+            alt={card.name}
             onError={() => {
               setVisible(false);
             }}
-            onClick={() => props.onCardClick(props.card)}
+            onClick={() => onCardClick(card)}
           />
           <button
             className={`element__button-trash ${
-              props.card.owner &&
-              (props.card.owner._id === _id
-                ? 'element__button-trash_visible'
-                : '')
+              card.owner &&
+              (card.owner._id === _id ? 'element__button-trash_visible' : '')
             }`}
             type='button'
-            onClick={() => props.onCardDelete(props.card)}></button>
+            onClick={() => onCardDelete(card)}></button>
           <div className='element__info'>
-            <h2 className='element__title' title={props.card.name}>
-              {props.card.name}
+            <h2 className='element__title' title={card.name}>
+              {card.name}
             </h2>
-            {props.card.likes && (
+            {card.likes && (
               <div className='element__like'>
                 <button
                   className={`element__button-like element__button-like_color_white ${
-                    props.card.likes.find((id) => id._id === _id)
+                    card.likes.find((id) => id._id === _id)
                       ? 'element__button-like_color_black'
                       : ''
                   }`}
                   type='button'
-                  onClick={() => props.onCardLike(props.card)}></button>
+                  onClick={() => onCardLike(card)}></button>
                 <span
                   className='element__counter-like'
-                  title={props.card.likes.map(
+                  title={card.likes.map(
                     (like, index) => index + 1 + '🖤' + like.name
                   )}>
-                  {props.card.likes.length}
+                  {card.likes.length}
                 </span>
               </div>
             )}
@@ -59,12 +57,10 @@ function Card(props) {
 }
 
 Card.propTypes = {
-  name: PropTypes.string,
-  link: PropTypes.string,
   card: PropTypes.object,
-  onCardClick: PropTypes.func,
-  onCardDelete: PropTypes.func,
-  onCardLike: PropTypes.func,
+  onCardClick: PropTypes.func.isRequired,
+  onCardDelete: PropTypes.func.isRequired,
+  onCardLike: PropTypes.func.isRequired,
 };
 
 export default Card;
