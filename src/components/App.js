@@ -199,31 +199,35 @@ function App() {
               isOk={isOk}
             />
             {loading && <Loader />}
-            <AddPlacePopup
-              isOpen={isAddPlacePopupOpen}
-              onClose={closeAllPopups}
-              onAddPlace={handleAddPlace}
-              isLoadingButton={buttonLoading}
-            />
-            <EditAvatarPopup
-              isOpen={isEditAvatarPopupOpen}
-              onClose={closeAllPopups}
-              onUpdateAvatar={handleUpdateAvatar}
-              isLoadingButton={buttonLoading}
-            />
-            <EditProfilePopup
-              isOpen={isEditProfilePopupOpen}
-              onClose={closeAllPopups}
-              onUpdateUser={handleUpdateUser}
-              isLoadingButton={buttonLoading}
-            />
-            <DeleteCardPopup
-              isOpen={isConfirmTrashPopupOpen}
-              onClose={closeAllPopups}
-              onDeleteCard={handleCardDelete}
-              isCard={isCard}
-              isLoadingButton={buttonLoading}
-            />
+            {isOk && (
+              <React.Fragment>
+                <AddPlacePopup
+                  isOpen={isAddPlacePopupOpen}
+                  onClose={closeAllPopups}
+                  onAddPlace={handleAddPlace}
+                  isLoadingButton={buttonLoading}
+                />
+                <EditAvatarPopup
+                  isOpen={isEditAvatarPopupOpen}
+                  onClose={closeAllPopups}
+                  onUpdateAvatar={handleUpdateAvatar}
+                  isLoadingButton={buttonLoading}
+                />
+                <EditProfilePopup
+                  isOpen={isEditProfilePopupOpen}
+                  onClose={closeAllPopups}
+                  onUpdateUser={handleUpdateUser}
+                  isLoadingButton={buttonLoading}
+                />
+                <DeleteCardPopup
+                  isOpen={isConfirmTrashPopupOpen}
+                  onClose={closeAllPopups}
+                  onDeleteCard={handleCardDelete}
+                  isCard={isCard}
+                  isLoadingButton={buttonLoading}
+                />
+              </React.Fragment>
+            )}
             <Footer />
           </ErrorBoundary>
         </CurrentUserContext.Provider>
