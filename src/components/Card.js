@@ -25,6 +25,7 @@ function Card({ card, onCardClick, onCardDelete, onCardLike }) {
               (card.owner._id === _id ? 'element__button-trash_visible' : '')
             }`}
             type='button'
+            title='кнопка удаления карточки'
             onClick={() => onCardDelete(card)}></button>
           <div className='element__info'>
             <h2 className='element__title' title={card.name}>
@@ -39,6 +40,7 @@ function Card({ card, onCardClick, onCardDelete, onCardLike }) {
                       : ''
                   }`}
                   type='button'
+                  title='кнопка для лайков'
                   onClick={() => onCardLike(card)}></button>
                 <span
                   className='element__counter-like'

@@ -145,14 +145,14 @@ function App() {
     setOpenCard(true);
   }
 
-  function handleCardLike(card) {
+  function handleCardLike({ likes, _id }) {
     // получаем лайки с сервера
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = likes.some((i) => i._id === currentUser._id);
 
     api
-      .changeLikeCardStatus(card._id, !isLiked)
+      .changeLikeCardStatus(_id, !isLiked)
       .then((newCard) => {
-        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        const newCards = cards.map((c) => (c._id === _id ? newCard : c));
         setCards(newCards);
       })
       .catch((err) =>
@@ -160,14 +160,14 @@ function App() {
       );
   }
 
-  function handleCardDelete(card) {
+  function handleCardDelete({ _id }) {
     // удаляем карточку
-    const idCard = card._id;
+    const idCard = _id;
 
     setButtonLoading(true);
 
     api
-      .deleteCard(card._id)
+      .deleteCard(_id)
       .then(() => {
         setCards(cards.filter((card) => card._id !== idCard));
       })
