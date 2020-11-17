@@ -15,46 +15,49 @@ function Main({
   isOpenCard,
   cards,
   handleCardLike,
-  isOk,
+  statusOk,
 }) {
   const { name, about, avatar, _id } = React.useContext(CurrentUserContext);
 
   return (
     <React.Fragment>
-      {isOk ? (
-        isOk && (
-          <section className='profile page__profile'>
-            <img
-              className='profile__avatar'
-              src={avatar}
-              alt='Аватарка'
-              id={_id}
-              onClick={onEditAvatar}
-            />
-            <div className='profile__info'>
-              <h1 className='profile__title' title={name}>
-                {name}
-              </h1>
-              <button
-                className='profile__edit-button'
-                type='button'
-                title='изменить данные профиля'
-                onClick={onEditProfile}></button>
-              <p className='profile__subtitle' title={about}>
-                {about}
-              </p>
-            </div>
+      {statusOk ? (
+        <section className='profile page__profile'>
+          <img
+            className='profile__avatar'
+            src={avatar}
+            alt='Аватарка'
+            id={_id}
+            onClick={onEditAvatar}
+          />
+          <div className='profile__info'>
+            <h1 className='profile__title' title={name}>
+              {name}
+            </h1>
             <button
-              className='profile__add-button'
+              className='profile__edit-button'
               type='button'
-              title='добавить картинки'
-              onClick={onAddPlace}></button>
-          </section>
-        )
+              title='изменить данные профиля'
+              onClick={onEditProfile}></button>
+            <p className='profile__subtitle' title={about}>
+              {about}
+            </p>
+          </div>
+          <button
+            className='profile__add-button'
+            type='button'
+            title='добавить картинки'
+            onClick={onAddPlace}></button>
+        </section>
       ) : (
         <h1
-          style={{ color: '#0cf', display: 'flex', justifyContent: 'center' }}>
-          /Сервер не отвечает 💤/.
+          style={{
+            color: '#fff',
+            fontFamily: 'Inter',
+            marginTop: '0',
+            textAlign: 'center',
+          }}>
+          Сервер не отвечает 🛠
         </h1>
       )}
       <div className='elements page__elements'>

@@ -29,7 +29,7 @@ function App() {
   const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
   const [loading, setLoading] = React.useState(true); // лоадер при загрузке страницы
   const [buttonLoading, setButtonLoading] = React.useState(false); // Лоадер для кнопки сохранить.
-  const [isOk, setIsOk] = React.useState(true);
+  const [statusOk, setIsOk] = React.useState(true);
 
   function closeAllPopupsEsc(evt) {
     if (evt.key === 'Escape') {
@@ -196,10 +196,10 @@ function App() {
               isOpenCard={isOpenCard}
               handleCardLike={handleCardLike}
               cards={cards}
-              isOk={isOk}
+              statusOk={statusOk}
             />
             {loading && <Loader />}
-            {isOk && (
+            {statusOk && (
               <React.Fragment>
                 <AddPlacePopup
                   isOpen={isAddPlacePopupOpen}

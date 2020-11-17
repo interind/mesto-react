@@ -98,7 +98,7 @@ const api = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-16/',
   token: 'bba27b67-a97d-4fd9-b42d-01c5b1258337',
   user: 'users/me',
-  cards: 'cards',
+  cards: 'cards1',
 });
 
 export default api;
