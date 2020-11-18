@@ -47,7 +47,7 @@ function App() {
 
   React.useEffect(() => {
     // получаем данные с сервера
-    Promise.all([api.getInfoUser(), api.getInfoCards()])
+    Promise.all([api.getInfoForUser(), api.getInfoForCards()])
       .then(([dataUser, dataCards]) => {
         setCurrentUser(dataUser);
         setCards(dataCards);

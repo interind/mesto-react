@@ -12,7 +12,7 @@ class Api {
       : Promise.reject(new Error(`Ошибка api: ${res.status}`));
   }
 
-  getInfoUser() {
+  getInfoForUser() {
     return fetch(`${this._url}${this._user}`, {
       headers: {
         authorization: `${this._token}`,
@@ -21,7 +21,7 @@ class Api {
     }).then(this._getResponse);
   }
 
-  getInfoCards() {
+  getInfoForCards() {
     return fetch(`${this._url}${this._cards}`, {
       headers: {
         authorization: `${this._token}`,
