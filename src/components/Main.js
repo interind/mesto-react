@@ -1,8 +1,8 @@
 import React from 'react';
-import ImagePopup from './ImagePopup.js';
-import Card from './Card.js';
-import { CurrentUserContext } from '../context/CurrentUserContext.js';
 import PropTypes from 'prop-types';
+import Card from './Card.js';
+import ImagePopup from './ImagePopup.js';
+import { CurrentUserContext } from '../context/CurrentUserContext.js';
 
 function Main({
   onEditAvatar,
@@ -15,13 +15,11 @@ function Main({
   isOpenCard,
   cards,
   handleCardLike,
-  statusOk,
 }) {
   const { name, about, avatar, _id } = React.useContext(CurrentUserContext);
 
   return (
     <React.Fragment>
-      {statusOk ? (
         <section className='profile page__profile'>
           <img
             className='profile__avatar'
@@ -49,17 +47,6 @@ function Main({
             title='добавить картинки'
             onClick={onAddPlace}></button>
         </section>
-      ) : (
-        <h1
-          style={{
-            color: '#fff',
-            fontFamily: 'Inter',
-            marginTop: '0',
-            textAlign: 'center',
-          }}>
-          Сервер не отвечает 🛠
-        </h1>
-      )}
       <div className='elements page__elements'>
         {cards.map((card) => {
           return (

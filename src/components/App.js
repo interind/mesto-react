@@ -1,23 +1,23 @@
 import React from 'react';
-import Header from './Header.js';
-import Main from './Main.js';
-import Footer from './Footer.js';
 import api from '../utils/api.js';
-import { CurrentUserContext } from '../context/CurrentUserContext.js';
-import EditProfilePopup from './EditProfilePopup.js';
-import EditAvatarPopup from './EditAvatarPopup.js';
+import Main from './Main.js';
+import Header from './Header.js';
+import Footer from './Footer.js';
+import Loader from './Loader/Loader.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import DeleteCardPopup from './DeleteCardPopup.js';
 import ErrorBoundary from './Error/ErrorBoundary.js';
-import Loader from './Loader/Loader.js';
-import { initialCards } from '../utils/array.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
+import EditProfilePopup from './EditProfilePopup.js';
+import { CurrentUserContext } from '../context/CurrentUserContext.js';
+import { ErrorPage } from './Error/ErrorPage';
 
 function App() {
+  const [isCard, setIsCard] = React.useState({});
+  const [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopup] = React.useState(false);
   const [isEditProfilePopupOpen, setEditProfilePopup] = React.useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopup] = React.useState(false);
   const [isConfirmTrashPopupOpen, setConfirmTrashPopup] = React.useState(false);
-  const [isCard, setIsCard] = React.useState({});
   const [currentUser, setCurrentUser] = React.useState({
     name: '',
     about: '',
@@ -25,11 +25,12 @@ function App() {
     avatar: '',
   }); // тут информация обо мне с сервера
   const [cards, setCards] = React.useState([]); // тут информация о карточках
-  const [selectedCard, setSelectedCard] = React.useState({}); // объект для попапа с картинкой
-  const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
   const [loading, setLoading] = React.useState(true); // лоадер при загрузке страницы
+  const [statusOk, setIsOk] = React.useState(true); // флаг для ошибки сервера
+  const [statusError, setError] = React.useState({}); // флаг для ошибки сервера
+  const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
+  const [selectedCard, setSelectedCard] = React.useState({}); // объект для попапа с картинкой
   const [buttonLoading, setButtonLoading] = React.useState(false); // Лоадер для кнопки сохранить.
-  const [statusOk, setIsOk] = React.useState(true);
 
   function closeAllPopupsEsc(evt) {
     if (evt.key === 'Escape') {
@@ -53,10 +54,9 @@ function App() {
         setCards(dataCards);
       })
       .catch((err) => {
-        console.log('Информация сервера с ошибкой', err.message);
+        console.error('Информация сервера с ошибкой', err.message);
+        setError(err);
         setIsOk(false);
-        setCurrentUser({});
-        setCards(initialCards);
       })
       .finally(() => {
         setLoading(false);
@@ -77,7 +77,7 @@ function App() {
         });
       })
       .catch((err) =>
-        console.log('Информация обновления пользователя с ошибкой', err)
+        console.error('Информация обновления пользователя с ошибкой', err)
       )
       .finally(() => {
         closeAllPopups();
@@ -93,7 +93,7 @@ function App() {
         setCurrentUser({ ...currentUser, avatar: infoAvatar.avatar });
       })
       .catch((err) =>
-        console.log('Информация обновления пользователя с ошибкой', err)
+        console.error('Информация обновления пользователя с ошибкой', err)
       )
       .finally(() => {
         closeAllPopups();
@@ -109,7 +109,7 @@ function App() {
         setCards([newCard, ...cards]);
       })
       .catch((err) =>
-        console.log('Информация обновления карточки с ошибкой', err)
+        console.error('Информация обновления карточки с ошибкой', err)
       )
       .finally(() => {
         closeAllPopups();
@@ -156,7 +156,7 @@ function App() {
         setCards(newCards);
       })
       .catch((err) =>
-        console.log('Информация по карточкам с ошибкой', err.message)
+        console.error('Информация по карточкам с ошибкой', err.message)
       );
   }
 
@@ -172,7 +172,7 @@ function App() {
         setCards(cards.filter((card) => card._id !== idCard));
       })
       .catch((err) =>
-        console.log('Информация по карточкам с ошибкой', err.message)
+        console.error('Информация по карточкам с ошибкой', err.message)
       )
       .finally(() => {
         closeAllPopups();
@@ -185,22 +185,23 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}>
           <ErrorBoundary>
             <Header />
-            <Main
-              onEditProfile={handleEditProfileClick}
-              onEditAvatar={handleEditAvatarClick}
-              onAddPlace={handleAddPlaceClick}
-              handleCardDelete={handleConfirmTrashClick}
-              closeAllPopups={closeAllPopups}
-              handleCardClick={handleCardClick}
-              selectedCard={selectedCard}
-              isOpenCard={isOpenCard}
-              handleCardLike={handleCardLike}
-              cards={cards}
-              statusOk={statusOk}
-            />
             {loading && <Loader />}
-            {statusOk && (
+            {statusOk ? (
               <React.Fragment>
+                <Main
+                  onEditProfile={handleEditProfileClick}
+                  onEditAvatar={handleEditAvatarClick}
+                  onAddPlace={handleAddPlaceClick}
+                  handleCardDelete={handleConfirmTrashClick}
+                  closeAllPopups={closeAllPopups}
+                  handleCardClick={handleCardClick}
+                  selectedCard={selectedCard}
+                  isOpenCard={isOpenCard}
+                  handleCardLike={handleCardLike}
+                  cards={cards}
+                  statusOk={statusOk}
+                />
+
                 <AddPlacePopup
                   isOpen={isAddPlacePopupOpen}
                   onClose={closeAllPopups}
@@ -227,6 +228,8 @@ function App() {
                   isLoadingButton={buttonLoading}
                 />
               </React.Fragment>
+            ) : (
+              <ErrorPage error={statusError} />
             )}
             <Footer />
           </ErrorBoundary>
