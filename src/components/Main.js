@@ -53,7 +53,7 @@ function Main({
             <Card
               onCardDelete={handleCardDelete}
               card={card}
-              key={card.createdAt}
+              key={card.createdAt + card._id}
               onCardClick={handleCardClick}
               onCardLike={handleCardLike}
             />

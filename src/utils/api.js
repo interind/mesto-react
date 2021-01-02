@@ -1,5 +1,11 @@
+/* eslint-disable no-undef */
 class Api {
-  constructor({ url, token, user, cards }) {
+  constructor({
+    url,
+    token,
+    user,
+    cards,
+  }) {
     this._url = url;
     this._token = token;
     this._user = user;
@@ -38,8 +44,8 @@ class Api {
         'Content-type': 'application/json; charset=UTF-8',
       },
       body: JSON.stringify({
-        name: name,
-        about: about,
+        name,
+        about,
       }),
     }).then(this._getResponse);
   }
@@ -52,7 +58,7 @@ class Api {
         'Content-type': 'application/json; charset=UTF-8',
       },
       body: JSON.stringify({
-        avatar: avatar,
+        avatar,
       }),
     }).then(this._getResponse);
   }
@@ -65,8 +71,8 @@ class Api {
         'Content-type': 'application/json; charset=UTF-8',
       },
       body: JSON.stringify({
-        name: name,
-        link: link,
+        name,
+        link,
       }),
     }).then(this._getResponse);
   }

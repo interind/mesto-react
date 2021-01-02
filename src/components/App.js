@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import api from '../utils/api.js';
 import Main from './Main.js';
@@ -28,9 +29,20 @@ function App() {
   const [loading, setLoading] = React.useState(true); // лоадер при загрузке страницы
   const [statusOk, setIsOk] = React.useState(true); // флаг для ошибки сервера
   const [statusError, setError] = React.useState({}); // флаг для ошибки сервера
-  const [isOpenCard, setOpenCard] = React.useState(false); // тут булевое значение для попапа с картинкой
+  const [isOpenCard, setOpenCard] = React.useState(false);
+  // тут булевое значение для попапа с картинкой
   const [selectedCard, setSelectedCard] = React.useState({}); // объект для попапа с картинкой
   const [buttonLoading, setButtonLoading] = React.useState(false); // Лоадер для кнопки сохранить.
+
+  function closeAllPopups() {
+    // закрытие всех попапов
+    setEditAvatarPopup(false);
+    setEditProfilePopup(false);
+    setAddPlacePopup(false);
+    setConfirmTrashPopup(false);
+    setOpenCard(false);
+    setButtonLoading(false);
+  }
 
   function closeAllPopupsEsc(evt) {
     if (evt.key === 'Escape') {
@@ -40,7 +52,6 @@ function App() {
 
   React.useEffect(() => {
     window.addEventListener('keydown', closeAllPopupsEsc);
-
     return () => {
       window.removeEventListener('keydown', closeAllPopupsEsc);
     };
@@ -76,9 +87,7 @@ function App() {
           about: infoUser.about,
         });
       })
-      .catch((err) =>
-        console.error('Информация обновления пользователя с ошибкой', err)
-      )
+      .catch((err) => console.error('Информация обновления пользователя с ошибкой', err))
       .finally(() => {
         closeAllPopups();
       });
@@ -92,9 +101,7 @@ function App() {
       .then((infoAvatar) => {
         setCurrentUser({ ...currentUser, avatar: infoAvatar.avatar });
       })
-      .catch((err) =>
-        console.error('Информация обновления пользователя с ошибкой', err)
-      )
+      .catch((err) => console.error('Информация обновления пользователя с ошибкой', err))
       .finally(() => {
         closeAllPopups();
       });
@@ -108,22 +115,10 @@ function App() {
       .then((newCard) => {
         setCards([newCard, ...cards]);
       })
-      .catch((err) =>
-        console.error('Информация обновления карточки с ошибкой', err)
-      )
+      .catch((err) => console.error('Информация обновления карточки с ошибкой', err))
       .finally(() => {
         closeAllPopups();
       });
-  }
-
-  function closeAllPopups() {
-    // закрытие всех попапов
-    setEditAvatarPopup(false);
-    setEditProfilePopup(false);
-    setAddPlacePopup(false);
-    setConfirmTrashPopup(false);
-    setOpenCard(false);
-    setButtonLoading(false);
   }
 
   function handleEditAvatarClick() {
@@ -155,9 +150,7 @@ function App() {
         const newCards = cards.map((c) => (c._id === _id ? newCard : c));
         setCards(newCards);
       })
-      .catch((err) =>
-        console.error('Информация по карточкам с ошибкой', err.message)
-      );
+      .catch((err) => console.error('Информация по карточкам с ошибкой', err.message));
   }
 
   function handleCardDelete({ _id }) {
@@ -171,9 +164,7 @@ function App() {
       .then(() => {
         setCards(cards.filter((card) => card._id !== idCard));
       })
-      .catch((err) =>
-        console.error('Информация по карточкам с ошибкой', err.message)
-      )
+      .catch((err) => console.error('Информация по карточкам с ошибкой', err.message))
       .finally(() => {
         closeAllPopups();
       });
