@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classes from 'classnames';
 
-function ImagePopup({ selectedCard, onClose, isOpen }) {
-  const popup = classes('popup popup_type_zoom', { popup_opened: isOpen });
+function ImagePopup({ selectedCard, onClose }) {
+  const popup = classes('popup popup_type_zoom', { popup_opened: selectedCard });
   return (
     <div
       className={popup}
@@ -11,10 +11,10 @@ function ImagePopup({ selectedCard, onClose, isOpen }) {
       <div className='popup__zoom'>
         <img
           className='popup__pic'
-          src={selectedCard.link}
-          alt={selectedCard.name}
+          src={selectedCard && selectedCard.link}
+          alt={selectedCard && selectedCard.name}
         />
-        <span className='popup__place-pic'>{selectedCard.name}</span>
+        <span className='popup__place-pic'>{selectedCard && selectedCard.name}</span>
         <button
           className='popup__button-close'
           type='button'
@@ -26,9 +26,8 @@ function ImagePopup({ selectedCard, onClose, isOpen }) {
 }
 
 ImagePopup.propTypes = {
-  selectedCard: PropTypes.object,
+  selectedCard: PropTypes.object || undefined,
   onClose: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool,
 };
 
 export default ImagePopup;

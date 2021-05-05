@@ -12,7 +12,6 @@ function Main({
   closeAllPopups,
   handleCardClick,
   selectedCard,
-  isOpenCard,
   cards,
   handleCardLike,
 }) {
@@ -63,7 +62,6 @@ function Main({
       <ImagePopup
         selectedCard={selectedCard}
         onClose={closeAllPopups}
-        isOpen={isOpenCard}
       />
     </React.Fragment>
   );
@@ -77,7 +75,6 @@ Main.propTypes = {
   closeAllPopups: PropTypes.func.isRequired,
   handleCardClick: PropTypes.func.isRequired,
   selectedCard: PropTypes.object,
-  isOpenCard: PropTypes.bool,
   cards: PropTypes.array,
   handleCardLike: PropTypes.func.isRequired,
 };
