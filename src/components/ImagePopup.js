@@ -15,11 +15,12 @@ function ImagePopup({ selectedCard, onClose }) {
           alt={selectedCard && selectedCard.name}
         />
         <span className='popup__place-pic'>{selectedCard && selectedCard.name}</span>
-        <button
-          className='popup__button-close'
-          type='button'
-          title='закрыть'
-          onClick={onClose}></button>
+        {selectedCard && (<button
+            className='popup__button-close'
+            type='button'
+            title='закрыть'
+            onClick={onClose}
+          />)}
       </div>
     </div>
   );
