@@ -8,20 +8,20 @@ function ImagePopup({ selectedCard, onClose }) {
     <div
       className={popup}
       onMouseDown={(evt) => evt.currentTarget === evt.target && onClose()}>
-      <div className='popup__zoom'>
+      {selectedCard && (<div className='popup__zoom'>
         <img
           className='popup__pic'
-          src={selectedCard && selectedCard.link}
-          alt={selectedCard && selectedCard.name}
+          src={selectedCard.link}
+          alt={selectedCard.name}
         />
-        <span className='popup__place-pic'>{selectedCard && selectedCard.name}</span>
-        {selectedCard && (<button
+        <span className='popup__place-pic'>{selectedCard.name}</span>
+        <button
             className='popup__button-close'
             type='button'
             title='закрыть'
             onClick={onClose}
-          />)}
-      </div>
+          />
+      </div>)}
     </div>
   );
 }
