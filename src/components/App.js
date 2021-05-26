@@ -72,12 +72,12 @@ function App() {
       });
   }, []);
 
-  function handleUpdateUser(props) {
+  function handleUpdateUser({ name, about }) {
     // получаем новую информацию пользователя  с сервера
     setButtonLoading(true);
 
     api
-      .updateUserInfo({ name: props.name, about: props.about })
+      .updateUserInfo({ name, about })
       .then((infoUser) => {
         setCurrentUser({
           ...currentUser,
@@ -91,11 +91,11 @@ function App() {
       });
   }
 
-  function handleUpdateAvatar(props) {
+  function handleUpdateAvatar({avatar}) {
     setButtonLoading(true);
     // получаем обновленный аватар с сервера
     api
-      .updateUserAvatar({ avatar: props.avatar })
+      .updateUserAvatar({ avatar })
       .then((infoAvatar) => {
         setCurrentUser({ ...currentUser, avatar: infoAvatar.avatar });
       })
@@ -105,11 +105,11 @@ function App() {
       });
   }
 
-  function handleAddPlace(props) {
+  function handleAddPlace({name, link}) {
     setButtonLoading(true);
     // получаем новую карточку с сервера и вставляем в начало
     api
-      .addCard({ name: props.name, link: props.link })
+      .addCard({ name, link })
       .then((newCard) => {
         setCards([newCard, ...cards]);
       })
@@ -132,9 +132,9 @@ function App() {
     setConfirmTrashPopup(true);
     setIsCard(card);
   }
-  function handleCardClick(props) {
+  function handleCardClick({name, link}) {
     // для открытия попапа с картинкой
-    setSelectedCard({ link: props.link, name: props.name });
+    setSelectedCard({ link, name });
   }
 
   function handleCardLike({ likes, _id }) {
