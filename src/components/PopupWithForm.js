@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classes from 'classnames';
+import Popup from './Popup';
 
 function PopupWithForm({
   active,
@@ -14,13 +14,10 @@ function PopupWithForm({
 }) {
   const disabledButton = active ? 'disabled' : '';
   const classDisActive = active ? 'popup__button-submit_disabled' : '';
-  const popup = classes(`popup popup_type_${name}`, { popup_opened: isOpen });
 
   return (
     <React.Fragment>
-      <div
-        className={popup}
-        onMouseDown={(evt) => evt.currentTarget === evt.target && onClose()}>
+      <Popup name={name} isOpen={isOpen} onClose={onClose}>
         <form
           className={`popup__container popup__container_type_${name}`}
           name={name}
@@ -40,7 +37,7 @@ function PopupWithForm({
             title='закрыть'
             onClick={onClose}></button>
         </form>
-      </div>
+      </Popup>
     </React.Fragment>
   );
 }
