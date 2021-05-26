@@ -29,9 +29,7 @@ function App() {
   const [loading, setLoading] = React.useState(true); // лоадер при загрузке страницы
   const [statusOk, setIsOk] = React.useState(true); // флаг для ошибки сервера
   const [statusError, setError] = React.useState({}); // флаг для ошибки сервера
-  const [isOpenCard, setOpenCard] = React.useState(false);
-  // тут булевое значение для попапа с картинкой
-  const [selectedCard, setSelectedCard] = React.useState({}); // объект для попапа с картинкой
+  const [selectedCard, setSelectedCard] = React.useState(); // объект для попапа с картинкой
   const [buttonLoading, setButtonLoading] = React.useState(false); // Лоадер для кнопки сохранить.
 
   function closeAllPopups() {
@@ -40,7 +38,7 @@ function App() {
     setEditProfilePopup(false);
     setAddPlacePopup(false);
     setConfirmTrashPopup(false);
-    setOpenCard(false);
+    setSelectedCard(undefined);
     setButtonLoading(false);
   }
 
@@ -137,7 +135,6 @@ function App() {
   function handleCardClick(props) {
     // для открытия попапа с картинкой
     setSelectedCard({ link: props.link, name: props.name });
-    setOpenCard(true);
   }
 
   function handleCardLike({ likes, _id }) {
@@ -187,7 +184,6 @@ function App() {
                   closeAllPopups={closeAllPopups}
                   handleCardClick={handleCardClick}
                   selectedCard={selectedCard}
-                  isOpenCard={isOpenCard}
                   handleCardLike={handleCardLike}
                   cards={cards}
                   statusOk={statusOk}
