@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 class Api {
   constructor({
     url,

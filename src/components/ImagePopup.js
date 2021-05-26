@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classes from 'classnames';
+import Popup from './Popup';
 
 function ImagePopup({ selectedCard, onClose }) {
-  const popup = classes('popup popup_type_zoom', { popup_opened: selectedCard });
   return (
-    <div
-      className={popup}
-      onMouseDown={(evt) => evt.currentTarget === evt.target && onClose()}>
+    <Popup name={'zoom'} isOpen={selectedCard} onClose={onClose}>
       {selectedCard && (<div className='popup__zoom'>
         <img
           className='popup__pic'
@@ -22,7 +19,7 @@ function ImagePopup({ selectedCard, onClose }) {
             onClick={onClose}
           />
       </div>)}
-    </div>
+    </Popup>
   );
 }
 
