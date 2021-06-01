@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Popup from './Popup';
+import Form from './Form';
 
 function PopupWithForm({
   active,
@@ -12,31 +13,19 @@ function PopupWithForm({
   isOpen,
   children,
 }) {
-  const disabledButton = active ? 'disabled' : '';
-  const classDisActive = active ? 'popup__button-submit_disabled' : '';
-
   return (
     <React.Fragment>
       <Popup name={name} isOpen={isOpen} onClose={onClose}>
-        <form
-          className={`popup__container popup__container_type_${name}`}
+        <Form
           name={name}
-          onSubmit={onSubmit}>
-          <h2 className='popup__title'>{title}</h2>
+          active={active}
+          title={title}
+          buttonTitle={buttonTitle}
+          onClose={onClose}
+          onSubmit={onSubmit}
+        >
           {children}
-          <button
-            className={`popup__button-submit ${classDisActive}`}
-            type='submit'
-            title={buttonTitle}
-            disabled={disabledButton}>
-            {buttonTitle}
-          </button>
-          <button
-            className='popup__button-close'
-            type='button'
-            title='закрыть'
-            onClick={onClose}></button>
-        </form>
+        </Form>
       </Popup>
     </React.Fragment>
   );
