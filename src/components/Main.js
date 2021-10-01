@@ -16,7 +16,9 @@ function Main({
   handleCardLike,
 }) {
   const { name, about, avatar, _id } = React.useContext(CurrentUserContext);
-
+  const [count, setCount] = React.useState(6);
+  const arr = (a, num) => [...a].slice(0, num);
+  const addCount = (num) => setCount(count + num);
   return (
     <React.Fragment>
         <section className='profile page__profile'>
@@ -47,17 +49,25 @@ function Main({
             onClick={onAddPlace}></button>
         </section>
       <div className='elements page__elements'>
-        {cards.map((card) => {
-          return (
-            <Card
-              onCardDelete={handleCardDelete}
-              card={card}
-              key={card.createdAt + card._id}
-              onCardClick={handleCardClick}
-              onCardLike={handleCardLike}
-            />
-          );
-        })}
+        {arr(cards, count).map((card) => {
+              return (
+                <Card
+                  onCardDelete={handleCardDelete}
+                  card={card}
+                  key={card.createdAt + card._id}
+                  onCardClick={handleCardClick}
+                  onCardLike={handleCardLike}
+                />
+              );
+          })
+        }
+        {count < cards.length && <button
+                                   className="element__button-add"
+                                  type="button"
+                                  onMouseDown={addCount.bind(this, 3)}>
+                                    Add Card
+                                 </button>
+        }
       </div>
       <ImagePopup
         selectedCard={selectedCard}

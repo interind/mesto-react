@@ -43,6 +43,7 @@
 @import url(./blocks/element/element.css);
 @import url(./blocks/element/__pic/element__pic.css);
 @import url(./blocks/element/__button-trash/element__button-trash.css);
+@import url(./blocks/element/__button-add/element__button-add.css);
 @import url(./blocks/element/__button-trash/_visible/element__button-trash_visible.css);
 @import url(./blocks/element/__info/element__info.css);
 @import url(./blocks/element/__title/element__title.css);
