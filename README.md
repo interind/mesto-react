@@ -8,7 +8,7 @@
 
 ### Описание работы
 
-![my image](./src/images/screenshot.png)
+![My image](./src/images/screenshot.png)
 
 * Картинки которые с плохими ссылками не вставляю в рендер.
 
